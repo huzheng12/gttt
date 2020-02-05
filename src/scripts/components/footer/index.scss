@@ -1,0 +1,111 @@
+$bgcolor : #000;
+.footer-warp{
+  width: 100%;
+  min-width: 1210px;
+  padding-bottom: 62px;
+  background:#0E1A38;
+  .footer-box{
+    padding-top: 62px;
+    width:1200px;
+    height: 100%;
+    margin: 0 auto ;
+    overflow: hidden;
+    padding-left: 40px;
+    color: #999999;
+    font-size:14px;
+    p{
+      font-size:14px;
+      font-family:MicrosoftYaHei;
+      font-weight:400;
+      color:rgba(191,191,191,1);
+      line-height:16px;
+    }
+    // background-color: #fff;
+    .left{
+      float: left;
+      // margin-top: 24px;
+      >img{
+        margin-bottom: 20px;
+      }
+    }
+    .right_boxq{
+      float: left;
+      margin-left: 250px;
+      .tilt_biaoti{
+        font-size:28px;
+        font-family:Microsoft YaHei;
+        font-weight:400;
+        color:rgba(242,245,250,1);
+        margin-bottom: 12px;
+      }
+    }
+    .right{
+
+      
+      // border:1px solid #fff;
+      display: flex;
+      justify-content: space-between;
+      .footer-imgArr{
+        li:nth-child(1){
+          margin-bottom: 10px;
+          font-size:16px;
+          font-family:MicrosoftYaHei;
+          font-weight:400;
+          color:#FFFFFF;
+        }
+      }
+      >ul{
+        li:nth-child(1){
+          margin-bottom: 10px;
+          font-size:16px;
+          font-family:MicrosoftYaHei;
+          font-weight:400;
+          color:#FFFFFF;
+        }
+        li a{
+          color:#999999;    
+        }
+        li:nth-child(1):hover {
+          color:#FFFFFF;
+        }
+        li{
+          cursor:pointer;
+          font-size:12px;
+          font-family:MicrosoftYaHei;
+          font-weight:400;
+          color:#BFBFBF;
+          line-height:30px;
+        }
+        li:hover {
+          color:#fff;
+        }
+        li:hover a{
+          color:#fff;
+        }
+      }
+    }
+  }
+  .footer-imgArr{
+    a{
+      float: left;
+       .biaotiaicm{
+        font-size: 20px;
+        margin-right: 20px;
+        color: #F2ECE7;
+      }
+     
+    }
+  }
+}
+.button{
+  margin-top: 30px;
+  font-size:16px;
+  font-family:MicrosoftYaHei;
+  font-weight:400;
+  color:rgba(242,235,230,1);
+}
+.span-margin{
+  display: inline-block;
+  margin-left: 25px;
+  margin-right: 25px;
+}

@@ -1,0 +1,108 @@
+.c2c_deal_box{
+  background-image: url('../../../img/c2c/C2C_img.png');
+  width: 100%;
+  height: 100px;
+  margin-top: 18px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 20px;
+.title_span{
+  font-size:16px;
+font-family:Microsoft YaHei;
+font-weight:400;
+color:rgba(153,153,153,1);
+}
+.p1_c2c{
+  color:rgba(77,77,77,1);
+  font-size:28px;
+margin-right: 10px;
+}
+.p2_c2c{
+  color:rgba(77,77,77,1);
+  font-size:18px;
+  margin-right: 5px;
+}
+.p3_c2c{
+  color:rgba(229,63,57,1);
+  font-size:14px;
+}
+
+
+
+}
+.main_box{
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 147px;
+  .c2ctrade_warp{
+    width: 490px;
+    height: 340px;
+    border:1px solid rgba(235,235,235,1);
+    border-radius:6px;
+    .title_box{
+      background:rgba(250,250,250,1);
+      border-radius:6px 6px 0px 0px;
+      font-size:16px;
+      color:rgba(38,153,78,1);
+      line-height: 39px;
+      padding-left: 15px;
+    }
+    .content_box{
+      padding:0 20px ;
+
+      .input_box{
+        background:rgba(255,255,255,1);
+        border:1px solid rgba(209,209,209,1);
+        border-radius:4px;
+        height: 42px;
+        margin-top: 18px;
+        display: flex;
+        justify-content: space-between;
+        padding:0 10px ;
+        line-height: 42px;
+      }
+      .ant-input{
+        height: 42px;
+        border:1px solid rgba(209,209,209,1);
+      }
+      .input_c2c_a{
+        margin-top: 17px;
+        margin-bottom: 16px;
+      }
+      .ant-btn-primary{
+        width: 100%;
+        margin-right:0;
+        margin-top: 30px;
+        float: inherit;
+        margin-bottom: 5px;
+      }
+      .footer_box{
+        display: flex;
+        font-size: 14px;
+        align-items: center;
+        .c2c_span1{
+          color:rgba(77,77,77,1);
+             }
+             .c2c_span2{
+              color:rgba(152,171,204,1);
+              font-size: 12px;
+              margin-left: 20px;
+              .spanc2ca{
+                margin-left: 5px;
+              }
+              .iconfont{
+                font-size: 10px;
+              }
+              
+             }
+             .c2c_span3{
+               cursor: pointer;
+              color:rgba(46,107,230,1);
+              margin-left: 30px;
+             }
+      }
+    }
+  }
+}

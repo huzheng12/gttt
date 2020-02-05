@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="referrer" content="no-referrer">
+  <script>
+    function browserRedirect() {
+      var sUserAgent = navigator.userAgent.toLowerCase();
+      var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+      var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+      var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+      var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+      var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+      var bIsAndroid = sUserAgent.match(/android/i) == "android";
+      var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+      var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+      if (!(bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM)) {
+        window.location.href = "https://gte.io";
+      } else {
+        // successfulpayment
+        if (window.location.hash.indexOf("successfulpayment") === -1 && window.location.hash.indexOf("h5iosdownload") === -1 && window.location.hash.indexOf("h5iosdownloadto") === -1 && window.location.hash.indexOf("h5androiddownload") === -1 && window.location.hash.indexOf("appregister") === -1) {
+          window.location.href = "https://m.gte.io";
+        }
+      }
+    }
+    // browserRedirect();
+  </script>
+  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1409042_sva8t83im7e.css">
+  <title id="titletoubu">
+    GTE比特币合约交易所
+  </title>
+  <!-- 解决图片不显示的问题 -->
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <!-- <link rel="stylesheet" href="./swiper.css"> -->
+  <!-- <script src="./swiper.js"></script> -->
+  <script type="text/javascript" src="./charting_library/charting_library.min.js"></script>
+  <script type="text/javascript" src="./highcharts.js"></script>
+
+  <!-- Start of gtehelp Zendesk Widget script -->
+  <script id="ze-snippet"
+    src="https://static.zdassets.com/ekr/snippet.js?key=561a88fc-cb69-4d3d-883a-44c4e0014aae"> </script>
+  <script>
+    if (localStorage.language == 'en') {
+      zE('webWidget', 'setLocale', 'en')
+    } else {
+      zE('webWidget', 'setLocale', 'zh')
+    }
+    window.zEzn = function zEzn() {
+      zE('webWidget', 'setLocale', 'zh')
+    }
+    window.zEen = function zEen() {
+      zE('webWidget', 'setLocale', 'en')
+    }
+  </script>
+  <!-- End of gtehelp Zendesk Widget script -->
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+</body>
+
+</html>

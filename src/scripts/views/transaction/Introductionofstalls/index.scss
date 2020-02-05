@@ -1,0 +1,153 @@
+@import "../../../../styles/themes.scss";
+.introduction_of_stalls_warp{
+  .ar-title{
+    h3{
+      padding-left: 10px;
+      margin-bottom: 6px;
+      font-size:18px;
+      font-family:Microsoft YaHei;
+      font-weight:bold;
+      @include themify($themes) {
+        color: themed('color-2');
+      }
+    }
+    border-bottom: 1px solid #EBEBEB;
+    @include themify($themes) {
+      border-color: themed('border-color-2');
+     }
+  }
+  .content_box{
+    padding: 20px 8px;
+    font-family:Microsoft YaHei;
+  }
+  .title_select_box{
+    .select_asset_l1{
+      margin-right: 30px;
+      float: left;
+      .ant-select-selection{
+        width: 120px;
+      height: 28px;
+    
+      }
+      .ant-select-selection-selected-value{
+        line-height: 28px !important;
+      }
+    }
+    .select_asset_l2{
+      float: left;
+      margin-right: 90px;
+      .ant-select-selection{
+        width: 120px;
+      height: 28px;
+    
+      }
+      .ant-select-selection-selected-value{
+        line-height: 28px !important;
+      }
+    }
+    .usd_face{
+    float: left;
+    line-height: 28px;
+    }
+  }
+  .hr_custom{
+   margin-top: 20px;
+    font-size:18px;
+    font-weight:400;
+    @include themify($themes) {
+      color: themed('color-16');
+     }    
+     padding-bottom: 7px;
+    border-bottom: 1px solid #D1D1D1;
+    @include themify($themes) {
+      border-color: themed('border-color-2');
+     }
+  }
+  .h3_words{
+    margin-top: 20px;
+    font-size:16px;
+    font-weight:400;
+    color:rgba(102,102,102,1);
+    margin-bottom: 10px;
+  }
+  .stall_formula{
+    padding: 14px 15px 10px;
+    @include themify($themes) {
+      background-color: themed('background-color-3');
+     }
+    .span_title{
+      font-size:16px;
+      font-weight:400;
+      @include themify($themes) {
+        color: themed('color-3');
+       }
+    }
+    .span_li{
+      font-size:14px;
+      font-weight:400;
+      @include themify($themes) {
+        color: themed('color-15');
+       }
+    }
+  }
+  .table_stalls{
+    margin-top: 20px;
+    .ant-table-thead > tr > th, .ant-table-tbody > tr > td{
+      @include themify($themes) {
+        border-color: themed('border-color-1');
+       }
+      @include themify($themes) {
+        color: themed('color-3');
+       }
+      @include themify($themes) {
+        background-color: themed('background-color-3');
+       }
+    }
+  }
+  .view_more{
+    margin-top: 20px;
+    text-align: center;
+    font-size:12px;
+    font-weight:400;
+    color:rgba(46,107,230,1);
+    cursor:pointer;
+  }
+  .ant-table-thead > tr > th{
+    @include themify($themes) {
+      border-color: themed('border-color-1');
+     }
+    @include themify($themes) {
+      color: themed('color-3');
+     }
+    @include themify($themes) {
+      background-color: themed('background-color-3');
+     }
+  }
+  .ant-table-tbody > tr > td{
+    div{
+      font-size: 12px !important;
+      @include themify($themes) {
+        color: themed('color-9');
+      }
+    }
+  }
+  .ant-table-thead > tr > th,.ant-table-tbody > tr > td{
+    div{
+      span{
+        font-size: 12px !important;
+        @include themify($themes) {
+          color: themed('color-3');
+        }
+      }
+    }
+ 
+    @include themify($themes) {
+      border-color: themed('border-color-1');
+     }
+  }
+  .huazhuan-table-tr{
+    @include themify($themes) {
+      color: themed('color-9');
+    }
+  }
+}

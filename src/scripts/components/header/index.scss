@@ -1,0 +1,502 @@
+@import "../../../styles/themes.scss";
+.header-warp{
+  width: 100%;
+  min-width: 1200px;
+  height: 50px;
+  background-color:rgba(18,24,38,1);
+  .gangg{
+    border-left: 1px solid #162D59;
+    height: 18px !important;
+  }
+  .biaotiaicm{
+    position: absolute;
+    top: -15px;
+    right: 7px;
+    color: #F9692E;
+  }
+ 
+.navlinkuo{
+  color: #898E98 !important;
+  border-bottom:3px solid transparent;
+  position: relative;
+  img{
+    width: 16px;
+    height: 10px;
+    position: absolute;
+    top: 9px;right: 5px;
+  }
+}
+ 
+  .loginHover:hover .loginHoverhezi{
+    display: block;
+  }
+  .loginHover:hover span{
+   color: #fff !important;
+  }
+
+  .longin{
+    // width: 100px !important;
+    //float: left;
+    display: flex;
+    align-items: center;
+    >div{
+      float: left;
+      // width: 50px;
+      height: 100%;
+      color: aliceblue;
+      position: relative;
+      // img{
+      //   position: absolute;
+      //   left: 50%;
+      //   top: 50%;
+      //   transform: translate(-50%,-50%)
+      // }
+    }
+    .img5{
+      width: 35px;
+      height: 50px;
+      margin-left: 15px;
+      span{
+        display: inline-block;
+        line-height: 50px;
+        color: #4D6595;
+      }
+    }
+    .img5:hover{
+      width: 35px;
+      height: 50px;
+      margin-left: 15px;
+      span{
+        color: #fff;
+      }
+    }
+    .img6{
+      width: 35px;
+      height: 50px;
+      span{
+        display: inline-block;
+        line-height: 50px;
+        color: #4D6595;
+      }
+    }
+    .img6:hover{
+      width: 35px;
+      height: 50px;
+      span{
+        color: #fff;
+      }
+    }
+    .loginHover{
+     .halflsk{
+       position: relative;
+        line-height: 50px;
+        text-align: right;
+        margin-right: 12px;
+        cursor:pointer;
+        span{
+          display: block;
+          float: left;
+          color:#888E98;
+        }
+        span:nth-child(2){
+          line-height: 45px;
+        }
+      }
+    }
+  }
+  .longin1{
+     .a{
+      float: left;
+    }
+    // overflow: hidden;
+    width: 235px !important;
+    float: left;
+    display: flex;
+    align-items: center;
+  .cheze{
+    display: inline-block;
+    color:#E4ECF7;
+    margin:  11px 15px 11px 0;
+    width: 60px;
+    height: 28px;
+    line-height: 28px;
+    background:#2E6BE6;
+    border-radius:4px;
+  }
+  .cheze:hover{
+    background:#3377FF;
+  }
+  .cheze:active{
+    background:#295FCC;
+  }
+  .cheze2:hover{
+    color:#E4ECF7;
+  }
+    >a{
+      text-align: center;
+      display: inline-block;
+      width: 60px;
+      float: left;
+      line-height:50px;
+      color: #E4ECF7;
+    }
+    .imgtupian1{
+      width: 35px;
+      float: left;
+ 
+    }
+    .img5{
+      height: 50px;
+      span{
+        display: inline-block;
+        line-height: 50px;
+        color: #4D6595;
+      }
+      margin-left: 15px;
+    }
+    .img5:hover{
+      height: 50px;
+      margin-left: 15px;
+      span{
+        color: #fff;
+      }
+    }
+    .img6{
+      height: 50px;
+      span{
+        display: inline-block;
+        line-height: 50px;
+        color: #4D6595;
+      }
+ 
+    }
+    .img6:hover{
+      span{
+        color: #fff;
+      }
+      height: 50px;
+    }
+    .img6:hover .notice_box{
+      display: block;
+    }
+    .selected{
+      color: aliceblue;
+    }
+  }
+  .header-left{
+    display: inline-block;
+    height: 100%;
+    overflow: hidden;
+    >img{
+      width: 89px;
+      height: 26px;
+      margin-top: 12px;
+      margin-left: 20px;
+      display: inline-block;
+      float: left;
+    }
+    >img:hover{
+      cursor: pointer;
+    }
+    >ul{
+      height: 100%;
+      float: left;
+      >a{
+        margin-left: 30px;
+        text-align: center;
+        font-size:14px;
+        font-family:MicrosoftYaHei;
+        font-weight:400;
+        color:rgba(230,234,242,1);
+        line-height:50px;
+        width: 100px;
+        height: 100%;
+        float: left;
+      }
+      a:hover{
+        color:#E4ECF8 !important;
+      }
+    }
+  }
+  .header-right{
+    height: 100%;
+    float:right;
+    margin-right: 37px;
+    >div{
+      height: 100%;
+      float: left;
+      color: aliceblue;
+      position: relative;
+      
+      >span{
+        line-height: 50px
+      }
+    }
+    .imgtupian{
+      width: 35px;
+    }
+    .loginHoverhezi{
+      display: none;
+      width:500px;
+      height:210px;
+      position: absolute;
+      top: 43px;
+      right: 24px;
+      z-index: 11;
+      .neiloginHOoverhezi{
+        float: right;
+        border-radius:4px;
+        overflow: hidden;
+        @include themify($themes) {
+          background-color: themed('background-color-32' ) ;
+        }
+      }
+      li:hover{
+        @include themify($themes) {
+          background-color: themed('background-color-33' ) ;
+        }
+      }
+      a:hover{
+        @include themify($themes) {
+          background-color: themed('background-color-33' ) ;
+        }
+      }
+      li{
+        cursor: pointer;
+        line-height: 42px;
+        padding-left: 15px;
+        padding-right: 15px;
+        font-size:14px;
+        font-family:MicrosoftYaHei;
+        font-weight:400;
+        color:rgba(102,102,102,1);
+      }
+      a{
+        display: block;
+        cursor: pointer;
+        line-height: 42px;
+        padding-left: 15px;
+        padding-right: 15px;
+        font-size:14px;
+        font-family:MicrosoftYaHei;
+        font-weight:400;
+        color:rgba(102,102,102,1);
+      }
+    }
+  }
+  .xuanxiang{
+    position: relative;
+    cursor:pointer;
+    // width: 125px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .inputxiala{
+        margin-left: 14px;
+        margin-right: 10px;
+    }
+    .ggang{
+      border-left: 1px solid #162D59;
+      height: 18px !important;
+    }
+    .sximg{
+      margin-right: 14px;
+    }
+    
+.inpusll_wawrp_box{
+  width:450px;
+  height: 1000px;
+  position: absolute;
+  top: 45px;
+  right: 1px;
+}
+   
+    .inpusll-wawrp{
+      position: absolute;
+      top:0;
+      right: 0;
+      border-radius:4px;
+      z-index: 999;
+      overflow: hidden;
+      @include themify($themes) {
+        background-color: themed('background-color-34' ) ;
+      }
+      li{
+        float: left;
+        height: 50px;
+        width: 150px;
+        font-size:14px;
+        font-family:Microsoft YaHei;
+        font-weight:400;
+        color:rgba(136,142,152,1);
+        align-items: center;
+        justify-content: left;
+        display: flex;
+        @include themify($themes) {
+          background-color: themed('background-color-34' ) ;
+        }
+        .bizhong{
+          width: 24px;
+          height: 24px;
+          // border: 1px solid #b8becc;
+          // margin: auto 0;
+          margin-left: 25px;
+          line-height: 19px;
+          text-align: center;
+          border-radius: 12px;
+          position: relative;
+          margin-right: 10px;
+          .icon_img_box{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
+      li:hover{
+        @include themify($themes) {
+          background-color: themed('background-color-33' ) ;
+        }
+      }
+    }
+  }
+  .guojihua{
+    .ant-select-arrow{
+      top: 55%;
+    }
+    .ant-select-arrow-icon{
+      color:#E5E9F2;
+      
+    }
+    .ant-select-selection:focus{
+      box-shadow: none !important;
+    }
+    width: 120px !important;
+    >div{
+      width: 60px;
+      float: left;
+      line-height: 50px;
+    }
+    .ant-select-selection--single{
+      background-color: rgb(18, 24, 38);
+      border: 0;
+      .ant-select-selection-selected-value{
+        width: 120px;
+        height: 50px;
+        color: aliceblue;
+        line-height: 45px;
+      }
+      
+    }
+  }
+  .selectedaaa{
+    // border-bottom: 3px solid #fff;
+    color: #fff !important;
+  }
+}
+
+.action-inputxiala{
+  @include themify($themes) {
+    background-color: themed('background-color-33' ) ;
+  }
+  color: #2F6FED !important;
+}
+.img6:hover .notice_box{
+  display: block;
+}
+.notice_box{
+  display: none;
+  width: 300px;
+  position: relative;
+  left: -258px;
+  top: 10px;
+  @include themify($themes) {
+    background-color: themed('background-color-32' ) ;
+  }
+  border-radius:4px;
+  box-sizing: border-box;
+  color:rgba(102,102,102,1);
+  z-index: 999;
+  overflow: hidden;
+  .title_box{
+    padding: 0 19px 0 15px;
+    line-height: 35px;
+    color:rgba(153,153,153,1);
+    font-size: 12px;
+  }
+  .footder_box{
+    padding: 0 19px 5px 15px;
+    text-align: center;
+    line-height: 35px;
+    color:#2F6EEC;
+    font-size: 12px;
+  }
+    .itend_information{
+      padding: 0 19px 0 15px;
+      line-height: 42px;
+      color:rgba(102,102,102,1);
+      font-size: 14px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: block;
+    }
+    .itend_information:hover{
+      background:rgba(211,221,241,1);
+    }
+
+}
+.hexizbox{
+  position: absolute;
+  width: 250px;
+  height: 120px;
+  top: 50px;
+  left: -68px;
+  z-index: 9999;
+       @include themify($themes) {
+          background-color: themed('background-color-32' ) ;
+        }
+  border-radius:4px;
+  display: none;
+  .androidclass{
+    color:#666 ;
+    font-size:14px;
+    font-family:Microsoft YaHei;
+   display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+   .div-chakangengduo{
+     line-height: 30px;
+    font-size:14px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:rgba(255,255,255,1);
+   }
+  }
+}
+.img5:hover .hexizbox{
+  display: flex;
+}
+
+
+@media screen and (max-width:1450px) {
+  .header-warp .header-left > ul > a{
+    width: 60px;
+  }
+  .header-warp{
+    min-width: 1210px;
+  }
+  .biaotiaicm {
+    right: -14px !important;
+  }
+}
+
+
+// @include themify($themes) {
+//   background-color: themed('background-color-32' !important) ;
+//  }

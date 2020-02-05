@@ -1,0 +1,66 @@
+.firstloading_warp{
+  position:fixed ;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('../../img/jiazai_bg.png');
+  background-size: contain;
+  .img_box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    // display: flex;
+    img{
+      display: inline-block;
+    }
+    .img1{
+      width: 60px;
+      margin-right: 10px;
+    }
+    .img2{
+      width: 132px;
+    }
+  }
+
+
+}
+
+
+
+.demo {
+  width: 200px;
+  height: 200px;
+  background-color: red;
+}
+
+// 定义进出入动画
+.demo-showing {
+  animation: show 0.5s forwards;
+}
+.demo-fading {
+  animation: fade .5s forwards;
+  opacity: 0;
+
+}
+// 定义动画fade与show
+@keyframes show {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+@keyframes fade {
+  from {
+      opacity: 1;
+      transform: scale(1);
+  }
+  to {
+      opacity: .3;
+      transform: scale(2);
+  }
+}

@@ -20,6 +20,7 @@ class Modeltrund extends Component {
       zjzhfangxiang: "1",
       zjzhfangxiangchu: "3",
       valuequanbushuliang: "",
+      numshuliangold:null
 
     }
   }
@@ -73,28 +74,25 @@ class Modeltrund extends Component {
     value = value.replace(/\.{2,}/g, "."); //只保留第一个. 清除多余的  
     value = value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
     value = value.replace(/^(\-)*(\d+)\.(\d\d\d\d\d\d\d\d).*$/, '$1$2.$3');//只能输入两个小数  
-    if (value[0] != ".") {
-      if (value[0] == 0 && value[1] == 0) {
-
-      } else {
-        this.setState({
-          valuequanbushuliang: value
-        })
-      }
-    }
     this.setState({
       valuequanbushuliang: value,
     })
 
-    // if (!value && this.props.available.available === "0") {
-    //   this.setState({
-    //     numshuliang: this.props.available.available,
-    //   })
-    // }
+    if (!value) {
+      this.setState({
+        numshuliangold:null,
+      })
+    }
+  }
+  quanbudiuguoqu = () => {
+    this.setState({
+      numshuliangold: '0',
+      valuequanbushuliang:this.props.available.available
+    })
   }
   render() {
     const {
-      numshuliang, valuequanbushuliang, zjzhfangxiang, zjzhfangxiangchu
+      numshuliang, valuequanbushuliang, zjzhfangxiang, zjzhfangxiangchu,numshuliangold
     } = this.state
     const {
       visible, visibleFn,available,asset,type
@@ -160,7 +158,7 @@ class Modeltrund extends Component {
           <div style={{ height: 1 }}>
           </div>
           <div className="abc-a" style={{ textAlign: "left" }}>
-            <span>        <FormattedMessage id="Transfer_Quantity" defaultMessage={'划转数量'} />：<span style={{ display: "inline-block" }}>{available.available}</span></span>
+            <span>        <FormattedMessage id="Transfer_Quantity" defaultMessage={'划转数量'} />：<span style={{ display: "inline-block" }}>{numshuliangold?numshuliangold:available.available}</span></span>
             <span className="abc-a-c" onClick={this.quanbudiuguoqu}><FormattedMessage id="All_Rolls" defaultMessage={'全部划转'} /></span>
           </div>
 

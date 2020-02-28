@@ -1,0 +1,67 @@
+@import "../../../styles/themes.scss";
+.bbentrust_warp{
+  margin-top: 20px;
+  .title_nav{
+    display: flex;
+    line-height: 28px;
+    margin-bottom: 30px;
+    .two_box{
+      margin-left: 30px;
+      display: flex;
+      align-items: center;
+    }
+    .one_box{
+      display: flex;
+      align-items: center;
+    }
+    .sanpanbox{
+      margin-right: 13px;
+    }
+    .ant-select-selection--single{
+      height: 28px;
+      line-height: 28px;
+    }
+    .ant-select-selection-selected-value{
+      line-height: 28px !important;
+    }
+  }
+  .ant-table-thead > tr > th{
+
+    @include themify($themes) {
+      border-color: themed('border-color-1');
+     }
+    @include themify($themes) {
+      color: themed('color-3');
+     }
+    @include themify($themes) {
+      background-color: themed('background-color-3');
+     }
+  }
+  .ant-table-tbody > tr > td{
+    div{
+      font-size: 12px !important;
+      @include themify($themes) {
+        color: themed('color-9');
+      }
+      
+    }
+  
+  }
+  // inpusll-wawrp
+  .ant-table-thead > tr > th,.ant-table-tbody > tr > td{
+    line-height: 1.5;
+    div{
+      span{
+        font-size: 12px !important;
+        @include themify($themes) {
+          color: themed('color-3');
+        }
+      }
+    }
+    padding:0 ;
+ 
+    @include themify($themes) {
+      border-color: themed('border-color-1');
+     }
+  }
+}

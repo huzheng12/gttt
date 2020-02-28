@@ -35,6 +35,18 @@
   }
 
   .longin{
+    .colormy{
+      color: #4D6595 !important;
+    }
+    .selectedaaa{
+      color: #fff !important;
+    }
+    .navlinkuo{
+      margin-right: 16px;
+    }
+    .navlinkuo:hover{
+      color:#fff !important;
+    }
     // width: 100px !important;
     //float: left;
     display: flex;
@@ -52,10 +64,11 @@
       //   transform: translate(-50%,-50%)
       // }
     }
+
     .img5{
       width: 35px;
       height: 50px;
-      margin-left: 15px;
+      margin-left: 8px;
       span{
         display: inline-block;
         line-height: 50px;
@@ -65,7 +78,7 @@
     .img5:hover{
       width: 35px;
       height: 50px;
-      margin-left: 15px;
+      margin-left: 8px;
       span{
         color: #fff;
       }
@@ -73,6 +86,7 @@
     .img6{
       width: 35px;
       height: 50px;
+   
       span{
         display: inline-block;
         line-height: 50px;
@@ -109,7 +123,7 @@
       float: left;
     }
     // overflow: hidden;
-    width: 235px !important;
+    width: 205px !important;
     float: left;
     display: flex;
     align-items: center;
@@ -241,7 +255,7 @@
       height:210px;
       position: absolute;
       top: 43px;
-      right: 24px;
+      right: 6px;
       z-index: 11;
       .neiloginHOoverhezi{
         float: right;

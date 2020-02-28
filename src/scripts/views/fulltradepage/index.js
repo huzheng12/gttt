@@ -20,7 +20,7 @@ import EventFN from '../../../utils/eventfn';
 import Firstloading from '../../components/Firstloading';
 import Subscribe from '../../../utils/ws_sub_unsub';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
-const originalLayouts = getFromLS("layouts") || {};
+const originalLayouts = getFromLS("hylayouts") || {};
 var titletoubu = document.getElementById('titletoubu')
 function getFromLS(key) {
   let ls = {};
@@ -146,7 +146,7 @@ class FullTradePage extends Component {
     this.setState({ layouts: {} });
   }
   onLayoutChange(layout, layouts) {
-    saveToLS("layouts", layouts);
+    saveToLS("hylayouts", layouts);
     this.setState({ layouts });
   }
   render() {

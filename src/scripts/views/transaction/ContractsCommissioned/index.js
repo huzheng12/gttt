@@ -150,7 +150,6 @@ class ContractsCommissioned extends Component {
 
   }
   componentDidMount() {
-    console.log(this.props.instrument)
     titletoubu.innerHTML = (this.props.instrument.last_price ? EventFN.CurrencyDigitLimit({
       content: this.props.instrument.last_price,
       type: this.props.Decimal_point
@@ -364,24 +363,58 @@ class ContractsCommissioned extends Component {
       visible8: false,
     })
   }
-
+  yuehuazhuan=(type)=>{
+    const obj = {
+      asset: this.props.asset,
+      from_account: type,
+      time: new Date().getTime().toString()
+    }
+    Xfn({
+      _m: "get",
+      _u: "yue",
+      _p: obj
+    }, (res, code) => {
+      if (code == 0) {
+        this.setState({
+          zongyuddd: res.data.data,
+          lis: res.data.data.available,
+          numshuliang: res.data.data.available
+        })
+      }
+    })
+  }
   zjzhfangxiang = (val) => {
     this.setState({ zjzhfangxiang: val })
-    if (val == "1") {
-      this.setState({ zjzhfangxiangchu: "2", numshuliang: this.state.lis, valuequanbushuliang: "" })
+    if (val == this.state.zjzhfangxiangchu) {
+      this.setState({
+        zjzhfangxiangchu: this.state.zjzhfangxiang,
+        numshuliang: this.state.lis,
+        valuequanbushuliang: ""
+      })
+    }else{
+      this.setState({
+        numshuliang: this.props.pc_account.available,
+        valuequanbushuliang: ""
+      })
     }
-    if (val == "2") {
-      this.setState({ zjzhfangxiangchu: "1", numshuliang: this.props.pc_account.available, valuequanbushuliang: "" })
-    }
+    this.yuehuazhuan(val)
   }
   zjzhfangxiangchu = (val) => {
     this.setState({ zjzhfangxiangchu: val })
-    if (val == "1") {
-      this.setState({ zjzhfangxiang: "2", numshuliang: this.props.pc_account.available, valuequanbushuliang: "" })
+    if (val == this.state.zjzhfangxiang) {
+      this.yuehuazhuan(this.state.zjzhfangxiangchu)
+      this.setState({
+        zjzhfangxiang: this.state.zjzhfangxiangchu,
+        numshuliang: this.props.pc_account.available,
+        valuequanbushuliang: ""
+      })
+    }else{
+      this.setState({
+        numshuliang: this.state.lis,
+        valuequanbushuliang: ""
+      })
     }
-    if (val == "2") {
-      this.setState({ zjzhfangxiang: "1", numshuliang: this.state.lis, valuequanbushuliang: "" })
-    }
+
   }
   callback = (key) => {
     console.log(key);
@@ -545,11 +578,11 @@ class ContractsCommissioned extends Component {
                     <Option value="1">  <FormattedMessage id="Funds_account" defaultMessage={'资金账户'} /></Option>
                     <Option value="2"> <FormattedMessage id="Sustainable_Contract_Account" defaultMessage={'永续合约账户'} /></Option>
                     {/* // 1 资金账户 2 永续合约账户 3 现货账户 */}
+                    <Option value="3">bb账户</Option>
+
                   </Select>
                   <span className="chongbi-span-huazhuan" style={{ float: "left", lineHeight: "42px" }}>
                     <FormattedMessage id="Transfer" defaultMessage={'划转'} />
-
-
                   </span>
                   <Select defaultValue="2" className="select2222"
                     style={{ width: 160, height: 42, float: "left" }}
@@ -557,6 +590,7 @@ class ContractsCommissioned extends Component {
                     onChange={this.zjzhfangxiangchu}>
                     <Option value="1"><FormattedMessage id="Funds_account" defaultMessage={'资金账户'} /></Option>
                     <Option value="2"><FormattedMessage id="Sustainable_Contract_Account" defaultMessage={'永续合约账户'} /></Option>
+                    <Option value="3">bb账户</Option>
                   </Select>
                 </div>
 

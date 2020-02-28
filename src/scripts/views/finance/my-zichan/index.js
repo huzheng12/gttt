@@ -25,6 +25,8 @@ class Asset extends Component {
       zczx: [],
       total_asset: "",
       symbol: "",
+      typr1:{},
+      typr2:{},
     }
   }
   componentDidMount() {
@@ -33,11 +35,36 @@ class Asset extends Component {
       _m: "get",
       _p: {}
     }, (res, code) => {
+      let typr1 ={}
+      let typr2 = {
+
+      } 
       if (code == 0) {
+        let account = res.data.data.accounts
+        for(let i=0;i<account.length;i++){
+          if(account[i].account_mode==='1'){
+            typr1 = account[i]
+            this.setState({
+              typr1:account[i]
+            })
+          }else{
+            console.log(account[i],'[[[[')
+            if(account[i].account_type==='2'){
+              typr2 = account[i]
+            }else{
+              typr2.account_total1 = account[i].account_total
+            }
+            console.log(typr2)
+          }
+        }
+        this.state.zczx.push(typr1)
+        this.state.zczx.push(typr2)
         this.setState({
-          zczx: res.data.data.accounts,
+          // zczx: res.data.data.accounts,
+          zczx: this.state.zczx,
           total_asset: res.data.data.total,
           symbol: res.data.data.asset,
+          typr2
         })
       }
     })
@@ -47,11 +74,13 @@ class Asset extends Component {
       imgArr,
       zczx,
       total_asset,
-      symbol
+      symbol,
+      typr2
     } = this.state
     const {
       withdrawmoney
     } = this.props
+    console.log(zczx)
     return (
       <div className="asset-warp">
         <div className="asset-title">
@@ -119,7 +148,7 @@ class Asset extends Component {
                         </div>
                         <div>
                           <span>
-                            {number_format(item.account_total, 8, ".", ",")}
+                            {number_format(item.account_total, 8, ".", ",")+' '}
                           </span>
                           <span>BTC
                           </span>
@@ -129,6 +158,25 @@ class Asset extends Component {
                         </div>
                       </div>
                     </div>
+                    {
+                    item.account_total1?  <div className="content-main content-main-box">
+                      <div className="clear">
+                        <div>
+                          币币交易账户
+                        </div>
+                        <div>
+                          <span>
+                            {number_format(item.account_total1, 8, ".", ",")+' '}
+                          </span>
+                          <span> BTC
+                          </span>
+                        </div>
+                        <div style={{ cursor: 'pointer' }}>
+                          <Link to="/finance/bbaccount">< FormattedMessage id="details" defaultMessage={'详情'} /></Link>
+                        </div>
+                      </div>
+                    </div>:""
+                    }
                   </div>
                 )
               }

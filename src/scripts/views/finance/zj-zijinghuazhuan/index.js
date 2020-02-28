@@ -240,15 +240,14 @@ class Huazhuan extends Component {
     this.setState({
       kzslGTC: ""
     })
-    if (val == "1") {
+    if (val == this.state.zjzhfangxiangchu) {
       this.setState({
         zjzhfangxiang: val,
-        zjzhfangxiangchu: "2"
+        zjzhfangxiangchu: this.state.zjzhfangxiang
       })
     } else {
       this.setState({
         zjzhfangxiang: val,
-        zjzhfangxiangchu: "1"
       })
     }
     this.hzavailablehis({
@@ -261,21 +260,21 @@ class Huazhuan extends Component {
       kzslGTC: ""
     })
     let a
-    if (val == "1") { a = "2" }
-    if (val == "2") { a = "1" }
+    if (val == this.state.zjzhfangxiang) { a = this.state.zjzhfangxiangchu }else{
+      a = this.state.zjzhfangxiang
+    }
     this.hzavailablehis({
       asset: this.state.zxhzzhanghuname,
       from_account: a,
     }, () => {
-      if (val == "1") {
+      if (val == this.state.zjzhfangxiang) {
         this.setState({
           zjzhfangxiangchu: val,
-          zjzhfangxiang: "2"
+          zjzhfangxiang: this.state.zjzhfangxiangchu
         })
       } else {
         this.setState({
           zjzhfangxiangchu: val,
-          zjzhfangxiang: "1"
         })
       }
     })
@@ -342,12 +341,16 @@ class Huazhuan extends Component {
               onChange={this.zjzhfangxiang}>
               <Option value="1"><FormattedMessage id="Funds_account" defaultMessage={'资金账户'} /></Option>
               <Option value="2"><FormattedMessage id="Sustainable_Contract_Account" defaultMessage={'永续合约账户'} /></Option>
+              <Option value="3"> bb账户</Option>
+
             </Select>
             <span className="chongbi-span-huazhuan" style={{ float: "left", lineHeight: "42px" }}><FormattedMessage id="Transfer" defaultMessage={'划转'} /></span>
             <Select defaultValue="2"
               style={{ width: 130, height: 42, float: "left" }} value={this.state.zjzhfangxiangchu} onChange={this.zjzhfangxiangchu}>
               <Option value="1"><FormattedMessage id="Funds_account" defaultMessage={'资金账户'} /></Option>
               <Option value="2"><FormattedMessage id="Sustainable_Contract_Account" defaultMessage={'永续合约账户'} /></Option>
+              <Option value="3"> bb账户</Option>
+
             </Select>
           </div>
           <div className="chongbi-p clear">

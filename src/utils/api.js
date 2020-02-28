@@ -135,9 +135,24 @@ export const api = {
   "c2ccard_send_verify_code": "/v1/http/c2c/setting/send_verify_code",//查询绑定的银行卡  发送验证码
   "c2ccard_remove": "/v1/http/c2c/setting/card/remove",//移除银行卡
   "c2corder_query": "/v1/http/c2c/order/query",//移除银行卡
-
-
-
+  
+  
+  
+  // bb
+  "bbaccountquery": "/v1/http/account/bb/query",//bb账户
+  "bbordercreate": "/v1/http/bb/order/create",//创建bb委托
+  "bbordercancel": "/v1/http/bb/order/cancel",//撤销bb委托
+  "bborderquery": "/v1/http/bb/order/query",//获取当前用户活动委托
+  "bborderquery_history": "/v1/http/bb/order/query_history",//获取当前用户历史委托
+  
+  "bboaccounttransfer": "/v1/http/bb/account/transfer",//资金划转
+  "bboaccountavailable": "/v1/http/bb/account/available/query",//查询账户
+  
+  "bbassetquery": "/v1/http/bb/asset/query",//查询资产
+  "bbsymbolquery": "/v1/http/bb/symbol/query",//查询交易度
+  
+  
+  "bbcandlehistory": "/v1/http/bb/candle/query/history",//k线历史记录
 
 
 }

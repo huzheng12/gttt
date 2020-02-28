@@ -13,6 +13,7 @@ import lang from '@/utils/language';
 import { FormattedMessage } from 'react-intl';
 import { Xfn } from '../../../utils/axiosfn';
 import store from '@/scripts/store.js'
+import Bbaccount from './bb-zhanghu';
 
 class Finance extends Component {
   constructor() {
@@ -100,6 +101,7 @@ class Finance extends Component {
                 <span><FormattedMessage id="Transaction_account" defaultMessage={'交易账户'} /></span>
               </div>
               <NavLink to="/finance/yongxu" className="navlinkuo" activeClassName="selected"><FormattedMessage id="Sustainable_Contract_Account" defaultMessage={'永续合约账户'} /></NavLink>
+              <NavLink to="/finance/bbaccount" className="navlinkuo" activeClassName="selected">币币交易账户</NavLink>
             </div>
           </div>
           {/* content */}
@@ -111,6 +113,7 @@ class Finance extends Component {
               <Route path="/finance/withdrawmoney" component={TBrouter}></Route>
               <Route path="/finance/huazhuan" component={Huazhuan}></Route>
               <Route path="/finance/yongxu" component={Yongxu}></Route>
+              <Route path="/finance/bbaccount" component={Bbaccount}></Route>
               <Redirect from="/finance" to="/finance/asset" />
             </Switch>
           </div>

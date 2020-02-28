@@ -58,7 +58,8 @@ window.onbeforeunload = function () {
         window.wss.close()
     }
 }
-
+window.minHeith = document.documentElement.clientHeight-415
+console.log(window.minHeith)
 function hotRender() {
     ReactDOM.render(
         <Provider store={store}>

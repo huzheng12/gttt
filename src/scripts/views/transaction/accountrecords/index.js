@@ -250,7 +250,7 @@ class AccountRecords extends Component {
       this.symbolqiehuan()
     }, 100);
 
-    if (localStorage.theme) {
+    if (this.props.type!=='bb'&&localStorage.theme) {
       this.setState({
         zhuti: localStorage.theme
       })
@@ -489,9 +489,11 @@ class AccountRecords extends Component {
     } = this.props
     return (
       <div className="account-records-warp">
-        <div className="ar-title">
+        {
+          this.props.type==='bb'?'':<div className="ar-title">
           <h3> < FormattedMessage id="Contract_Bill" defaultMessage={'合约账户记录'} /></h3>
         </div>
+        }
         <div className="ar-form-title clear">
           <div className="p1">
             <Select value={this.state.pair} style={{ width: "100%", height: "100%" }} onChange={this.ARHandleChange}>

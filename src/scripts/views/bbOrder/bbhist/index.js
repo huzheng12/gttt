@@ -1,0 +1,30 @@
+import React, { Component } from 'react'
+import { Tabs } from 'antd';
+import Bbentrust from '../../../components/bbentrust';
+const { TabPane } = Tabs;
+export default class Bbhistry extends Component {
+  constructor() {
+    super()
+    this.state = {
+
+    }
+  }
+  callback = (key) => {
+    console.log(key)
+  }
+  render() {
+    return (
+      <div className="bbhistry_warp">
+        <Tabs defaultActiveKey="1" onChange={this.callback}>
+          <TabPane tab="当前委托" key="1">
+          <Bbentrust type="0"></Bbentrust>
+    </TabPane>
+          <TabPane tab="历史委托" key="2">
+          <Bbentrust type="1"></Bbentrust>
+
+    </TabPane>
+        </Tabs>
+      </div>
+    )
+  }
+}

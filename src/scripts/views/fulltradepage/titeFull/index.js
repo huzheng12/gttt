@@ -19,6 +19,9 @@ import MoreLeverage from '../../../components/MoreLeverage';
 import { numberHandle } from '../../../../utils/numberHandle';
 import lang from '@/utils/language';
 import EventFN from '../../../../utils/eventfn';
+import ContractDropdown from '../../transaction/ContractsCommissioned/ContractDropdown';
+import Headernav from '../../bbtrander/bbcomponents/headernav';
+import Modeltrund from '../../bbtrander/placeorder/modeltrund';
 
 const { Option } = Select;
 
@@ -38,6 +41,8 @@ const { Option } = Select;
       heyuenameischange: state.data.heyuenameischange,
       asset_switch: state.data.asset_switch,
       Decimal_point: state.data.Decimal_point,
+      ...state.bbdata,
+
     }
   }
 )
@@ -82,7 +87,41 @@ class TitleFullk extends Component {
       zjzhfangxiang: "1",
       zjzhfangxiangchu: "2",
       numshuliangold: "",
+      available: "",
+      visible: false
     }
+  }
+
+
+  bboaccountavailablefn = (type) => {
+    Xfn({
+      _u: "bboaccountavailable",
+      _m: "get",
+      _p: {
+        asset: this.props.bbasset,
+        account_type: type
+      }
+    }, (res, code) => {
+      if (code !== 0) {
+        return false
+      }
+      this.setState({
+        available: res.data.data
+      })
+      console.log(res)
+    })
+  }
+  // 点击划转
+  visibleFn = (flg, type) => {
+    // type ===1  点击划转
+    if (type === 1) {
+      this.bboaccountavailablefn('1')
+    } else if (type === 2) {
+
+    }
+    this.setState({
+      visible: flg
+    })
   }
   handleCancel3 = () => {
     this.setState({
@@ -329,24 +368,59 @@ class TitleFullk extends Component {
       }
     }
   }
+  yuehuazhuan=(type)=>{
+    const obj = {
+      asset: this.props.asset,
+      from_account: type,
+      time: new Date().getTime().toString()
+    }
+    Xfn({
+      _m: "get",
+      _u: "yue",
+      _p: obj
+    }, (res, code) => {
+      if (code == 0) {
+        this.setState({
+          zongyuddd: res.data.data,
+          lis: res.data.data.available,
+          numshuliang: res.data.data.available
+        })
+      }
+    })
+  }
   zjzhfangxiang = (val) => {
     this.setState({ zjzhfangxiang: val })
-    if (val == "1") {
-      this.setState({ zjzhfangxiangchu: "2", numshuliang: this.state.lis, valuequanbushuliang: "" })
+    this.yuehuazhuan(val)
+
+    if (val == this.state.zjzhfangxiangchu) {
+      this.setState({
+        zjzhfangxiangchu: this.state.zjzhfangxiang,
+        numshuliang: this.state.lis,
+        valuequanbushuliang: ""
+      })
+    }else{
+      this.setState({
+        numshuliang: this.props.pc_account.available,
+        valuequanbushuliang: ""
+      })
     }
-    if (val == "2") {
-      this.setState({ zjzhfangxiangchu: "1", numshuliang: this.props.pc_account.available, valuequanbushuliang: "" })
-    }
+
   }
   zjzhfangxiangchu = (val) => {
     this.setState({ zjzhfangxiangchu: val })
-    if (val == "1") {
-      this.setState({ zjzhfangxiang: "2", numshuliang: this.props.pc_account.available, valuequanbushuliang: "" })
-    }
-    if (val == "2") {
-      this.setState({ zjzhfangxiang: "1", numshuliang: this.state.lis, valuequanbushuliang: "" })
-    }
-  }
+    if (val == this.state.zjzhfangxiang) {
+      this.yuehuazhuan(this.state.zjzhfangxiangchu)
+      this.setState({
+        zjzhfangxiang: this.state.zjzhfangxiangchu,
+        numshuliang: this.props.pc_account.available,
+        valuequanbushuliang: ""
+      })
+    }else{
+      this.setState({
+        numshuliang: this.state.lis,
+        valuequanbushuliang: ""
+      })
+    }  }
   hideModal12 = () => {
     this.setState({
       visible1: false,
@@ -369,7 +443,7 @@ class TitleFullk extends Component {
       heyuename,
       instrument,
       asset,
-      Decimal_point
+      Decimal_point, ctype, bbasset, bbaymbol
     } = this.props
     const {
       imgArr,
@@ -382,17 +456,21 @@ class TitleFullk extends Component {
       LeverAir,
       valuequanbushuliang,
       numshuliang,
+      available,
+      visible
     } = this.state
     return (
       <div className="titlefullk-warp clear">
         <div className="content-box">
           <div className="yongxu" onClick={this.sdflkjasldkfj}>
             {
-              instrument.symbol ? instrument.symbol : "--"
+              ctype === 'bb' ? bbaymbol ? bbaymbol : '--' : instrument.symbol ? instrument.symbol : "--"
             }
-            {/* <FormattedMessage id="sustainable" defaultMessage={'永续'} /> */}
-            {/* <ContractDropdown type={true} ticker_all={ticker_all} uil={uil}></ContractDropdown> */}
+            {
+              ctype === 'bb' ? <Headernav></Headernav> : ""
+            }
           </div>
+
           <div className="astimg">
             {
               instrument.change_rate_24h ? instrument.change_rate_24h >= 0 ? <div className="iconfont imgastd" style={{ color: "#26994E" }}>&#xe60e;</div> : <div className="iconfont imgastd" style={{ color: "#E53F39" }}>&#xe610;</div> : ""
@@ -421,75 +499,117 @@ class TitleFullk extends Component {
               }
             </div>
           </div>
-          <div className="zijinfeilvbox">
-            <div className="box-a">
-              <FormattedMessage id="24HVolume" defaultMessage={'24H成交量'} />
-            </div>
-            <div className="box-b">
-              {
-                numberHandle(instrument.volume_24h, 1)
-              }
-            </div>
-          </div>
-          <div className="zijinfeilvbox">
-            <div className="box-a">
-              <FormattedMessage id="IndexPrice" defaultMessage={'指数价格'} />
-            </div>
-            <div className="box-b">
-              {
-                instrument.index_price ? "$" + EventFN.CurrencyDigitLimit({
-                  type: Decimal_point,
-                  content: instrument.index_price
-                }) : "--"
-              }
-            </div>
-          </div>
-          <div className="zijinfeilvbox">
-            <div className="box-a">
-              <FormattedMessage id="MarkedPrice" defaultMessage={'标记价格'} />
 
-            </div>
-            <div className="box-b">
-              {
-                instrument.mark_price ? "$" + EventFN.CurrencyDigitLimit({
-                  type: Decimal_point,
-                  content: instrument.mark_price
-                }) : "--"
-              }
-            </div>
+
+          {/* 中部数据显示的 */}
+          {
+            ctype === 'bb' ? <div className="bb_heyue_warp">
+              <div className="zijinfeilvbox">
+                <div className="box-a">
+                  24H最低价
           </div>
-          <div className="zijinfeilvbox">
-            <Tooltip placement="topRight" title={<FormattedMessage id="Current_Rate" defaultMessage={'由上一个资金费用时段计算得出'} />}>
-              <div className="box-a">
-                <span className="span_dashed_box">
-                  <FormattedMessage id="Current_fund_rate" defaultMessage={'当期资金费率'} />
-                </span>
+                <div className="box-b">
+                  {
+                    numberHandle(instrument.volume_24h, 1)
+                  }
+                </div>
               </div>
-            </Tooltip>
-            <div className="box-b">
-              {
-                instrument.funding_rate ? String(instrument.funding_rate * 100).replace(/^(.*\..{3}).*$/, "$1") + "% " + "| " + instrument.funding_rate_time + lang().WithinHours : "--"
-              }
-            </div>
+              <div className="zijinfeilvbox">
+                <div className="box-a">
+                  24H最高价
           </div>
-          <div className="zijinfeilvbox">
-            <Tooltip placement="topRight" title={<FormattedMessage id="Predicted_Rate" defaultMessage={'交易单位为BTC等币种时，显示的持仓与挂单数量是根据实际张数换算的，所显示的持仓量数值会根据最新成交价变动而变动。'} />}>
-              <div className="box-a">
-                <span className="span_dashed_box">
-                  <FormattedMessage id="Budget_fund_rate" defaultMessage={'预测资金费率'} />
-                </span>
+                <div className="box-b">
+                  {
+                    numberHandle(instrument.volume_24h, 1)
+                  }
+                </div>
               </div>
-            </Tooltip>
-            <div className="box-b">
-              {
-                instrument.indicative_funding_rate ? String(instrument.indicative_funding_rate * 100).replace(/^(.*\..{3}).*$/, "$1") + "% " + "| " + instrument.indicative_funding_rate_time + lang().WithinHours : "--"
-              }
-            </div>
+              <div className="zijinfeilvbox">
+                <div className="box-a">
+                  24H成交量
           </div>
+                <div className="box-b">
+                  {
+                    numberHandle(instrument.volume_24h, 1)
+                  }
+                </div>
+              </div>
+            </div> : <div className="bb_heyue_warp">
+                <div className="zijinfeilvbox">
+                  <div className="box-a">
+                    <FormattedMessage id="24HVolume" defaultMessage={'24H成交量'} />
+                  </div>
+                  <div className="box-b">
+                    {
+                      numberHandle(instrument.volume_24h, 1)
+                    }
+                  </div>
+                </div>
+                <div className="zijinfeilvbox">
+                  <div className="box-a">
+                    <FormattedMessage id="IndexPrice" defaultMessage={'指数价格'} />
+                  </div>
+                  <div className="box-b">
+                    {
+                      instrument.index_price ? "$" + EventFN.CurrencyDigitLimit({
+                        type: Decimal_point,
+                        content: instrument.index_price
+                      }) : "--"
+                    }
+                  </div>
+                </div>
+                <div className="zijinfeilvbox">
+                  <div className="box-a">
+                    <FormattedMessage id="MarkedPrice" defaultMessage={'标记价格'} />
+
+                  </div>
+                  <div className="box-b">
+                    {
+                      instrument.mark_price ? "$" + EventFN.CurrencyDigitLimit({
+                        type: Decimal_point,
+                        content: instrument.mark_price
+                      }) : "--"
+                    }
+                  </div>
+                </div>
+                <div className="zijinfeilvbox">
+                  <Tooltip placement="topRight" title={<FormattedMessage id="Current_Rate" defaultMessage={'由上一个资金费用时段计算得出'} />}>
+                    <div className="box-a">
+                      <span className="span_dashed_box">
+                        <FormattedMessage id="Current_fund_rate" defaultMessage={'当期资金费率'} />
+                      </span>
+                    </div>
+                  </Tooltip>
+                  <div className="box-b">
+                    {
+                      instrument.funding_rate ? String(instrument.funding_rate * 100).replace(/^(.*\..{3}).*$/, "$1") + "% " + "| " + instrument.funding_rate_time + lang().WithinHours : "--"
+                    }
+                  </div>
+                </div>
+                <div className="zijinfeilvbox">
+                  <Tooltip placement="topRight" title={<FormattedMessage id="Predicted_Rate" defaultMessage={'交易单位为BTC等币种时，显示的持仓与挂单数量是根据实际张数换算的，所显示的持仓量数值会根据最新成交价变动而变动。'} />}>
+                    <div className="box-a">
+                      <span className="span_dashed_box">
+                        <FormattedMessage id="Budget_fund_rate" defaultMessage={'预测资金费率'} />
+                      </span>
+                    </div>
+                  </Tooltip>
+                  <div className="box-b">
+                    {
+                      instrument.indicative_funding_rate ? String(instrument.indicative_funding_rate * 100).replace(/^(.*\..{3}).*$/, "$1") + "% " + "| " + instrument.indicative_funding_rate_time + lang().WithinHours : "--"
+                    }
+                  </div>
+                </div>
+              </div>
+
+          }
+
         </div>
+
+        {/* 右侧按钮显示与否 */}
         {
           (() => {
-            if (localStorage.userInfo) {
+            if (localStorage.userInfo && ctype !== "bb") {
               return <div className="right-box">
                 <Button className="button00155" type="primary" onClick={this.zijinzhuan} style={{ float: "left", fontSize: "14px", width: 80 }}>
                   <FormattedMessage id="Transfer_of_funds" defaultMessage={'资金划转'} />
@@ -552,7 +672,35 @@ class TitleFullk extends Component {
               </div>
             } else {
               return <div className="right-box">
-                <button className="reset-btn" onClick={resetLayouts}> <FormattedMessage id="ResetLayout" defaultMessage={'重置布局'} /></button>
+
+                {
+                  (() => {
+                    if (this.props.ctype === 'bb') {
+                      return <div className="right-box">
+                        <Button className="button00155" type="primary" onClick={() => this.visibleFn(true, 1)} style={{ float: "left", fontSize: "14px", width: 80 }}>
+                          <FormattedMessage id="Transfer_of_funds" defaultMessage={'资金划转'} />
+                        </Button>
+                        <Modeltrund
+                          bboaccountavailablefn={this.bboaccountavailablefn}
+                          available={available}
+                          asset={bbasset}
+                          visible={visible}
+                          visibleFn={this.visibleFn}
+                        >
+                        </Modeltrund>
+                        <div style={{ float: "left", fontSize: "14px", lineHeight: "40px", marginRight: 10 }}>
+
+                          计价单位 USDT
+                        </div>
+                        <button className="reset-btn" onClick={resetLayouts}> <FormattedMessage id="ResetLayout" defaultMessage={'重置布局'} /></button>
+
+                      </div>
+                    } else {
+                      return <button className="reset-btn" onClick={resetLayouts}> <FormattedMessage id="ResetLayout" defaultMessage={'重置布局'} /></button>
+
+                    }
+                  })()
+                }
               </div>
             }
           })()
@@ -625,6 +773,7 @@ class TitleFullk extends Component {
                 <Option value="1">  <FormattedMessage id="Funds_account" defaultMessage={'资金账户'} /></Option>
                 <Option value="2"> <FormattedMessage id="Sustainable_Contract_Account" defaultMessage={'永续合约账户'} /></Option>
                 {/* // 1 资金账户 2 永续合约账户 3 现货账户 */}
+                <Option value="3">bb账户</Option>
               </Select>
               <span className="chongbi-span-huazhuan" style={{ float: "left", lineHeight: "42px" }}> <FormattedMessage id="Transfer" defaultMessage={'划转'} /></span>
               <Select defaultValue="2" className="select2222"
@@ -633,6 +782,8 @@ class TitleFullk extends Component {
                 onChange={this.zjzhfangxiangchu}>
                 <Option value="1"><FormattedMessage id="Funds_account" defaultMessage={'资金账户'} /></Option>
                 <Option value="2"><FormattedMessage id="Sustainable_Contract_Account" defaultMessage={'永续合约账户'} /></Option>
+                <Option value="3">bb账户</Option>
+
               </Select>
             </div>
 

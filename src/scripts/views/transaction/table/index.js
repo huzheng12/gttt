@@ -141,7 +141,7 @@ class Innercangs extends Component {
         columns3: data
       })
     })
-    if (localStorage.theme) {
+    if (this.props.type!=='bb'&&localStorage.theme) {
       this.setState({
         zhuti: localStorage.theme
       })
@@ -315,12 +315,14 @@ class Innercangs extends Component {
     } = this.state
     return (
       < div className="Innercang-warp tabe-war" >
-        <div className="ar-title">
-          <h3>
-            {/* < FormattedMessage id="Contract_Entrustment" defaultMessage={'合约委托'} /> */}
-            合约历史委托
-          </h3>
-        </div>
+       {
+         this.props.type==="bb"?'': <div className="ar-title">
+         <h3>
+           {/* < FormattedMessage id="Contract_Entrustment" defaultMessage={'合约委托'} /> */}
+           合约历史委托
+         </h3>
+       </div>
+       }
         <div className="tabe-tiele-content clear">
           <div className="p1">
             <Select value={this.state.pair} style={{ width: "100%", height: "100%" }} onChange={this.ARHandleChange}>

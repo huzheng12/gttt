@@ -14,6 +14,7 @@ import fanyongBanner from './views/fanyongbanner';
 import FullTradePage from './views/fulltradepage';
 import { Xfn } from '../utils/axiosfn';
 import { candlefunction, pcassetqueryfn, pairqueryfn, marketsquery, instrumentfn, pacaccoundt, orderBookLfn, positionfunction, pcaccount, orderfuntion, candlefunallction, assetfn } from './action';
+import { bbassetfn, bbsymbolfn } from './action/bbtion';
 import store from './store';
 import { connect } from "react-redux";
 import IosDownload from './views/IOSdownload';
@@ -25,6 +26,8 @@ import { time } from '@/utils/times.js'
 import Error from './views/error/e404';
 import C2Crouter from './views/c2c';
 import SuccessfulPayment from './views/c2c/SuccessfulPayment';
+import BBTradePage from './views/bbtrander';
+import Bborder from './views/bbOrder';
 let asset
 @connect(
 	state => {
@@ -73,7 +76,33 @@ class Index extends Component {
 			})
 		}
 	}
+	// bb资产和交易对
+	bbassetFn = () => {
+		Xfn({
+			_u: "bbassetquery",
+			_m: 'get',
+			_p: {
+
+			}
+		}, (res, code) => {
+			if (code === 0) {
+				store.dispatch(bbassetfn(res.data.data.asset))
+				Xfn({
+					_u: "bbsymbolquery",
+					_m: "get",
+					_p: {
+						asset: "USDT"
+					}
+				}, (res, code) => {
+					if (code === 0) {
+						store.dispatch(bbsymbolfn(res.data.data.rows))
+					}
+				})
+			}
+		})
+	}
 	componentDidMount() {
+		this.bbassetFn()
 		if (this.props.change_language_flg === 0) {
 			Xfn({
 				_u: 'pcAssetQuery',
@@ -149,22 +178,24 @@ class Index extends Component {
 				<Switch>
 					<Route exact path="/" component={Sices}></Route>
 					<Route path="/transaction" component={Transaction}></Route>
-					<AuthRouter path="/finance" component={Finance}></AuthRouter>
 					<Route path="/login" component={Login}></Route>
 					<Route path="/verifytype" component={Verify_type}></Route>
 					<Route path="/register" component={Register}></Route>
 					<Route path="/resetpass" component={Resetpass}></Route>
-					<AuthRouter path="/personal" component={Personal}></AuthRouter>
 					<Route path="/fanyonganner" component={fanyongBanner}></Route>
 					<Route path="/registerwin" component={Rechengg} ></Route>
 					<Route path="/sices" component={Sices} ></Route>
 					<Route path="/iosdownload" component={IosDownload} ></Route>
 					<Route path="/h5iosdownload" component={IOSDownload} ></Route>
 					<Route path="/h5iosdownloadto" component={IOSDownloadto} ></Route>
+					<AuthRouter path="/finance" component={Finance}></AuthRouter>
 					<AuthRouter path="/C2Cdeal" component={C2Crouter} ></AuthRouter>
+					<AuthRouter path="/personal" component={Personal}></AuthRouter>
 					<Route path="/h5androiddownload" component={AndroidDownload} ></Route>
 					<Route path="/appregister/:name" component={Appregister} ></Route>
 					<Route path="/fulltrade" component={FullTradePage} ></Route>
+					<Route path="/BBTradePage" component={BBTradePage} ></Route>
+					<Route path="/histororder" component={Bborder} ></Route>
 					<Route path="/error" component={Error} ></Route>
 					<Route path="/successfulpayment" component={SuccessfulPayment}></Route>
 				</Switch>

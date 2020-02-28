@@ -1,0 +1,91 @@
+
+
+.placeorder_warp{
+  height: 100%;
+
+  .h1_title{
+    height: 40px;
+    line-height: 40px;
+    font-size:14px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:rgba(225,233,250,1);
+    border-bottom: 1px solid #2F3746;
+    padding-left: 13px;
+  }
+.content_boxq{
+  display: flex;
+}
+.foot_box{
+  line-height: 55px;
+  color: #898e98;
+}
+// 单个样式
+  .single_warp{
+    width: 50%;
+    // height: 100%;
+    // background: red;
+    padding: 0px 20px;
+    .xiaotitle{
+      font-size: 12px;
+      line-height: 45px;
+      .kyye_box{
+        color: #898E98;
+        float: left;
+      }
+      .data_box_span{
+        color: #E1E9FA;
+        font-size: 14px;
+        float: left;
+        margin-left: 15px;
+      }
+      .but_huazhuan{
+        float: right;
+        font-size:12px;
+        font-family:Microsoft YaHei;
+        font-weight:bold;
+        color:rgba(47,111,237,1);
+      }
+    }
+    .login-warp-email .input-boxs .ant-input{
+      text-align: right;
+      height: 32px;
+      background:rgba(15,21,38,1);
+      color: #fff;
+    }
+    .ant-input-affix-wrapper .ant-input:not(:last-child){
+      padding-right: 55px;
+    }
+    .ant-input-affix-wrapper .ant-input:not(:first-child){
+      padding-left: 75px;
+    }
+    .tooltip-001{
+      color: #898e98;
+    }
+    .ant-input-prefix{
+      color: #898e98;
+    }
+    // 滑动条样式
+      .ant-slider-step {
+        background: #2f3746;
+      }
+    .ant-slider-dot {
+      background: rgba(24,30,48,1);
+      border: 2px solid rgba(61,75,102,1);
+    }
+    .ant-slider-handle {
+      background: rgba(24,30,48,1);
+      border: 2px solid rgba(38,153,78,1);
+    }
+     .tishicuowu {
+      height: 15px;
+    }
+    .ant-slider {
+      margin: 5px 6px 38px;
+    }
+    .ant-btn-primary {
+      margin-right: 0px; 
+      width: 100%;
+  }
+  }
+}

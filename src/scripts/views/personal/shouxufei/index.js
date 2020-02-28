@@ -4,6 +4,10 @@ import Biaoti from '../componetn/biaoti';
 import { Xfn } from '../../../../utils/axiosfn';
 import lang from '@/utils/language';
 import { FormattedMessage } from 'react-intl';
+import { Tabs } from 'antd';
+import Tableshouxufei from './tableshouxufei';
+
+const { TabPane } = Tabs;
 class Shouxufei extends Component {
   constructor() {
     super()
@@ -62,6 +66,9 @@ class Shouxufei extends Component {
     })
 
   }
+  callback = (value) => {
+    console.log(value)
+  }
   render() {
     const { tou, getPcFeeListData, getUserFeeObj, imgArr, zsxx } = this.state
     return (
@@ -74,12 +81,42 @@ class Shouxufei extends Component {
             </div>
             <div className="clear" style={{ marginBottom: 15 }}>
               <div className="tr-guadan ">
+               <p className="row-tr-guadan">近30天交易量(截止到昨天)</p>
+               <p className="row-tr-guadan">
+                 <div className="left">币币</div>
+                 <div className="right">0.0000 BTC</div>
+               </p>
+               <p className="row-tr-guadan row-tr-guadans">
+                 <div className="left">永续合约</div>
+                 <div className="right">0.0000 BTC</div>
+               </p>              </div>
+              {/* <div className="tr-guadan ">
                 <p>Maker（{lang().List}）</p>
                 <p className="span-tr-guad">{getUserFeeObj.maker_fee}%</p>
               </div>
               <div className="tr-guadan ">
                 <p>Taker（{lang().Bill_of_fare}）</p>
                 <p className="span-tr-guad">{getUserFeeObj.taker_fee}%</p>
+              </div> */}
+              <div className="tr-guadan tr-guadans ">
+                <p className="row_pans">
+                  <span>
+                  提现额度
+                    </span>
+                    <span className="shul">
+                      300 BTC
+                    </span>
+                </p>
+                <div className="row_pans">
+                  <span>币币手续费</span>
+                  <span>挂单成交0.1%</span>
+                  <span>吃单成交0.15%</span>
+                </div>
+                <div className="row_pans">
+                  <span>永续合约手续费</span>
+                  <span>挂单成交0.1%</span>
+                  <span>吃单成交0.15%</span>
+                </div>
               </div>
             </div>
             <div className="p-gd ">
@@ -109,7 +146,7 @@ class Shouxufei extends Component {
           </div>
 
 
-          <div className="content-box-li" style={{ marginTop: 53 }}>
+          {/* <div className="content-box-li" style={{ marginTop: 53 }}>
             <div className="li_span_h1">
               < FormattedMessage id="Level_rate_description" defaultMessage={'等级费率说明'} />
 
@@ -134,48 +171,25 @@ class Shouxufei extends Component {
                   </div>
               </div>
             </div>
-          </div>
+          </div> */}
+        
           <div className="content-box-li" style={{ marginTop: 53 }}>
             <div className="li_span_h1" style={{ marginBottom: 30 }}>
               < FormattedMessage id="Hierarchical_description" defaultMessage={'等级说明'} />
 
             </div >
-            <table >
-              <tbody>
-                <tr>
-                  <td colSpan="5">    < FormattedMessage id="Ordinary_users" defaultMessage={'普通用户'} /></td>
-                </tr>
-                <tr className="tr1">
-                  <td rowSpan="2"> < FormattedMessage id="User_Level" defaultMessage={'用户等级'} /></td>
+            <Tabs defaultActiveKey="1" onChange={this.callback}>
+              <TabPane tab="币币交易" key="1">
+                <Tableshouxufei getPcFeeListData={getPcFeeListData}></Tableshouxufei>
+              </TabPane>
+              <TabPane tab="永续合约" key="2">
 
-                  <td colSpan="3"> < FormattedMessage id="Sustainable_contract" defaultMessage={'永续合约'} /></td>
+                <Tableshouxufei getPcFeeListData={getPcFeeListData}></Tableshouxufei>
 
-                  <td rowSpan="2">
+              </TabPane>
 
-                    < FormattedMessage id="hour_cash_withdrawal" defaultMessage={'24小时提现额度'} />
-                    <p>(BTC)</p>
-                  </td>
-                </tr>
-                <tr className="tr1">
-                  <td> < FormattedMessage id="Trading_volume_in_the_past_30_days" defaultMessage={'近30天交易量'} />(BTC)</td>
-                  <td>< FormattedMessage id="Payment_fee_for_bill_of_lading" defaultMessage={'挂单成交手续费'} /></td>
-                  <td>< FormattedMessage id="Processing_fee_for_eating_order_and_transaction" defaultMessage={'吃单成交手续费'} /></td>
-                </tr>
-                {
-                  getPcFeeListData.map((item, index) => {
-                    return (
-                      <tr key={item + index}>
-                        <td>Lv{item.tier}</td>
-                        <td> {item.compare + item.trading_volume} </td>
-                        <td>{item.maker_fee}%</td>
-                        <td>{item.taker_fee}%</td>
-                        <td>{item.withdraw_limit}</td>
-                      </tr>
-                    )
-                  })
-                }
-              </tbody>
-            </table>
+            </Tabs>
+
           </div>
         </div>
       </div>

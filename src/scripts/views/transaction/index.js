@@ -50,14 +50,18 @@ class Transaction extends Component {
 		}
 	}
 	componentDidUpdate() {
+		console.log('[[[[')
+
 		if ((this.props.ws_connect == 1 || this.props.isLogin == 1)) {
+			console.log('[[[[')
+
 			if (this.props.asset === null) {
 				return
-
 			}
 			this.props.tokenFun(localStorage.userInfo, 0)
 			let options = sendMessage(this.props).obj
 			if (window.wss.readyState === 1) {
+				console.log('[[[[')
 				window.wss.send(JSON.stringify(options.instrument_all));
 				window.wss.send(JSON.stringify(options.orderbookz));
 				window.wss.send(JSON.stringify(options.trade));

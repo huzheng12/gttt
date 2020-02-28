@@ -55,9 +55,21 @@ class Header extends Component {
       ],
       quanbu: true,
       information: [],
+      bbasset: []
     }
   }
   componentDidMount() {
+    Xfn({
+      _u: 'bbassetquery',
+      _m: "get",
+      _p: {}
+    }, (res, code) => {
+      if (code == 0) {
+        this.setState({
+          bbasset: res.data.data.asset
+        })
+      }
+    })
     this.changeLanguage(localStorage.language ? localStorage.language : "zh")
     Xfn({
       _u: 'information_url',
@@ -115,10 +127,16 @@ class Header extends Component {
     if (localStorage.userInfo) {
       return (
         <div className="longin">
-          {/* <div>11211</div> */}
+          <NavLink to='/finance' className="navlinkuo" activeClassName="selectedaaa">
+            资产
+            </NavLink>
+          <NavLink to='/histororder' className="navlinkuo" activeClassName="selectedaaa">
+            订单
+          </NavLink>
           <div className="loginHover" onClick={this.tiaozhuan}>
             <div className="halflsk">
-              {
+              <span className="iconfont colormy" >&#xe615;</span>
+              {/* {
                 (() => {
                   if (localStorage.userName) {
                     if (localStorage.userName == "null" || localStorage.userName == "") {
@@ -146,7 +164,7 @@ class Header extends Component {
                     history.push('/login')
                   }
                 })()
-              }
+              } */}
             </div>
             <div className="loginHoverhezi">
               <div className="neiloginHOoverhezi">
@@ -159,9 +177,10 @@ class Header extends Component {
             </div>
 
           </div>
-          <div className="gangg">
+          {/* <div className="gangg">
 
-          </div>
+          </div> */}
+
           <div className="imgtupian1 img5" style={{ cursor: 'pointer' }}>
             <span className="iconfont">&#xe603;</span>
             <article className="hexizbox" style={{
@@ -336,6 +355,7 @@ class Header extends Component {
       imgArr,
       selecta,
       quanbu,
+      bbasset
     } = this.state
     const {
       language,
@@ -353,12 +373,15 @@ class Header extends Component {
               <FormattedMessage id="Trade" defaultMessage={'合约交易'} />
               <span className="iconfont biaotiaicm">&#xe609;</span>
             </NavLink>
-            <a href="https://exchange.gte.io/Trade/index/market/bys_usdt" target="view_window" className="navlinkuo" >
+            {/* <a href="https://exchange.gte.io/Trade/index/market/bys_usdt" target="view_window" className="navlinkuo" >
               <FormattedMessage id="Currency_trading" defaultMessage={'币币交易'} />
-            </a>
-            <NavLink to='/finance' className="navlinkuo" activeClassName="selectedaaa">
-              <FormattedMessage id="Financial_Center" defaultMessage={'财务中心'} />
+            </a> */}
+            <NavLink to='/BBTradePage' className="navlinkuo" activeClassName="selectedaaa">
+              <FormattedMessage id="Currency_trading" defaultMessage={'币币交易'} />
             </NavLink>
+            {/* <NavLink to='/finance' className="navlinkuo" activeClassName="selectedaaa">
+              <FormattedMessage id="Financial_Center" defaultMessage={'财务中心'} />
+            </NavLink> */}
             {/* <a href="https://gtehelp.zendesk.com/hc/zh-cn" target="view_window" className="navlinkuo" >
               <FormattedMessage id="Help_Center" defaultMessage={'帮助中心'} />
             </a> */}
@@ -374,38 +397,39 @@ class Header extends Component {
           {
             this.dengluyanzheng()
           }
-          <div className="xuanxiang" onClick={this.dianjiquanbu}>
-            <div className="ggang">
-
-            </div>
-            <div className="inputxiala">
-              {
-                this.props.asset ? this.props.asset + " " + lang().Trading_area : ""
-              }
-            </div>
-            <img className="sximg" src={quanbu ? imgArr.a1 : imgArr.a2} alt="" />
-            <div className="ggang">
-
-            </div>
-            <div className="inpusll_wawrp_box" style={{ display: quanbu ? "none" : "block" }}>
-              <div className="inpusll-wawrp" style={{ display: quanbu ? "none" : "block" }} >
+          {
+            (window.location.href.indexOf('sices') !== -1 ||
+            window.location.href.indexOf('transaction') !== -1 ||
+            window.location.href.indexOf('fulltrade') !== -1) && <div className="xuanxiang" onClick={this.dianjiquanbu}>
+              <div className="ggang"></div>
+              <div className="inputxiala">
                 {
-                  pcassetquery.map((item, index) => {
-                    return <li key={item + index} onClick={() => this.qiehuanusd(item.asset)} className={item.asset === this.props.asset ? "action-inputxiala" : ""}>
-                      <div className='bizhong' style={{ borderColor: item.asset === this.props.asset ? "#2F6FED" : "" }}>
-                        <img className="icon_img_box" src={item.icon_img} alt="" />
-                      </div>
-                      <div>
-                        {item.asset ? item.asset + " " + lang().Trading_area : ""}
-                      </div>
-                    </li>
-                  })
+                  this.props.asset ? this.props.asset + " " + lang().Trading_area : ""
                 }
+              </div>
+              <img className="sximg" src={quanbu ? imgArr.a1 : imgArr.a2} alt="" />
+              <div className="ggang">
 
               </div>
-            </div>
+              <div className="inpusll_wawrp_box" style={{ display: quanbu ? "none" : "block" }}>
+                <div className="inpusll-wawrp" style={{ display: quanbu ? "none" : "block" }} >
+                  {
+                    pcassetquery.map((item, index) => {
+                      return <li key={item + index} onClick={() => this.qiehuanusd(item.asset)} className={item.asset === this.props.asset ? "action-inputxiala" : ""}>
+                        <div className='bizhong' style={{ borderColor: item.asset === this.props.asset ? "#2F6FED" : "" }}>
+                          <img className="icon_img_box" src={item.icon_img} alt="" />
+                        </div>
+                        <div>
+                          {item.asset ? item.asset + " " + lang().Trading_area : ""}
+                        </div>
+                      </li>
+                    })
+                  }
 
-          </div>
+                </div>
+              </div>
+            </div>
+          }
           <div className="guojihua">
             <Select
               className="eme_lig"

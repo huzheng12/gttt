@@ -169,7 +169,7 @@ class Yongxu extends Component {
       _u: "bboaccountavailable",
       _m: "get",
       _p: {
-        asset: data,
+        asset: data?data:this.state.bbasset,
         account_type: type
       }
     }, (res, code) => {

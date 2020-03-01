@@ -28,7 +28,10 @@ const { TabPane } = Tabs;
     }
   }
   componentDidMount() {
-    this.history_data()
+    if(localStorage.userInfo){
+      this.history_data()
+
+    }
   }
   dangqianchipang = (a, b) => {
     if (localStorage.userInfo) {
@@ -74,14 +77,14 @@ const { TabPane } = Tabs;
       if (code === 0) {
         console.log(res)
         this.setState({
-          data: res.data.data.rows,
+          data: res.data.data.rows?res.data.data.rows:[],
           datanull:'1'
         })
       }
     })
   }
   callback = (value) => {
-    if(value==='2'){
+    if(localStorage.userInfo&&value==='2'){
 
       this.history_data()
     }
@@ -112,7 +115,7 @@ const { TabPane } = Tabs;
     return (
       <div className="bbtablefoot_warp">
         <Tabs defaultActiveKey="1" style={{height:"100%"}} onChange={this.callback}>
-          <TabPane style={{height:"100%",overflow:'auto'}} tab={"当前持仓["+(bbactive_order.order_total?bbactive_order.order_total:'--')+"]"} key="1">
+          <TabPane style={{height:"100%",overflow:'auto'}} tab={"当前持仓["+(localStorage.userInfo?bbactive_order.order_total?bbactive_order.order_total:'--':'0')+"]"} key="1">
           {this.dangqianchipang(bbactive_order.data&&bbactive_order.data.length,'1')}
 
             {
@@ -129,9 +132,11 @@ const { TabPane } = Tabs;
           </TabPane>
           <TabPane tab="历史委托" key="2">
           {this.dangqianchipang(data,datanull)}
-
+             {
+               console.log(data,'[[[[[')
+             }
             <div className="bbtablefoot_warp_box">
-            {data.map((itme, index) => {
+            {localStorage.userInfo&&data.map((itme, index) => {
               return <Onesingle Cancel_order={this.Cancel_order} data={itme} type='2' key={index + itme}></Onesingle>
 
             })}

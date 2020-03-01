@@ -74,8 +74,6 @@ class TableFoot extends Component {
     if (localStorage.userInfo) {
       if (b != "1") {
         return <div style={{ position: "relative", zIndex: 999, width: "100%", textAlign: 'center', lineHeight: "200px" }}>
-
-
           < FormattedMessage id="Loading" defaultMessage={'加载中'} />
           ...</div>
       } else {

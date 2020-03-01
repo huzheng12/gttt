@@ -51,7 +51,7 @@ export default class Bborder extends Component {
             <Switch>
               <Route path="/histororder/heyuehistry" component={Heyuehistry}></Route>
               <Route path="/histororder/bbhistry" component={Bbhistry}></Route>
-              <Redirect from="/histororder" to="/histororder/heyuehistry" />
+              <Redirect from="/histororder" to="/histororder/bbhistry" />
 
             </ Switch>
           </div>

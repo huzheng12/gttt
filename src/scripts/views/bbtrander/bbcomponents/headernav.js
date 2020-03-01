@@ -77,16 +77,16 @@ class Headernav extends Component {
           bbsyblarr:res.data.data.rows,
           isOk:true
         })
-        // bbSubscribe({
-        //   bbaymbol :res.data.data.rows[0].symbol,
-        //   bbasset:value,
-        // })
       }
     })
   }
   symbolfn=(value)=>{
     store.dispatch({type:"bbassetgaibaian",data:assetquanbu})
     store.dispatch({type:'bbsymbolgaibaian',data:value})
+    bbSubscribe({
+      bbaymbol :value,
+      bbasset:assetquanbu,
+    })
    
   }
   render() {

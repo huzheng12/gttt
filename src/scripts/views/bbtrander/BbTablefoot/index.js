@@ -2,61 +2,89 @@ import React, { Component } from 'react'
 import { Tabs } from 'antd';
 import Onesingle from './onesingle';
 import { Xfn } from '../../../../utils/axiosfn';
-let url_bb = 'bborderquery'
+import { connect } from "react-redux";
+import { FormattedMessage } from 'react-intl';
+import { NavLink } from "react-router-dom"
+
 const { TabPane } = Tabs;
-export default class BbTablefoot extends Component {
+
+
+@connect(
+  state => {
+    return {
+			bbactive_order: state.bbdata.bbactive_order,
+		}
+  }
+)
+ class BbTablefoot extends Component {
   constructor() {
     super()
     this.state = {
-      data: [{
-        "id": "1",
-        "status": "1",                 //委托状态  1:已创建未匹配 2:新建未成交 4:待取消 8:已取消 16:部分成交 32:全部成交           
-        "fee": "0.001",                //手续费     
-        "price": "10035",              //委托价            
-        "qty": "2",                    //量
-        "bid_flag": "1",               //1.多 0.空
-        "asset": "USD",                  //资产
-        "symbol": "BTC_USD",            //交易对
-        "ctime": "1564482914569",      //委托创建时间
-        "avg_price": "10025",          //平均价
-        "filled_qty": "1.1",           //已成交量
-        "trade_ratio": "0.01",         //成交比例,表示 1%
-        "order_type": "1"              //委托类型 1:限价
-      }]
+      data: [],
+      imgArr: {
+        ioo: require("../../../img/nothing_data.png"),
+      },
+      datanull:'0'
     }
   }
   componentDidMount() {
-    this.history_data('bborderquery')
+    this.history_data()
+  }
+  dangqianchipang = (a, b) => {
+    if (localStorage.userInfo) {
+      if (b != "1") {
+        return <div style={{ position: "relative", zIndex: 999, width: "100%", textAlign: 'center', lineHeight: "200px" }}>
+          < FormattedMessage id="Loading" defaultMessage={'加载中'} />
+          ...</div>
+      } else {
+        if (a <= 0) {
+          return <div className="tablemeishuju">
+            <img src={this.state.imgArr.ioo} alt="" />
+            <div>
+              < FormattedMessage id="You_dont_have_data" defaultMessage={'您暂时还没有相关数据'} />
+            </div>
+          </div>
+        }
+      }
+    } else {
+      return <div className="tablemeishuju">
+        <img src={this.state.imgArr.ioo} alt="" />
+        <div>
+          < FormattedMessage id="You_must" defaultMessage={'您必须'} />
+          <NavLink style={{ margin: "0 5px" }} to="/login"> < FormattedMessage id="Sign_in" defaultMessage={'登录'} /></NavLink>
+          < FormattedMessage id="Only_then_see_information" defaultMessage={'才可以看到此信息'} />
+        </div>
+      </div>
+    }
   }
   history_data = (url) => {
 
     Xfn({
-      _u: url,
+      _u: 'bborderquery_history',
       _m: 'get',
       _p: {
         asset: this.props.bbasset,// 资产 USD,必填,
         symbol: this.props.bbaymbol, //交易对,非必填,
         // bid_flag: '1', //1.买入,0.卖出,非必填,
         // last_order_id: 'id', //当前页最后一张委托的id, 非必填,
-        next_page: "-1", //翻页标记,-1 上一页 , 1.下一页 必填,,
+        next_page: "1", //翻页标记,-1 上一页 , 1.下一页 必填,,
         page_size: "20", //页行数 ,必填
       }
     }, (res, code) => {
       if (code === 0) {
+        console.log(res)
         this.setState({
-          data: res.data.data.rows
+          data: res.data.data.rows,
+          datanull:'1'
         })
       }
     })
   }
   callback = (value) => {
+    if(value==='2'){
 
-    if (value === '2') {
-      url_bb = "bborderquery_history"
-    } else {
-      url_bb = "bborderquery"
+      this.history_data()
     }
-    this.history_data(url_bb)
   }
   //撤销淡定
   Cancel_order = (data) => {
@@ -71,29 +99,44 @@ export default class BbTablefoot extends Component {
         bid_flag: data.bid_flag,// 1.买入,0.卖出,必填
       }
     }, (res, code) => {
-      this.history_data(url_bb)
-    })
+
+    },'撤单成功')
   }
   render() {
     const {
-      data
+      data,datanull
     } = this.state
+    const {
+      bbactive_order
+    }=this.props
     return (
       <div className="bbtablefoot_warp">
-        <Tabs defaultActiveKey="1" onChange={this.callback}>
-          <TabPane tab="当前持仓[0]" key="1">
+        <Tabs defaultActiveKey="1" style={{height:"100%"}} onChange={this.callback}>
+          <TabPane style={{height:"100%",overflow:'auto'}} tab={"当前持仓["+(bbactive_order.order_total?bbactive_order.order_total:'--')+"]"} key="1">
+          {this.dangqianchipang(bbactive_order.data&&bbactive_order.data.length,'1')}
+
             {
-              data.map((itme, index) => {
+              localStorage.userInfo&&bbactive_order.data&&bbactive_order.data.map((itme, index) => {
                 return <Onesingle Cancel_order={this.Cancel_order} data={itme} type='1' key={index + itme}></Onesingle>
 
               })
             }
+             {
+              localStorage.userInfo&&bbactive_order.data&&bbactive_order.order_total-bbactive_order.data.length >0? <NavLink className="chak" to="/histororder/bbhistry">
+                查看更多
+              </NavLink>:''
+             }
           </TabPane>
           <TabPane tab="历史委托" key="2">
+          {this.dangqianchipang(data,datanull)}
+
+            <div className="bbtablefoot_warp_box">
             {data.map((itme, index) => {
               return <Onesingle Cancel_order={this.Cancel_order} data={itme} type='2' key={index + itme}></Onesingle>
 
             })}
+
+            </div>
           </TabPane>
 
         </Tabs>
@@ -101,3 +144,4 @@ export default class BbTablefoot extends Component {
     )
   }
 }
+export default BbTablefoot

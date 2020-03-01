@@ -443,7 +443,7 @@ class TitleFullk extends Component {
       heyuename,
       instrument,
       asset,
-      Decimal_point, ctype, bbasset, bbaymbol
+      Decimal_point, ctype, bbasset, bbaymbol,bbinstrument
     } = this.props
     const {
       imgArr,
@@ -473,25 +473,25 @@ class TitleFullk extends Component {
 
           <div className="astimg">
             {
-              instrument.change_rate_24h ? instrument.change_rate_24h >= 0 ? <div className="iconfont imgastd" style={{ color: "#26994E" }}>&#xe60e;</div> : <div className="iconfont imgastd" style={{ color: "#E53F39" }}>&#xe610;</div> : ""
+              (ctype === 'bb' ?bbinstrument:instrument).change_rate_24h ? (ctype === 'bb' ?bbinstrument:instrument).change_rate_24h >= 0 ? <div className="iconfont imgastd" style={{ color: "#26994E" }}>&#xe60e;</div> : <div className="iconfont imgastd" style={{ color: "#E53F39" }}>&#xe610;</div> : ""
             }
           </div>
           <div className="astimg">
-            <div className="tetle" style={{ color: instrument.change_rate_24h >= 0 ? "#26994E" : "#E53F39" }}>
+            <div className="tetle" style={{ color: (ctype === 'bb' ?bbinstrument:instrument).change_rate_24h >= 0 ? "#26994E" : "#E53F39" }}>
               {
                 EventFN.CurrencyDigitLimit({
                   type: Decimal_point,
-                  content: instrument.last_price
+                  content: (ctype === 'bb' ?bbinstrument:instrument).last_price
                 })
               }
             </div>
           </div>
           <div className="astimg">
-            <div className="shenglv" style={{ backgroundColor: instrument.change_rate_24h >= 0 ? "#26994E" : "#E53F39" }}>
+            <div className="shenglv" style={{ backgroundColor: (ctype === 'bb' ?bbinstrument:instrument).change_rate_24h >= 0 ? "#26994E" : "#E53F39" }}>
               {
                 (() => {
-                  if (instrument.change_rate_24h) {
-                    return instrument.change_rate_24h > 0 ? "+" + String(instrument.change_rate_24h * 100).replace(/^(.*\..{2}).*$/, "$1") + "%" : String(instrument.change_rate_24h * 100).replace(/^(.*\..{2}).*$/, "$1") + "%"
+                  if ((ctype === 'bb' ?bbinstrument:instrument).change_rate_24h) {
+                    return (ctype === 'bb' ?bbinstrument:instrument).change_rate_24h > 0 ? "+" + String((ctype === 'bb' ?bbinstrument:instrument).change_rate_24h * 100).replace(/^(.*\..{2}).*$/, "$1") + "%" : String((ctype === 'bb' ?bbinstrument:instrument).change_rate_24h * 100).replace(/^(.*\..{2}).*$/, "$1") + "%"
                   } else {
                     return "--"
                   }
@@ -510,7 +510,7 @@ class TitleFullk extends Component {
           </div>
                 <div className="box-b">
                   {
-                    numberHandle(instrument.volume_24h, 1)
+                    numberHandle(bbinstrument.low_price, 1)
                   }
                 </div>
               </div>
@@ -520,7 +520,7 @@ class TitleFullk extends Component {
           </div>
                 <div className="box-b">
                   {
-                    numberHandle(instrument.volume_24h, 1)
+                    numberHandle(bbinstrument.high_price, 1)
                   }
                 </div>
               </div>
@@ -530,7 +530,7 @@ class TitleFullk extends Component {
           </div>
                 <div className="box-b">
                   {
-                    numberHandle(instrument.volume_24h, 1)
+                    numberHandle(bbinstrument.volume_24h, 1)
                   }
                 </div>
               </div>

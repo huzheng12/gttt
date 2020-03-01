@@ -14,7 +14,7 @@ import fanyongBanner from './views/fanyongbanner';
 import FullTradePage from './views/fulltradepage';
 import { Xfn } from '../utils/axiosfn';
 import { candlefunction, pcassetqueryfn, pairqueryfn, marketsquery, instrumentfn, pacaccoundt, orderBookLfn, positionfunction, pcaccount, orderfuntion, candlefunallction, assetfn } from './action';
-import { bbassetfn, bbsymbolfn } from './action/bbtion';
+import { bbassetfn, bbsymbolfn, bbinstrumentfn, bborderBookLfn, bbactive_orderfn, bb_account_expfn, bbtradefn } from './action/bbtion';
 import store from './store';
 import { connect } from "react-redux";
 import IosDownload from './views/IOSdownload';
@@ -141,35 +141,58 @@ class Index extends Component {
 		}
 		window.wss.onmessage = e => {
 			const _data = JSON.parse(e.data)
-			switch (_data.table) {
-				case 'instrument_all_full':
-					store.dispatch(instrumentfn(_data.data))
-					break;
-				case 'order_book'://解决
-					store.dispatch(orderBookLfn(_data))
-					break;
-				case 'pc_account':
-					store.dispatch(pcaccount(_data))
-					break;
-				case 'active_order_all':
-					window.orderlength = "1"
-					store.dispatch(orderfuntion(_data))
-					break;
-				case 'trade':
-					store.dispatch(pacaccoundt(_data.data))
-					break;
-				case 'active_position_all':
-					store.dispatch({ type: 'allposiont', allposiont: "1" })
-					store.dispatch(positionfunction(_data.data))
-					break;
-				case 'candle':
-					if (this.props.differentiatedtransactions === 1) {
-						store.dispatch(candlefunallction(_data, _data.symbol))
-					} else {
-						store.dispatch(candlefunction(_data, 0))
-					}
-					break;
+			if(_data.instrument_type==='bb'){
+				switch (_data.table) {
+					case 'instrument_all_full':
+						store.dispatch(bbinstrumentfn(_data.data))
+						break;
+					case 'order_book':
+						store.dispatch(bborderBookLfn(_data))
+						break;
+					case 'active_order':
+						store.dispatch(bbactive_orderfn(_data))
+						break;
+					case 'bb_account_exp':
+						store.dispatch(bb_account_expfn(_data.data))
+						break;
+					case 'trade':
+						store.dispatch(bbtradefn(_data.data))
+						break;
+				}
+			}else{
+				switch (_data.table) {
+					case 'instrument_all_full':
+						store.dispatch(instrumentfn(_data.data))
+						break;
+					case 'order_book'://解决
+					
+						store.dispatch(orderBookLfn(_data))
+						break;
+					case 'pc_account':
+						store.dispatch(pcaccount(_data))
+						break;
+					case 'active_order_all':
+						window.orderlength = "1"
+						store.dispatch(orderfuntion(_data))
+						break;
+					case 'trade':
+						store.dispatch(pacaccoundt(_data.data))
+						break;
+					case 'active_position_all':
+						store.dispatch({ type: 'allposiont', allposiont: "1" })
+						store.dispatch(positionfunction(_data.data))
+						break;
+					case 'candle':
+						if (this.props.differentiatedtransactions === 1) {
+							store.dispatch(candlefunallction(_data, _data.symbol))
+						} else {
+							store.dispatch(candlefunction(_data, 0))
+						}
+						break;
+				}
 			}
+			// console.log(_data,'ssd')
+	
 		};
 	}
 	render() {

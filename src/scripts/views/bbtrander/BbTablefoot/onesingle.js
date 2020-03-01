@@ -85,7 +85,7 @@ export default class Onesingle extends Component {
        </div>: <div className="clo8 clo">
           <div className="spl1">手续费</div>
           <div className="spl2">
-            撤单
+            {data.fee}
           </div>
         </div>
        }

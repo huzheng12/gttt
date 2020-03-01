@@ -93,18 +93,26 @@ class Bbentrust extends Component {
   }
   componentDidUpdate(){
     if(this.props.bbassetArr.length>0&&this.state.isOk){
+      Xfn({
+        _u: "bbsymbolquery",
+        _m: "get",
+        _p: {
+          asset: this.props.bbassetArr[0].asset
+        }
+      }, (res, code) => {
+        if (code === 0) {
+          this.setState({
+            bbsymbolArrs:res.data.data.rows,
+            bbsymbol:res.data.data.rows.length>0&&res.data.data.rows[0].symbol
+          })
+        }
+      })
       this.setState({
         bbasset: this.props.bbassetArr[0].asset,
         isOk:false
       })
     }
-    if(this.props.bbsymbolArr.length>0&&this.state.isOksymbol){
-      this.setState({
-        bbsymbol: this.props.bbsymbolArr[0].symbol,
-        bbsymbolArrs:this.props.bbsymbolArr,
-        isOksymbol:false
-      })
-    }
+
 
   }
   handleChange = (value) => {
@@ -112,13 +120,19 @@ class Bbentrust extends Component {
       _u: "bbsymbolquery",
       _m: "get",
       _p: {
-        asset: this.state.bbasset
+        asset: value
       }
     }, (res, code) => {
       if (code === 0) {
+        if(res.data.data.rows.length>0){
+          this.history_data('bborderquery',{
+            bbasset:value,
+            bbsymbol:res.data.data.rows[0].symbol
+          })
+        }
         this.setState({
           bbsymbolArrs:res.data.data.rows,
-          bbsymbol:res.data.data.rows[0].symbol
+          bbsymbol:res.data.data.rows.length>0&&res.data.data.rows[0].symbol
         })
       }
     })
@@ -127,26 +141,33 @@ class Bbentrust extends Component {
     })
   }
   handleChanges=(value)=>{
+    this.history_data('bborderquery',{
+      bbasset:this.state.bbasset,
+      bbsymbol:value
+    })
     this.setState({
       bbsymbol:value
     })
   }
-  history_data = (url) => {
+  history_data = (url,data) => {
+    // bborderquery
+    // bborderquery_history
+    console.log(url)
     Xfn({
       _u: url,
       _m: 'get',
       _p: {
-        asset: this.state.bbasset,// 资产 USD,必填,
-        symbol: this.state.bbsymbol, //交易对,非必填,
+        asset: data.bbasset,// 资产 USD,必填,
+        symbol: data.bbsymbol, //交易对,非必填,
         // bid_flag: '1', //1.买入,0.卖出,非必填,
-        // last_order_id: 'id', //当前页最后一张委托的id, 非必填,
-        next_page: "-1", //翻页标记,-1 上一页 , 1.下一页 必填,,
+        last_order_id: data.last_order_id?data.last_order_id:'', //当前页最后一张委托的id, 非必填,
+        next_page: "1", //翻页标记,-1 上一页 , 1.下一页 必填,,
         page_size: "20", //页行数 ,必填
       }
     }, (res, code) => {
       if (code === 0) {
         this.setState({
-          data3: res.data.data.rows
+          data3: res.data.data.rows?res.data.data.rows:[]
         })
       }
     })
@@ -180,7 +201,7 @@ class Bbentrust extends Component {
             </span>
             <Select value={bbsymbol} style={{ width: 110 }} onChange={this.handleChanges}>
               {
-                bbsymbolArrs.map((item,index)=>{
+               bbsymbolArrs&&bbsymbolArrs.map((item,index)=>{
                   return  <Option key={item + index} value={item.symbol}>{item.symbol}</Option>
                 })
               }

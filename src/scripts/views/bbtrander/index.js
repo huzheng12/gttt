@@ -15,6 +15,8 @@ import TitleFullk from '../fulltradepage/titeFull';
 import BbTablefoot from './BbTablefoot';
 import Placeorder from './placeorder';
 import bbsendMessage from '../../../utils/bb_ws_send';
+import Weituoliebiao from '../fulltradepage/weituoliebao';
+import ChengjiaoLiebiao from '../fulltradepage/chengjiao';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 const originalLayouts = getFromLS("bblayouts") || {};
 var titletoubu = document.getElementById('titletoubu')
@@ -76,7 +78,7 @@ class BBTradePage extends Component {
   componentDidUpdate() {
 
     if (this.props.ws_connect == 1 || this.props.isLogin == 1) {
-      if (this.props.bbasset) {
+      if (this.props.bbasset&&this.props.bbaymbol) {
         this.send_wss()
         this.props.wsrecOnnect(0)
         this.props.chongxinkaiqi(1)
@@ -86,10 +88,14 @@ class BBTradePage extends Component {
   send_wss=()=>{
     let options = bbsendMessage(this.props).bbobj
     if (window.wss.readyState === 1) {
-      window.wss.send(JSON.stringify(options.bbinstrument_all));
+        window.wss.send(JSON.stringify(options.bbinstrument_all));
       if (localStorage.userInfo) {
-        window.wss.send(JSON.stringify(options.bborder_book));
+        window.wss.send(JSON.stringify(options.bb_account_exp));
+        window.wss.send(JSON.stringify(options.bb_active_order));
+  
       }
+      window.wss.send(JSON.stringify(options.bborder_book));
+      window.wss.send(JSON.stringify(options.bb_trade));
     }
   }
   static get defaultProps() {
@@ -107,7 +113,7 @@ class BBTradePage extends Component {
     this.setState({ layouts });
   }
   render() {
-    const { bbasset, bbaymbol } = this.props
+    const { bbasset, bbaymbol ,bb_trade_exp_html} = this.props
     return this.props.a ? <Firstloading></Firstloading> : (
       <div className="fulltra-warp-d full-page">
         <Header></Header>
@@ -129,10 +135,11 @@ class BBTradePage extends Component {
             <Tvchart ctype="bb"></Tvchart>
           </div>
           <div key="2" data-grid={{ w: 3, h: 20, x: 6, y: 0, i: "2", minW: 2, minH: 3, }}>
-            {/* <Weituoliebiao></Weituoliebiao> */}
+            <Weituoliebiao type='bb'></Weituoliebiao>
           </div>
           <div key="3" data-grid={{ w: 3, h: 20, x: 9, y: 0, i: "3", minW: 2, minH: 3, }}>
             {/* <ChengjiaoLiebiao pcaccoundtnumflg={pcaccoundtnumflg} pcaccounddt={pcaccounddt} instrument={instrument}></ChengjiaoLiebiao> */}
+            <ChengjiaoLiebiao pcaccoundtnumflg={1} pcaccounddt={bb_trade_exp_html}></ChengjiaoLiebiao>
           </div>
           <div key="4" data-grid={{ w: 6, h: 9, x: 0, y: 11, i: "4", minW: 4, minH: 9, }}>
           <Placeorder></Placeorder>

@@ -77,7 +77,7 @@ class OrderPage extends Component {
       _m: "post",
       _u: "order1",
       _p: obj
-    }, (res, code) => { }, "交易成功")
+    }, (res, code) => { }, "下单成功")
 
   }
   duishoujia = () => {

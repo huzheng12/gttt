@@ -128,6 +128,15 @@
     }
 // foot  表格
     .bbtablefoot_warp{
+        height: 100%;
+        .ant-tabs .ant-tabs-top-content, .ant-tabs .ant-tabs-bottom-content {
+            width: 100%;
+            height: 80%;
+        }
+        .bbtablefoot_warp_box{
+            height: 100%;
+            overflow: auto;
+        }
         .ant-tabs-nav .ant-tabs-tab{
             padding: 12px 0px;
             margin-left: 13px;
@@ -905,4 +914,11 @@
             }
         }
     }
+}
+
+
+.chak{
+    display: block;
+    width: 100%;
+    text-align: center;
 }

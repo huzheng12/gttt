@@ -6,6 +6,7 @@ import { thousands } from '@/utils/prit'
 import { pricenubkaicang, pricenubpingcangduo, pricenubpingcangkong } from '../../../action';
 import store from '@/scripts/store.js'
 import EventFN from '../../../../utils/eventfn';
+import { bbinstrumentfn } from '../../../action/bbtion';
 var scrollBar_switch = true;
 @connect(
   state => {
@@ -16,6 +17,9 @@ var scrollBar_switch = true;
       instrument: state.data.instrument,
       asset: state.data.asset,
       Decimal_point: state.data.Decimal_point,
+      bborder_book: state.bbdata.bborder_book,
+      order_bookshu: state.bbdata.order_bookshu,
+      bbinstrument: state.bbdata.bbinstrument,
     }
   })
 
@@ -55,7 +59,7 @@ class Weituoliebiao extends Component {
     store.dispatch(pricenubpingcangkong(b))
   }
   componentDidUpdate() {
-    if (this.props.orderBookL2_25obj.arrAsks[0] && this.props.orderBookL2_25obj.arrBids[0]) {
+    if (this.props.type !== 'bb' && this.props.orderBookL2_25obj.arrAsks[0] && this.props.orderBookL2_25obj.arrBids[0]) {
       if (this.props.orderBookL2_25obj.arrAsks[0].price - this.props.orderBookL2_25obj.arrBids[0].price <= 0) {
         window.wss.send(JSON.stringify({
           "op": 'unsub',
@@ -88,16 +92,17 @@ class Weituoliebiao extends Component {
       heyuename,
       orderBookL2_25obj,
       instrument,
-      Decimal_point
+      Decimal_point, bborder_book,order_bookshu,type,bbinstrument
+
     } = this.props
     const {
-      imgArr
+      imgArr, 
     } = this.state
+    console.log(bbinstrument)
     return (
       <div className="weituo-bable-warp">
         <div className="title-cd drag-handle">
           <FormattedMessage id="DelegationList" defaultMessage={'委托列表'} />
-
         </div>
         <div className="title-boxtou">
           <div className="tite-biaoti"><FormattedMessage id="Price" defaultMessage={'价格'} />(USD)&emsp;</div>
@@ -107,10 +112,10 @@ class Weituoliebiao extends Component {
         <div className="module-body g-scrollbar" id="scrollBar">
           <ul className="ul-a1">
             {
-              orderBookL2_25obj.arrAsks.map((item, i) => {
+              (type === 'bb' ? bborder_book : orderBookL2_25obj).arrAsks.map((item, i) => {
                 return (
                   <div key={"1321321" + i} className={item.size ? "div-liweituo" : "liweituo-div"}>
-                    <div onClick={item.size ? () => this.parice(item.price) : null}
+                    <div onClick={type === 'bb'&&item.size ? () => this.parice(item.price) :  ()=>{}}
                       className="section-tou"
                       style={{ fontSize: 12, cursor: "pointer" }}>
                       {
@@ -145,8 +150,10 @@ class Weituoliebiao extends Component {
               })
             }
           </ul>
+
+          {/* type === 'bb' ? bborder_book : orderBookL2_25obj */}
           {
-            orderBookL2_25obj.arrBids ? <div className="section-titlt ul-a2" style={{ height: 55 }}>
+            type !== 'bb'?orderBookL2_25obj.arrBids ? <div className="section-titlt ul-a2" style={{ height: 55 }}>
               <div className="section-img-box" style={{
                 color: (() => {
                   if (instrument.flgz === "1" || instrument.flgz === "10") {
@@ -159,11 +166,12 @@ class Weituoliebiao extends Component {
                 {
                   EventFN.CurrencyDigitLimit({
                     type: Decimal_point,
-                    content: instrument.last_price
+                    content:type === 'bb'?bbinstrument.last_price: instrument.last_price
                   })
                 }
                 <img src={this.imgdongtaijia()} alt="" />
               </div>
+              
               <div className="section-titless">
                 <div className="diqiu-img-l" style={{ height: 24 }}>
                   <div style={{
@@ -172,7 +180,7 @@ class Weituoliebiao extends Component {
                   }}>{
                       EventFN.CurrencyDigitLimit({
                         type: Decimal_point,
-                        content: instrument.index_price
+                        content: type === 'bb'?bbinstrument.index_price:instrument.index_price
                       })
 
                     }</div>
@@ -187,19 +195,37 @@ class Weituoliebiao extends Component {
                   }}>{
                       EventFN.CurrencyDigitLimit({
                         type: Decimal_point,
-                        content: instrument.mark_price
+                        content: type === 'bb'?bbinstrument.mark_price:instrument.mark_price
                       })
                     }</div>
                 </div>
+              </div>
+            </div> : <Spin />:bborder_book.arrBids ?<div className="section-titlt ul-a2" style={{ height: 55 }}>
+            <div className="bbsection-img-box" style={{
+                color: (() => {
+                  if (instrument.flgz === "1" || instrument.flgz === "10") {
+                    return "rgba(38, 153, 78, 1)"
+                  } else {
+                    return "#EE6560"
+                  }
+                })(), whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', fontWeight: 900
+              }}>
+                {
+                  EventFN.CurrencyDigitLimit({
+                    type: Decimal_point,
+                    content:type === 'bb'?bbinstrument.last_price: instrument.last_price
+                  })
+                }
+                <img src={this.imgdongtaijia()} alt="" />
               </div>
             </div> : <Spin />
           }
           <ul className="ul-a2">
             {
-              orderBookL2_25obj.arrBids ? orderBookL2_25obj.arrBids.map((item, i) => {
+              (type === 'bb' ? bborder_book : orderBookL2_25obj).arrBids.map((item, i) => {
                 return (
                   <div key={"1321321" + i} className={item.size ? "div-liweituo uli-a10" : "liweituo-div"} >
-                    <div onClick={item.size ? () => this.parice(item.price) : null}
+                    <div onClick={type === 'bb'&&item.size ? () => this.parice(item.price) : ()=>{}}
                       className="section-tou"
                       style={{ color: "#26994E", fontSize: 12, cursor: "pointer" }}>{
                         EventFN.CurrencyDigitLimit({
@@ -227,8 +253,8 @@ class Weituoliebiao extends Component {
 
                   </div>
                 )
-              }) : ""
-            }
+              }) 
+          }
           </ul>
         </div>
       </div >

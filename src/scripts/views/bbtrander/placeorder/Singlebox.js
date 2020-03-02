@@ -133,7 +133,7 @@ class Singlebox extends Component {
         asset: this.props.bbasset,// 资产 USD,必填
         symbol: this.props.bbaymbol,// 交易对,必填
         bid_flag: this.props.type,// 1.买入,0.卖出,必填
-        price: this.state.isOk ? this.state.pricedata : bborder_book_data_one,// 价格, 非必填 , order_type是1必填 ,
+        price: this.state.isOk ? this.state.pricedata : this.props.bborder_book_data_one,// 价格, 非必填 , order_type是1必填 ,
         qty: this.state.lotdata,// 数量,必填
         order_type: '1',// 委托类型,1:限价,必填
       }

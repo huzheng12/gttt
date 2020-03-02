@@ -133,7 +133,7 @@ class Singlebox extends Component {
         asset: this.props.bbasset,// 资产 USD,必填
         symbol: this.props.bbaymbol,// 交易对,必填
         bid_flag: this.props.type,// 1.买入,0.卖出,必填
-        price: this.state.isOk ? this.state.pricedata : this.props.bborder_book.arrBids[0].price,// 价格, 非必填 , order_type是1必填 ,
+        price: this.state.isOk ? this.state.pricedata : bborder_book_data_one,// 价格, 非必填 , order_type是1必填 ,
         qty: this.state.lotdata,// 数量,必填
         order_type: '1',// 委托类型,1:限价,必填
       }
@@ -246,9 +246,7 @@ class Singlebox extends Component {
           <span>
             {
               (() => {
-                if(bborder_book_data_teo){
-                  return type === '1' ?String(bb_account_exp.quote_available /bborder_book_data_teo).replace(/^(.*\..{8}).*$/, "$1")  : bb_account_exp.currency_available * bborder_book_data_teoo
-                }
+
                 if (!isOk && this.props.bborder_book.arrBids.length > 0) {
                   return type === '1' ?String(bb_account_exp.quote_available /bborder_book_data_one).replace(/^(.*\..{8}).*$/, "$1")  : bb_account_exp.currency_available * bborder_book_data_one
 

@@ -87,6 +87,9 @@ class Weituoliebiao extends Component {
       scrollBar_switch = false
     }
   }
+  paricefn=(data)=>{
+    store.dispatch({type:"paricefn",data:data,isof:true})
+  }
   render() {
     const {
       heyuename,
@@ -115,7 +118,7 @@ class Weituoliebiao extends Component {
               (type === 'bb' ? bborder_book : orderBookL2_25obj).arrAsks.map((item, i) => {
                 return (
                   <div key={"1321321" + i} className={item.size ? "div-liweituo" : "liweituo-div"}>
-                    <div onClick={type === 'bb'&&item.size ? () => this.parice(item.price) :  ()=>{}}
+                    <div onClick={type !== 'bb'&&item.size ? () => this.parice(item.price) :  () => this.paricefn(item.price)}
                       className="section-tou"
                       style={{ fontSize: 12, cursor: "pointer" }}>
                       {
@@ -225,7 +228,7 @@ class Weituoliebiao extends Component {
               (type === 'bb' ? bborder_book : orderBookL2_25obj).arrBids.map((item, i) => {
                 return (
                   <div key={"1321321" + i} className={item.size ? "div-liweituo uli-a10" : "liweituo-div"} >
-                    <div onClick={type === 'bb'&&item.size ? () => this.parice(item.price) : ()=>{}}
+                    <div onClick={type !== 'bb'&&item.size ? () => this.parice(item.price) : () => this.paricefn(item.price)}
                       className="section-tou"
                       style={{ color: "#26994E", fontSize: 12, cursor: "pointer" }}>{
                         EventFN.CurrencyDigitLimit({

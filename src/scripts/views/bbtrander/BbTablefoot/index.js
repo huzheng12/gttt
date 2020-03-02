@@ -115,7 +115,7 @@ const { TabPane } = Tabs;
     return (
       <div className="bbtablefoot_warp">
         <Tabs defaultActiveKey="1" style={{height:"100%"}} onChange={this.callback}>
-          <TabPane style={{height:"100%",overflow:'auto'}} tab={"当前持仓["+(localStorage.userInfo?bbactive_order.order_total?bbactive_order.order_total:'--':'0')+"]"} key="1">
+          <TabPane style={{height:"100%",overflow:'auto'}} tab={"当前委托["+(localStorage.userInfo?bbactive_order.order_total?bbactive_order.order_total:'--':'0')+"]"} key="1">
           {this.dangqianchipang(bbactive_order.data&&bbactive_order.data.length,'1')}
 
             {

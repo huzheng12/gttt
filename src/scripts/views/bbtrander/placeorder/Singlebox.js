@@ -11,6 +11,7 @@ import { openNotificationWithIcon } from '../../../../utils/NotificationCONF';
 import Modeltrund from './modeltrund';
 import { Xfn } from '../../../../utils/axiosfn';
 import { connect } from "react-redux";
+import store from '../../../store';
 
 
 
@@ -32,6 +33,9 @@ const marks = {
       bb_account_exp: state.bbdata.bb_account_exp,
       order_bookshu: state.bbdata.order_bookshu,
       bborder_book: state.bbdata.bborder_book,
+      bborder_book_data_one: state.bbdata.bborder_book_data_one,
+      bborder_book_data_teo: state.bbdata.bborder_book_data_teo,
+      bborder_book_data_teoo: state.bbdata.bborder_book_data_teoo,
     }
   }
 )
@@ -49,7 +53,7 @@ class Singlebox extends Component {
     }
   }
   priceFn = (e) => {
-
+    store.dispatch({type:"paricefn",data:''})
     let value = e.target.value;
     value = value.replace(/[^\d.]/g, "");  //清除“数字”和“.”以外的字符  
     value = value.replace(/\.{2,}/g, "."); //只保留第一个. 清除多余的  
@@ -163,15 +167,23 @@ class Singlebox extends Component {
 
   }
   componentDidUpdate() {
+    if(this.props.bborder_book_data_teo&&this.props.bborder_book_data_teoo){
+      store.dispatch({type:"paricefn",data:this.props.bborder_book_data_teo,isof:false})
 
+      this.setState({
+        pricedata:this.props.bborder_book_data_teo,
+        isOk:true
+      })
+    }
   }
   render() {
     const {
       num17, pricedata, lotdata, visible, asset, available, aaa, isOk
     } = this.state
     const {
-      type, bbasset, bb_account_exp
+      type, bbasset, bb_account_exp,bborder_book_data_one,bborder_book_data_teo,bborder_book_data_teoo
     } = this.props
+    console.log(bborder_book_data_one,'[[[[[')
     return (
       <div className="single_warp">
         <div className="xiaotitle">
@@ -194,7 +206,9 @@ class Singlebox extends Component {
           </div>
         </div>
         <LoginPhoneEmail
-          phoneValue={isOk ? pricedata : this.props.bborder_book.arrBids.length > 0 ? this.props.bborder_book.arrBids[0].price : "0"}
+          phoneValue={isOk ? pricedata : bborder_book_data_one
+          
+          }
           phoneOnChange={this.priceFn}
           type={'3'}
           prefix={<span>价格</span>}
@@ -232,8 +246,11 @@ class Singlebox extends Component {
           <span>
             {
               (() => {
+                if(bborder_book_data_teo){
+                  return type === '1' ?String(bb_account_exp.quote_available /bborder_book_data_teo).replace(/^(.*\..{8}).*$/, "$1")  : bb_account_exp.currency_available * bborder_book_data_teoo
+                }
                 if (!isOk && this.props.bborder_book.arrBids.length > 0) {
-                  return type === '1' ?String(bb_account_exp.quote_available /this.props.bborder_book.arrBids[0].price).replace(/^(.*\..{8}).*$/, "$1")  : bb_account_exp.currency_available * this.props.bborder_book.arrBids[0].price
+                  return type === '1' ?String(bb_account_exp.quote_available /bborder_book_data_one).replace(/^(.*\..{8}).*$/, "$1")  : bb_account_exp.currency_available * bborder_book_data_one
 
                 }else{
                   if(!pricedata){

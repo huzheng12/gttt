@@ -12,8 +12,10 @@ const defaultState = {
   bborder_book: {
     arrAsks: [],
     arrBids: [],
-
   },
+  bborder_book_data_one:'',
+  bborder_book_data_teo:'',
+  bborder_book_data_teoo:false,
   order_bookshu: 1,
   bbactive_order: {},
   bb_account_exp: {},
@@ -38,13 +40,14 @@ export const bbdata = (state = defaultState, action) => {
       return { ...state, bbaymbol: action.data, bb_switch_ok: 1 }
     case 'bbsymbolgaibaianIs':
       return { ...state, bb_switch_ok: action.data }
+    case 'paricefn':
+      return { ...state, bborder_book_data_teo: action.data,bborder_book_data_teoo:action.isof }
     case BBACTIVEORDERFN:
       return { ...state, bbactive_order: action.data }
     case BBACCOUNTEXPFN:
      
       return { ...state, bb_account_exp: action.data }
     case 'trandefnnnn':
-     
       return { ...state, bb_trade_exp: [],bb_trade_exp_html:'' }
     case BBTRADEFN:
       let arr = action.language.concat(state.bb_trade_exp)
@@ -93,7 +96,10 @@ export const bbdata = (state = defaultState, action) => {
       reduxFnData.peixu(state.bborder_book)
       reduxFnData.color_ljl(state.bborder_book.arrAsks)
       reduxFnData.color_ljl(state.bborder_book.arrBids)
-      return { ...state, bborder_book: state.bborder_book, order_bookshu: iasdjflkajsd }
+      if( state.bborder_book.arrBids.length>0){
+        state.bborder_book_data_one = state.bborder_book.arrBids[0].price
+      }
+      return { ...state, bborder_book: state.bborder_book, order_bookshu: iasdjflkajsd,bborder_book_data_one:state.bborder_book_data_one }
     default:
       return state;
   }

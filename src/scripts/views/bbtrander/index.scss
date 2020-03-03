@@ -852,6 +852,8 @@
             margin-top: 40px;
             display: flex;
             background: #191E2E;
+            border: 1px solid #4D4949;
+            border-bottom:transparent;
             .img_box{
                 display: flex;
                 flex-direction: column;
@@ -889,6 +891,9 @@
         .li_box{
             display: flex;
             height: 100%;
+            min-height: 358px;
+            border: 1px solid #4D4949;
+            border-top:transparent;
             .box_bb{
               width: 30%;
               padding-left: 34px;

@@ -27,6 +27,7 @@ class Modeltrund extends Component {
 
 
   onOkFn = () => {
+    console.log(this.props.asset)
     Xfn({
       _u: 'bboaccounttransfer',
       _m: "post",
@@ -39,11 +40,15 @@ class Modeltrund extends Component {
     }, (res, code) => {
       if (code === 0) {
         this.props.visibleFn(false, 2)
+        this.setState({
+          zjzhfangxiang: "1",
+          zjzhfangxiangchu: "3",
+        })
       }
     })
   }
   zjzhfangxiang = (value) => {
-    this.props.bboaccountavailablefn(value)
+    this.props.bboaccountavailablefn(value,this.props.asset)
     if(value===this.state.zjzhfangxiangchu){
       this.setState({
         zjzhfangxiangchu:this.state.zjzhfangxiang
@@ -55,14 +60,14 @@ class Modeltrund extends Component {
   }
   zjzhfangxiangchu = (value) => {
     if(this.state.zjzhfangxiang===value){
-      this.props.bboaccountavailablefn(this.state.zjzhfangxiangchu)
+      this.props.bboaccountavailablefn(this.state.zjzhfangxiangchu,this.props.asset)
 
       this.setState({
         zjzhfangxiang:this.state.zjzhfangxiangchu
       })
     }else{
 
-      this.props.bboaccountavailablefn(this.state.zjzhfangxiang)
+      this.props.bboaccountavailablefn(this.state.zjzhfangxiang,this.props.asset)
     }
     this.setState({
       zjzhfangxiangchu: value
@@ -130,7 +135,7 @@ class Modeltrund extends Component {
               onChange={this.zjzhfangxiang}>
               <Option value="1">  <FormattedMessage id="Funds_account" defaultMessage={'资金账户'} /></Option>
               <Option value="2"> <FormattedMessage id="Sustainable_Contract_Account" defaultMessage={'永续合约账户'} /></Option>
-              <Option value="3"> bb账户</Option>
+              <Option value="3"> 币币账户</Option>
               {/* // 1 资金账户 2 永续合约账户 3 bb账户 */}
             </Select>
             <span className="chongbi-span-huazhuan" style={{ float: "left", lineHeight: "42px" }}> <FormattedMessage id="Transfer" defaultMessage={'划转'} /></span>
@@ -140,7 +145,7 @@ class Modeltrund extends Component {
               onChange={this.zjzhfangxiangchu}>
               <Option value="1"><FormattedMessage id="Funds_account" defaultMessage={'资金账户'} /></Option>
               <Option value="2"><FormattedMessage id="Sustainable_Contract_Account" defaultMessage={'永续合约账户'} /></Option>
-              <Option value="3"> bb账户</Option>
+              <Option value="3"> 币币账户</Option>
             </Select>
           </div>
 

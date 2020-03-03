@@ -9,6 +9,7 @@ import store from '@/scripts/store.js'
 import { Xfn } from '../../../../utils/axiosfn';
 import number_format from '../../../../utils/renyinumber';
 import Modeltrund from '../../bbtrander/placeorder/modeltrund';
+import { history } from '@/utils/history'
 
 class Yongxu extends Component {
   constructor() {
@@ -97,7 +98,13 @@ class Yongxu extends Component {
               <span className="span88"  onClick={() => this.visibleFn(true, 1, record)} style={{ textAlign: "left" }}><
                 FormattedMessage id="Transfer_of_funds" defaultMessage={'资金划转'} />
               </span>
-              <span className="span88">交易</span>
+              {
+                console.log(record)
+              }
+              {
+                record.asset!=='USDT'&&<span className="span88" onClick={()=>this.bbroutefn(record)}>交易</span>
+   
+              }
             </div>,
           },
 
@@ -147,6 +154,13 @@ class Yongxu extends Component {
   }
   tiaozhuan = (a) => {
     store.dispatch({ type: "tiaozhuanzijinhuanzhuan", tiaozhuanzijinhuanzhuan: a.asset })
+  }
+  bbroutefn=(data)=>{
+    history.push('/BBTradePage')
+    store.dispatch({
+      type:"bbassetroutefn",
+      data:data.asset
+    })
   }
   // 点击划转
   visibleFn = (flg, type, data) => {

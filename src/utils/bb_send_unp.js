@@ -2,6 +2,8 @@ import store from '@/scripts/store'
 import bbsendMessage from './bb_ws_send';
 
 export default function bbSubscribe(obj) {
+  localStorage.bbasset_data = obj.bbasset
+  localStorage.bbsymbol_data = obj.bbaymbol
   store.dispatch({type:"trandefnnnn",date:''})
   let options = bbsendMessage(obj._por,{
     bbaymbol:obj.bbaymbol,bbasset:obj.bbasset

@@ -565,6 +565,15 @@
             color:#fff;
             cursor:pointer;
             margin-right: 20px;
+            position: relative;
+            .bbyongxu{
+                width: 20px;
+                height: 100%;
+                position: absolute;
+                right: -25px;
+                top: 12px;
+                background: url('../../img/treaty_up.png') no-repeat;
+            }
         .xiabioa1{
             padding-top: 14px;
             margin-left: 10px;

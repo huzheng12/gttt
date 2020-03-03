@@ -3,8 +3,13 @@ import { SymbolInfo } from './tvConfig'
 import { candlefunction } from '../../scripts/action';
 import store from '../../scripts/store';
 import { Xfn } from '../axiosfn';
+
 const BbDataFeeds = {};
+
+
+  
 BbDataFeeds.Tv = function () { };
+
 BbDataFeeds.Tv.prototype.onReady = function (callback) {
     const defaultConfiguration = {
         symbols_type: [],
@@ -31,8 +36,8 @@ BbDataFeeds.Tv.prototype.getBars = function (symbolInfo, resolution, rangeStartD
         _u: "bbcandlehistory",
         _m: "get",
         _p: {
-            asset: "USDT",
-            symbol: "BTC_USD",
+            asset: localStorage.bbasset_data,
+            symbol: localStorage.bbsymbol_data,
             start_time: from,
             end_time: to,
             interval: resolution

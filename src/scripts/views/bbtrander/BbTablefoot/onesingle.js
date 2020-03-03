@@ -36,7 +36,7 @@ export default class Onesingle extends Component {
           <div className="spl1">方向</div>
           <div className="spl2">
             <span className="spanl2" style={{ color: data.bid_flag === '1' ? '#339F58' : '#E53F39', backgroundColor: data.bid_flag === '1' ? 'rgba(38,153,78,.3)' : 'rgba(229,63,57,.3)' }}>
-              {data.bid_flag ? "买入" : "卖出"}
+              {data.bid_flag === '1' ? "买入" : "卖出"}
             </span>
 
           </div>

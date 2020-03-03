@@ -123,7 +123,7 @@ class Weituoliebiao extends Component {
                       style={{ fontSize: 12, cursor: "pointer" }}>
                       {
                         EventFN.CurrencyDigitLimit({
-                          type: Decimal_point,
+                          type:type !== 'bb'? Decimal_point:bbinstrument.price_precision,
                           content: item.price
                         })
                       }&emsp;</div>
@@ -197,7 +197,7 @@ class Weituoliebiao extends Component {
                     whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden'
                   }}>{
                       EventFN.CurrencyDigitLimit({
-                        type: Decimal_point,
+                        type: type === 'bb'?Decimal_point:bbinstrument.price_precision,
                         content: type === 'bb'?bbinstrument.mark_price:instrument.mark_price
                       })
                     }</div>
@@ -215,7 +215,7 @@ class Weituoliebiao extends Component {
               }}>
                 {
                   EventFN.CurrencyDigitLimit({
-                    type: Decimal_point,
+                    type: type !== 'bb'? Decimal_point:'1',
                     content:type === 'bb'?bbinstrument.last_price: instrument.last_price
                   })
                 }
@@ -232,7 +232,7 @@ class Weituoliebiao extends Component {
                       className="section-tou"
                       style={{ color: "#26994E", fontSize: 12, cursor: "pointer" }}>{
                         EventFN.CurrencyDigitLimit({
-                          type: Decimal_point,
+                          type: type !== 'bb'? Decimal_point:bbinstrument.price_precision,
                           content: item.price
                         })
                       }&emsp;</div>

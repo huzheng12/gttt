@@ -341,7 +341,7 @@ class Huazhuan extends Component {
               onChange={this.zjzhfangxiang}>
               <Option value="1"><FormattedMessage id="Funds_account" defaultMessage={'资金账户'} /></Option>
               <Option value="2"><FormattedMessage id="Sustainable_Contract_Account" defaultMessage={'永续合约账户'} /></Option>
-              <Option value="3"> bb账户</Option>
+              <Option value="3"> 币币账户</Option>
 
             </Select>
             <span className="chongbi-span-huazhuan" style={{ float: "left", lineHeight: "42px" }}><FormattedMessage id="Transfer" defaultMessage={'划转'} /></span>
@@ -349,7 +349,7 @@ class Huazhuan extends Component {
               style={{ width: 130, height: 42, float: "left" }} value={this.state.zjzhfangxiangchu} onChange={this.zjzhfangxiangchu}>
               <Option value="1"><FormattedMessage id="Funds_account" defaultMessage={'资金账户'} /></Option>
               <Option value="2"><FormattedMessage id="Sustainable_Contract_Account" defaultMessage={'永续合约账户'} /></Option>
-              <Option value="3"> bb账户</Option>
+              <Option value="3"> 币币账户</Option>
 
             </Select>
           </div>

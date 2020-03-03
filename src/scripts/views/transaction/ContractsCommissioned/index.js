@@ -578,7 +578,7 @@ class ContractsCommissioned extends Component {
                     <Option value="1">  <FormattedMessage id="Funds_account" defaultMessage={'资金账户'} /></Option>
                     <Option value="2"> <FormattedMessage id="Sustainable_Contract_Account" defaultMessage={'永续合约账户'} /></Option>
                     {/* // 1 资金账户 2 永续合约账户 3 现货账户 */}
-                    <Option value="3">bb账户</Option>
+                    <Option value="3">币币账户</Option>
 
                   </Select>
                   <span className="chongbi-span-huazhuan" style={{ float: "left", lineHeight: "42px" }}>
@@ -590,7 +590,7 @@ class ContractsCommissioned extends Component {
                     onChange={this.zjzhfangxiangchu}>
                     <Option value="1"><FormattedMessage id="Funds_account" defaultMessage={'资金账户'} /></Option>
                     <Option value="2"><FormattedMessage id="Sustainable_Contract_Account" defaultMessage={'永续合约账户'} /></Option>
-                    <Option value="3">bb账户</Option>
+                    <Option value="3">币币账户</Option>
                   </Select>
                 </div>
 

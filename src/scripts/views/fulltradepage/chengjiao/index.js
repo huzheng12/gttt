@@ -2,7 +2,6 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Spin } from 'antd';
 const ChengjiaoLiebiao = (props) => {
-  console.log(props)
   return (
     <div className="chengjiao-warp-box">
       <div className="title-cd drag-handle"><FormattedMessage id="Transaction_list" defaultMessage={'成交列表'} /></div>

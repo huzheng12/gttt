@@ -368,7 +368,7 @@ class TitleFullk extends Component {
       }
     }
   }
-  yuehuazhuan=(type)=>{
+  yuehuazhuan = (type) => {
     const obj = {
       asset: this.props.asset,
       from_account: type,
@@ -398,7 +398,7 @@ class TitleFullk extends Component {
         numshuliang: this.state.lis,
         valuequanbushuliang: ""
       })
-    }else{
+    } else {
       this.setState({
         numshuliang: this.props.pc_account.available,
         valuequanbushuliang: ""
@@ -415,12 +415,13 @@ class TitleFullk extends Component {
         numshuliang: this.props.pc_account.available,
         valuequanbushuliang: ""
       })
-    }else{
+    } else {
       this.setState({
         numshuliang: this.state.lis,
         valuequanbushuliang: ""
       })
-    }  }
+    }
+  }
   hideModal12 = () => {
     this.setState({
       visible1: false,
@@ -443,7 +444,7 @@ class TitleFullk extends Component {
       heyuename,
       instrument,
       asset,
-      Decimal_point, ctype, bbasset, bbaymbol,bbinstrument
+      Decimal_point, ctype, bbasset, bbaymbol, bbinstrument
     } = this.props
     const {
       imgArr,
@@ -469,29 +470,33 @@ class TitleFullk extends Component {
             {
               ctype === 'bb' ? <Headernav></Headernav> : ""
             }
+            {
+              ctype === 'bb'&&bbaymbol ?<div className="bbyongxu"></div>: ""
+            }
+
           </div>
 
           <div className="astimg">
             {
-              (ctype === 'bb' ?bbinstrument:instrument).change_rate_24h ? (ctype === 'bb' ?bbinstrument:instrument).change_rate_24h >= 0 ? <div className="iconfont imgastd" style={{ color: "#26994E" }}>&#xe60e;</div> : <div className="iconfont imgastd" style={{ color: "#E53F39" }}>&#xe610;</div> : ""
+              (ctype === 'bb' ? bbinstrument : instrument).change_rate_24h ? (ctype === 'bb' ? bbinstrument : instrument).change_rate_24h >= 0 ? <div className="iconfont imgastd" style={{ color: "#26994E" }}>&#xe60e;</div> : <div className="iconfont imgastd" style={{ color: "#E53F39" }}>&#xe610;</div> : ""
             }
           </div>
           <div className="astimg">
-            <div className="tetle" style={{ color: (ctype === 'bb' ?bbinstrument:instrument).change_rate_24h >= 0 ? "#26994E" : "#E53F39" }}>
+            <div className="tetle" style={{ color: (ctype === 'bb' ? bbinstrument : instrument).change_rate_24h >= 0 ? "#26994E" : "#E53F39" }}>
               {
                 EventFN.CurrencyDigitLimit({
                   type: Decimal_point,
-                  content: (ctype === 'bb' ?bbinstrument:instrument).last_price
+                  content: (ctype === 'bb' ? bbinstrument : instrument).last_price
                 })
               }
             </div>
           </div>
           <div className="astimg">
-            <div className="shenglv" style={{ backgroundColor: (ctype === 'bb' ?bbinstrument:instrument).change_rate_24h >= 0 ? "#26994E" : "#E53F39" }}>
+            <div className="shenglv" style={{ backgroundColor: (ctype === 'bb' ? bbinstrument : instrument).change_rate_24h >= 0 ? "#26994E" : "#E53F39" }}>
               {
                 (() => {
-                  if ((ctype === 'bb' ?bbinstrument:instrument).change_rate_24h) {
-                    return (ctype === 'bb' ?bbinstrument:instrument).change_rate_24h > 0 ? "+" + String((ctype === 'bb' ?bbinstrument:instrument).change_rate_24h * 100).replace(/^(.*\..{2}).*$/, "$1") + "%" : String((ctype === 'bb' ?bbinstrument:instrument).change_rate_24h * 100).replace(/^(.*\..{2}).*$/, "$1") + "%"
+                  if ((ctype === 'bb' ? bbinstrument : instrument).change_rate_24h) {
+                    return (ctype === 'bb' ? bbinstrument : instrument).change_rate_24h > 0 ? "+" + String((ctype === 'bb' ? bbinstrument : instrument).change_rate_24h * 100).replace(/^(.*\..{2}).*$/, "$1") + "%" : String((ctype === 'bb' ? bbinstrument : instrument).change_rate_24h * 100).replace(/^(.*\..{2}).*$/, "$1") + "%"
                   } else {
                     return "--"
                   }
@@ -773,7 +778,7 @@ class TitleFullk extends Component {
                 <Option value="1">  <FormattedMessage id="Funds_account" defaultMessage={'资金账户'} /></Option>
                 <Option value="2"> <FormattedMessage id="Sustainable_Contract_Account" defaultMessage={'永续合约账户'} /></Option>
                 {/* // 1 资金账户 2 永续合约账户 3 现货账户 */}
-                <Option value="3">bb账户</Option>
+                <Option value="3">币币账户</Option>
               </Select>
               <span className="chongbi-span-huazhuan" style={{ float: "left", lineHeight: "42px" }}> <FormattedMessage id="Transfer" defaultMessage={'划转'} /></span>
               <Select defaultValue="2" className="select2222"
@@ -782,7 +787,7 @@ class TitleFullk extends Component {
                 onChange={this.zjzhfangxiangchu}>
                 <Option value="1"><FormattedMessage id="Funds_account" defaultMessage={'资金账户'} /></Option>
                 <Option value="2"><FormattedMessage id="Sustainable_Contract_Account" defaultMessage={'永续合约账户'} /></Option>
-                <Option value="3">bb账户</Option>
+                <Option value="3">币币账户</Option>
 
               </Select>
             </div>

@@ -36,6 +36,7 @@ const marks = {
       bborder_book_data_one: state.bbdata.bborder_book_data_one,
       bborder_book_data_teo: state.bbdata.bborder_book_data_teo,
       bborder_book_data_teoo: state.bbdata.bborder_book_data_teoo,
+      bbinstrument: state.bbdata.bbinstrument,
     }
   }
 )
@@ -49,51 +50,53 @@ class Singlebox extends Component {
       available: {},
       num17: "",
       aaa: 100,
-      isOk: false
+      isOk: false,
+      tanasset:""
     }
   }
   priceFn = (e) => {
-    store.dispatch({type:"paricefn",data:''})
+    store.dispatch({ type: "paricefn", data: '' })
     let value = e.target.value;
     value = value.replace(/[^\d.]/g, "");  //清除“数字”和“.”以外的字符  
     value = value.replace(/\.{2,}/g, "."); //只保留第一个. 清除多余的  
     value = value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
-    var n = 1
+    var n = this.props.bbinstrument.price_precision*1
     var numdd = new RegExp(`^(.*\\..{${n}}).*$`)
     value = value.replace(numdd, "$1")
+    // console.log(n,value)
     if (value * 1 > 1000000) {
       this.setState({
         pricedata: "1000000"
       })
       return openNotificationWithIcon("opne-warning", "警告", "价格不能超过1000000")
     }
-    if (value[0] != "0" && value[0] != ".") {
       this.setState({
         pricedata: value,
         isOk: true,
       })
-    }
   }
   lotFn = (e) => {
     let value = e.target.value;
+    var n = this.props.bbinstrument.number_precision*1
+    var numdd = new RegExp(`^(.*\\..{${n}}).*$`)
+    value = value.replace(numdd, "$1")
     if (value * 1 > 100000000) {
       this.setState({
         lotdata: "100000000"
       })
       return openNotificationWithIcon("opne-warning", "警告", "数量不能超过100000000")
     }
-    if (value >= 0 && value[0] != "0") {
+ 
       this.setState({
-        lotdata: value.replace(/[^0-9-]+/, '')
+        lotdata: value.replace(/[^0-9-.]+/, '')
       })
-    }
   }
-  bboaccountavailablefn = (type) => {
+  bboaccountavailablefn = (type,data) => {
     Xfn({
       _u: "bboaccountavailable",
       _m: "get",
       _p: {
-        asset: this.props.bbasset,
+        asset: data?data:this.props.bbasset,
         account_type: type
       }
     }, (res, code) => {
@@ -103,14 +106,19 @@ class Singlebox extends Component {
       this.setState({
         available: res.data.data
       })
-      console.log(res)
     })
   }
   // 点击划转
-  visibleFn = (flg, type) => {
+  visibleFn = (flg, type,data) => {
+    if(data){
+      this.setState({
+        tanasset:data
+      })
+      console.log(data)
+    }
     // type ===1  点击划转
     if (type === 1) {
-      this.bboaccountavailablefn('1')
+      this.bboaccountavailablefn('1',data)
     } else if (type === 2) {
 
     }
@@ -167,23 +175,22 @@ class Singlebox extends Component {
 
   }
   componentDidUpdate() {
-    if(this.props.bborder_book_data_teo&&this.props.bborder_book_data_teoo){
-      store.dispatch({type:"paricefn",data:this.props.bborder_book_data_teo,isof:false})
+    if (this.props.bborder_book_data_teo && this.props.bborder_book_data_teoo) {
+      store.dispatch({ type: "paricefn", data: this.props.bborder_book_data_teo, isof: false })
 
       this.setState({
-        pricedata:this.props.bborder_book_data_teo,
-        isOk:true
+        pricedata: this.props.bborder_book_data_teo,
+        isOk: true
       })
     }
   }
   render() {
     const {
-      num17, pricedata, lotdata, visible, asset, available, aaa, isOk
+      num17, pricedata, lotdata, visible, asset, available, aaa, isOk,tanasset
     } = this.state
     const {
-      type, bbasset, bb_account_exp,bborder_book_data_one,bborder_book_data_teo,bborder_book_data_teoo
+      type, bbasset, bb_account_exp, bborder_book_data_one, bborder_book_data_teo, bborder_book_data_teoo, bbaymbol, bbinstrument
     } = this.props
-    console.log(bborder_book_data_one,'[[[[[')
     return (
       <div className="single_warp">
         <div className="xiaotitle">
@@ -196,18 +203,22 @@ class Singlebox extends Component {
 
             }
             {
-              type === '1' ? " USDT" : " BTC"
+              type === '1' ? " USDT" : " " +  (bbinstrument.symbol && bbinstrument.symbol.split(bbinstrument.split_char)[0])
             }
           </div>
-          <div className="but_huazhuan" onClick={() => this.visibleFn(true, 1)}>
+          <div className="but_huazhuan" onClick={() => this.visibleFn(true, 1,type === '1' ? "USDT" :  (bbinstrument.symbol && bbinstrument.symbol.split(bbinstrument.split_char)[0]))}>
             划转{
-              type === '1' ? "USDT" : "BTC"
+              type === '1' ? "USDT" :  (bbinstrument.symbol && bbinstrument.symbol.split(bbinstrument.split_char)[0])
             }
           </div>
         </div>
+        {
+          console.log(pricedata)
+        }
         <LoginPhoneEmail
-          phoneValue={isOk ? pricedata : bborder_book_data_one
-          
+
+          phoneValue={isOk ?pricedata :bborder_book_data_one
+
           }
           phoneOnChange={this.priceFn}
           type={'3'}
@@ -225,7 +236,13 @@ class Singlebox extends Component {
           prefix={<span>数量</span>}
           suffix={
             <Tooltip className="tooltip-001">
-              <span>BTC</span>
+              <span>
+
+                {
+                  bbinstrument.symbol && bbinstrument.symbol.split(bbinstrument.split_char)[0]
+
+                }
+              </span>
             </Tooltip>
           }
         />
@@ -233,13 +250,13 @@ class Singlebox extends Component {
         <Slider tipFormatter={this.formatter} marks={marks} value={num17} min={0} step={0.01} max={100} tooltipVisible={1 == 2} onChange={this.modify_lever} />
         <Button onClick={this.create} className={"button-00010" + (type === '1' ? ' butgg lvse' : ' butgt bgred')} type="primary"  >
           {
-            type === '1' ? "买入BTC" : "卖出BTC"
+            type === '1' ? "买入" + ( bbinstrument.symbol?bbinstrument.symbol.split(bbinstrument.split_char)[0]:'BTC') : "卖出" +  (bbinstrument.symbol && bbinstrument.symbol.split(bbinstrument.split_char)[0])
           }
         </Button>
         <div className="foot_box">
           <span className="span3">
             {
-              type === '1' ? "可买(BTC):" : "可卖(USDT):"
+              type === '1' ? "可买(" +  (bbinstrument.symbol && bbinstrument.symbol.split(bbinstrument.split_char)[0]) + "):" : "可卖(USDT):"
             }
 
           </span>
@@ -248,13 +265,13 @@ class Singlebox extends Component {
               (() => {
 
                 if (!isOk && this.props.bborder_book.arrBids.length > 0) {
-                  return type === '1' ?String(bb_account_exp.quote_available /bborder_book_data_one).replace(/^(.*\..{8}).*$/, "$1")  : bb_account_exp.currency_available * bborder_book_data_one
+                  return type === '1' ? String(bb_account_exp.quote_available / bborder_book_data_one).replace(/^(.*\..{8}).*$/, "$1") : String(bb_account_exp.currency_available * bborder_book_data_one).replace(/^(.*\..{8}).*$/, "$1")
 
-                }else{
-                  if(!pricedata){
+                } else {
+                  if (!pricedata) {
                     return 0
                   }
-                  return type === '1' ?String(bb_account_exp.quote_available /pricedata).replace(/^(.*\..{8}).*$/, "$1")  : bb_account_exp.currency_available * pricedata
+                  return type === '1' ? String(bb_account_exp.quote_available / pricedata).replace(/^(.*\..{8}).*$/, "$1") : String(bb_account_exp.currency_available * pricedata).replace(/^(.*\..{8}).*$/, "$1")
                 }
               })()
             }
@@ -263,7 +280,7 @@ class Singlebox extends Component {
         <Modeltrund
           bboaccountavailablefn={this.bboaccountavailablefn}
           available={available}
-          asset={bbasset}
+          asset={tanasset}
           visible={visible}
           visibleFn={this.visibleFn}
         >

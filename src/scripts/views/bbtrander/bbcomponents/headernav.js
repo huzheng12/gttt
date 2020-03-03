@@ -14,6 +14,8 @@ let assetquanbu=null
       bbasset: state.bbdata.bbasset,
       bbaymbol: state.bbdata.bbaymbol,
       bbsymbolArr: state.bbdata.bbsymbolArr,
+      bbassetroute: state.bbdata.bbassetroute,
+      bbinstrumentArr: state.bbdata.bbinstrumentArr,
     }
   }
 )
@@ -94,7 +96,7 @@ class Headernav extends Component {
       imgArr,bbclkasset,bbsyblarr
     } = this.state
     const {
-      bbassetArr,bbasset,bbsymbolArr
+      bbassetArr,bbasset,bbsymbolArr,bbinstrumentArr
     } = this.props
     return (
       <div className="headernav_warp">
@@ -133,8 +135,17 @@ class Headernav extends Component {
               })}
           </ul>
           <ul className="box_bb box_bb3">
-            <li>1</li>
-            <li>2</li>
+            {
+              bbinstrumentArr.map((item,index)=>{
+                return <li style={{ color: item.change_rate_24h && item.change_rate_24h >= 0 ? "#26994E" : "#E53F39" }} key={item+index} onClick={()=>this.symbolfn(item.symbol)}>
+                {
+                  item.change_rate_24h && item.change_rate_24h > 0 ? "+" + String(item.change_rate_24h * 100).replace(/^(.*\..{2}).*$/, "$1") : String(item.change_rate_24h * 100).replace(/^(.*\..{2}).*$/, "$1")
+                }
+                %
+              </li>
+              })
+            }
+
           </ul>
         </div>
       </div>

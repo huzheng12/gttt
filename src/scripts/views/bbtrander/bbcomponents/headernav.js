@@ -89,6 +89,7 @@ class Headernav extends Component {
     bbSubscribe({
       bbaymbol: value,
       bbasset: assetquanbu,
+      bbclksybmol:value
     })
 
   }
@@ -97,7 +98,7 @@ class Headernav extends Component {
       imgArr, bbclkasset, bbsyblarr,bbclksybmol
     } = this.state
     const {
-      bbassetArr, bbasset, bbsymbolArr, bbinstrumentArr
+      bbassetArr, bbasset, bbsymbolArr, bbinstrumentArr,bbaymbol
     } = this.props
     return (
       <div className="headernav_warp">
@@ -128,7 +129,7 @@ class Headernav extends Component {
           <ul className="box_bb box_bb2">
             {
               bbsyblarr.map((item, index) => {
-                return <li className={bbclksybmol !== item.symbol ? "" : 'box_bbspan999 '} key={item + index} onClick={() => this.symbolfn(item.symbol)}>
+                return <li className={bbaymbol !== item.symbol ? "" : 'box_bbspan999 '} key={item + index} onClick={() => this.symbolfn(item.symbol)}>
                   {
                     item.symbol
                   }
@@ -138,7 +139,7 @@ class Headernav extends Component {
           <ul className="box_bb box_bb3">
             {
               bbinstrumentArr.map((item, index) => {
-                return <li className={bbclksybmol !== item.symbol ? "" : 'box_bbspan999 '} style={{ color: item.change_rate_24h && item.change_rate_24h >= 0 ? "#26994E" : "#E53F39" }} key={item + index} onClick={() => this.symbolfn(item.symbol)}>
+                return <li className={bbaymbol !== item.symbol ? "" : 'box_bbspan999 '} style={{ color: item.change_rate_24h && item.change_rate_24h >= 0 ? "#26994E" : "#E53F39" }} key={item + index} onClick={() => this.symbolfn(item.symbol)}>
                   {
                     item.change_rate_24h && item.change_rate_24h > 0 ? "+" + String(item.change_rate_24h * 100).replace(/^(.*\..{2}).*$/, "$1") : String(item.change_rate_24h * 100).replace(/^(.*\..{2}).*$/, "$1")
                   }

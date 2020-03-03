@@ -114,6 +114,7 @@ class BBTradePage extends Component {
   }
   render() {
     const { bbasset, bbaymbol ,bb_trade_exp_html} = this.props
+    console.log(bbasset,'0000')
     return this.props.a ? <Firstloading></Firstloading> : (
       <div className="fulltra-warp-d full-page">
         <Header></Header>

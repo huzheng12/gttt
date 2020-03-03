@@ -29,7 +29,10 @@ const { TabPane } = Tabs;
   }
   componentDidMount() {
     if(localStorage.userInfo){
-      this.history_data()
+      setTimeout(()=>{
+        this.history_data()
+
+      },2000)
 
     }
   }

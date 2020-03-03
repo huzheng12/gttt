@@ -5,7 +5,7 @@ import { Xfn } from '../../../../utils/axiosfn';
 import { bbsymbolfn } from '../../../action/bbtion';
 import bbSubscribe from '../../../../utils/bb_send_unp';
 
-let assetquanbu=null
+let assetquanbu = null
 
 @connect(
   state => {
@@ -27,45 +27,46 @@ class Headernav extends Component {
         a1: require("../../../img/rate_down.png"),
         a2: require('../../../img/rate_up.png'),
       },
-      bbclkasset:"USDT",
-      bbsyblarr:[],isOk:true
+      bbclkasset: "USDT",
+      bbclksybmol: "BTC/USDT",
+      bbsyblarr: [], isOk: true
     }
   }
-  componentDidMount(){
+  componentDidMount() {
     this.bbassetFn()
   }
   bbassetFn = () => {
-		Xfn({
-			_u: "bbassetquery",
-			_m: 'get',
-			_p: {}
-		}, (res, code) => {
-			if (code === 0) {
+    Xfn({
+      _u: "bbassetquery",
+      _m: 'get',
+      _p: {}
+    }, (res, code) => {
+      if (code === 0) {
         assetquanbu = 'USDT'
-				Xfn({
-					_u: "bbsymbolquery",
-					_m: "get",
-					_p: {
-						asset: 'USDT'
-					}
-				}, (res, code) => {
-					if (code === 0) {
+        Xfn({
+          _u: "bbsymbolquery",
+          _m: "get",
+          _p: {
+            asset: 'USDT'
+          }
+        }, (res, code) => {
+          if (code === 0) {
             this.setState({
-              bbsyblarr:res.data.data.rows
+              bbsyblarr: res.data.data.rows
             })
           }
-				})
-			}
-		})
-	}
-  dianji=(value)=>{
-    if(!this.state.isOk){
+        })
+      }
+    })
+  }
+  dianji = (value) => {
+    if (!this.state.isOk) {
       return false
     }
-    assetquanbu= value
+    assetquanbu = value
     this.setState({
-      bbclkasset:value,
-      isOk:false
+      bbclkasset: value,
+      isOk: false
     })
     Xfn({
       _u: "bbsymbolquery",
@@ -76,27 +77,27 @@ class Headernav extends Component {
     }, (res, code) => {
       if (code === 0) {
         this.setState({
-          bbsyblarr:res.data.data.rows,
-          isOk:true
+          bbsyblarr: res.data.data.rows,
+          isOk: true
         })
       }
     })
   }
-  symbolfn=(value)=>{
-    store.dispatch({type:"bbassetgaibaian",data:assetquanbu})
-    store.dispatch({type:'bbsymbolgaibaian',data:value})
+  symbolfn = (value) => {
+    store.dispatch({ type: "bbassetgaibaian", data: assetquanbu })
+    store.dispatch({ type: 'bbsymbolgaibaian', data: value })
     bbSubscribe({
-      bbaymbol :value,
-      bbasset:assetquanbu,
+      bbaymbol: value,
+      bbasset: assetquanbu,
     })
-   
+
   }
   render() {
     const {
-      imgArr,bbclkasset,bbsyblarr
+      imgArr, bbclkasset, bbsyblarr,bbclksybmol
     } = this.state
     const {
-      bbassetArr,bbasset,bbsymbolArr,bbinstrumentArr
+      bbassetArr, bbasset, bbsymbolArr, bbinstrumentArr
     } = this.props
     return (
       <div className="headernav_warp">
@@ -117,7 +118,7 @@ class Headernav extends Component {
           <ul className="box_bb box_bb1">
             {
               bbassetArr.map((item, index) => {
-                return <li key={item + index} onClick={()=>this.dianji(item.asset)} className={bbclkasset!==item.asset?"box_bbspan":'box_bbspan1 box_bbspan'}>{
+                return <li key={item + index} onClick={() => this.dianji(item.asset)} className={bbclkasset !== item.asset ? "box_bbspan" : 'box_bbspan1 box_bbspan'}>{
                   item.asset
                 }</li>
               })
@@ -126,8 +127,8 @@ class Headernav extends Component {
           </ul>
           <ul className="box_bb box_bb2">
             {
-              bbsyblarr.map((item,index)=>{
-                return <li key={item+index} onClick={()=>this.symbolfn(item.symbol)}>
+              bbsyblarr.map((item, index) => {
+                return <li className={bbclksybmol !== item.symbol ? "" : 'box_bbspan999 '} key={item + index} onClick={() => this.symbolfn(item.symbol)}>
                   {
                     item.symbol
                   }
@@ -136,12 +137,12 @@ class Headernav extends Component {
           </ul>
           <ul className="box_bb box_bb3">
             {
-              bbinstrumentArr.map((item,index)=>{
-                return <li style={{ color: item.change_rate_24h && item.change_rate_24h >= 0 ? "#26994E" : "#E53F39" }} key={item+index} onClick={()=>this.symbolfn(item.symbol)}>
-                {
-                  item.change_rate_24h && item.change_rate_24h > 0 ? "+" + String(item.change_rate_24h * 100).replace(/^(.*\..{2}).*$/, "$1") : String(item.change_rate_24h * 100).replace(/^(.*\..{2}).*$/, "$1")
-                }
-                %
+              bbinstrumentArr.map((item, index) => {
+                return <li className={bbclksybmol !== item.symbol ? "" : 'box_bbspan999 '} style={{ color: item.change_rate_24h && item.change_rate_24h >= 0 ? "#26994E" : "#E53F39" }} key={item + index} onClick={() => this.symbolfn(item.symbol)}>
+                  {
+                    item.change_rate_24h && item.change_rate_24h > 0 ? "+" + String(item.change_rate_24h * 100).replace(/^(.*\..{2}).*$/, "$1") : String(item.change_rate_24h * 100).replace(/^(.*\..{2}).*$/, "$1")
+                  }
+                  %
               </li>
               })
             }

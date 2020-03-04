@@ -9,6 +9,7 @@ import { zhutiyanzheng, heyuename, assetfn } from '../../action';
 import lang from '@/utils/language';
 
 var history_last_data;
+var bbhistory_last_data;
 
 const barsFormat = (data) => {
     let bars = [];
@@ -41,6 +42,8 @@ const barsFormat = (data) => {
             asset_switch: state.data.asset_switch,
             bb_switch_ok: state.bbdata.bb_switch_ok,
             bbaymbol: state.bbdata.bbaymbol,
+            bbcandle: state.bbdata.bbcandle,
+            kxianbb: state.bbdata.kxianbb,
         }
     }
 )
@@ -151,14 +154,33 @@ class tvChart extends Component {
     }
     componentDidUpdate() {
         if(this.props.ctype==='bb'){
-            console.log(this.props.bb_switch_ok,'33')
             if(this.props.bb_switch_ok===1){
-                console.log(this.props.bbaymbol)
                 this.initOnReady(this.props.bbaymbol);
                 store.dispatch({
                     type:"bbsymbolgaibaianIs",
                     data:0
                 })
+            }
+            if (this.props.bbcandle.data) {
+                const d = this.props.bbcandle.data
+                const bars = barsFormat(d);
+                const real = d.current;
+                if (real == 1) {
+                    bbhistory_last_data = bars[bars.length - 1];
+                }
+                if (bars.length === 0) {
+                    window.bbhistoryBarsUpdate(bars, { noData: true });
+                } else {
+                    if (real == 0) {
+                        window.bbhistoryBarsUpdate(bars, { noData: bars.length === 0 });
+                    } else {
+                        for (let i = 0; i < bars.length; i++) {
+                            if (bbhistory_last_data.time && bars[i].time >= bbhistory_last_data.time) {
+                                window.bbrealtimeBarUpdate(bars[i]);
+                            }
+                        }
+                    }
+                }
             }
         }else{
             if (this.props.asset_switch === 1) {

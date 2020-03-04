@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
-import { Select, Table } from 'antd';
+import { Select, Table,Spin } from 'antd';
 // import { Table, Modal, Spin, Select } from 'antd';
 import { connect } from "react-redux";
 import './index.scss'
 import { Xfn } from '../../../utils/axiosfn';
+import { FormattedMessage } from 'react-intl';
+import { NavLink } from "react-router-dom"
+
 const { Option } = Select;
 
 
@@ -33,6 +36,9 @@ class Bbentrust extends Component {
       bbsymbolArrs:[],
       isOk:true,
       isOksymbol:true,
+      imgArr: {
+        ioo: require("../../img/nothing_data.png"),
+      },
     }
   }
   componentDidMount() {
@@ -150,9 +156,7 @@ class Bbentrust extends Component {
     })
   }
   history_data = (url,data) => {
-    // bborderquery
-    // bborderquery_history
-    console.log(url)
+
     Xfn({
       _u: url,
       _m: 'get',
@@ -171,6 +175,32 @@ class Bbentrust extends Component {
         })
       }
     })
+  }
+  dangqianchipang = (a) => {
+    if (localStorage.userInfo) {
+      if (a === null) {
+        return <Spin style={{ width: '100%', textAlign: "center", lineHeight: "500px" }} />
+      } else {
+        if (a.length <= 0) {
+          return <div className="tablemeishuju">
+            <img src={this.state.imgArr.ioo} alt="" />
+            <div>
+              < FormattedMessage id="You_dont_have_data" defaultMessage={'您暂时还没有相关数据'} />
+
+            </div>
+          </div>
+        }
+      }
+    } else {
+      return <div className="tablemeishuju">
+        <img src={this.state.imgArr.ioo} alt="" />
+        <div>
+          < FormattedMessage id="You_must" defaultMessage={'您必须'} />
+          <NavLink style={{ margin: "0 5px" }} to="/login">< FormattedMessage id="Sign_in" defaultMessage={'登录'} /></NavLink>
+          < FormattedMessage id="Only_then_see_information" defaultMessage={'才可以看到此信息'} />
+        </div>
+      </div>
+    }
   }
   render() {
     const {
@@ -209,9 +239,11 @@ class Bbentrust extends Component {
           </div>
         </div>
         <Table pagination={false}
-          // showHeader={data3 && data3.length > 0 ? true : false}
           columns={columns3}
           dataSource={data3} />
+              {
+          this.dangqianchipang(data3)
+        }
       </div>
     )
   }

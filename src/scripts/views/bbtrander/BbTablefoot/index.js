@@ -28,13 +28,13 @@ const { TabPane } = Tabs;
     }
   }
   componentDidMount() {
-    if(localStorage.userInfo){
-      setTimeout(()=>{
-        this.history_data()
+    // if(localStorage.userInfo){
+    //   setTimeout(()=>{
+    //     this.history_data()
 
-      },2000)
+    //   },2000)
 
-    }
+    // }
   }
   dangqianchipang = (a, b) => {
     if (localStorage.userInfo) {

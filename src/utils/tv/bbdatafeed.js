@@ -3,6 +3,7 @@ import { SymbolInfo } from './tvConfig'
 import { candlefunction } from '../../scripts/action';
 import store from '../../scripts/store';
 import { Xfn } from '../axiosfn';
+import { bbcandlefunction } from '../../scripts/action/bbtion';
 
 const BbDataFeeds = {};
 
@@ -24,14 +25,14 @@ BbDataFeeds.Tv.prototype.onReady = function (callback) {
 BbDataFeeds.Tv.prototype.getBars = function (symbolInfo, resolution, rangeStartDate, rangeEndDate, onDataCallback, onErrorCallback, firstDataRequest) {
     //赋值回调
     if (firstDataRequest) {
-        window.historyBarsUpdate = onDataCallback;
-        window.barTo = null;
+        window.bbhistoryBarsUpdate = onDataCallback;
+        window.bbbarTo = null;
     }
     resolution = resolutionFormat(resolution); //tradingView.js
     let to = parseInt(Date.now());
-    if (window.barTo) to = window.barTo;
+    if (window.bbbarTo) to = window.bbbarTo;
     const from = to - 400 * parseInt(resolution) * 60 * 1000;
-    window.barTo = from;
+    window.bbbarTo = from;
     Xfn({
         _u: "bbcandlehistory",
         _m: "get",
@@ -44,22 +45,23 @@ BbDataFeeds.Tv.prototype.getBars = function (symbolInfo, resolution, rangeStartD
         }
     }, (res, code) => {
         if (code == 0) {
-            store.dispatch(candlefunction(res.data, 1))
+            console.log(res)
+            store.dispatch(bbcandlefunction(res.data, 1))
         }
     })
 
 };
 // 订阅K线数据。图表库将调用onRealtimeCallback方法以更新实时数据。
 BbDataFeeds.Tv.prototype.subscribeBars = function (symbolInfo, resolution, onRealTimeCallback, listenerGUID, onResetCacheNeededCallback) {
-    window.realtimeBarUpdate = onRealTimeCallback;
-    window.listenerGuid = {
+    window.bbrealtimeBarUpdate = onRealTimeCallback;
+    window.bblistenerGuid = {
         name: symbolInfo.name,
         resolution: resolutionFormat(resolution)
     }
     if (window.wss) {
         window.wss.send(JSON.stringify({
             "op": "sub",
-            "args": { "instrument_type": "pc", "table": "candle", "settle_currency": sessionStorage.asset, "symbol": symbolInfo.name, "interval": resolution }
+            "args": { "instrument_type": "pc", "table": "candle", "settle_currency": localStorage.bbasset_data, "symbol": localStorage.bbsymbol_data, "interval": resolution }
         }))
     }
 };
@@ -69,7 +71,7 @@ BbDataFeeds.Tv.prototype.unsubscribeBars = function (listenerGUID) {
         const time = Date.now();
         window.wss.send(JSON.stringify({
             "op": "unsub",
-            "args": { "instrument_type": "pc", "table": "candle", "settle_currency": sessionStorage.assetOLd, "symbol": window.listenerGuid.name, "interval": window.listenerGuid.resolution }
+            "args": { "instrument_type": "pc", "table": "candle", "settle_currency": localStorage.bbasset, "symbol": window.bblistenerGuid.name, "interval": window.listenerGuid.resolution }
         }))
     }
 };

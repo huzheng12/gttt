@@ -15,6 +15,14 @@ export function bbsymbolfn(data) {
     data
   }
 }
+export const BBCANDLEFUNCTION = "bbcandlefunction"
+export function bbcandlefunction(data) {
+  console.log(data,'dadasd')
+  return {
+    type: BBCANDLEFUNCTION,
+    data
+  }
+}
 
 
 export const BBINSTRUMENTFN = "bbinstrumentfn"

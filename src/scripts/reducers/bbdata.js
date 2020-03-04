@@ -1,4 +1,4 @@
-import { BBASSETFN, BBSYMBOLFN, BBINSTRUMENTFN, BBORDERBOOKLFN, BBACTIVEORDERFN, BBACCOUNTEXPFN, BBTRADEFN } from "../action/bbtion";
+import { BBASSETFN, BBSYMBOLFN, BBINSTRUMENTFN, BBORDERBOOKLFN, BBACTIVEORDERFN, BBACCOUNTEXPFN, BBTRADEFN, BBCANDLEFUNCTION } from "../action/bbtion";
 import reduxFnData from "./reduxFnData";
 let iasdjflkajsd = 1
 const defaultState = {
@@ -23,6 +23,8 @@ const defaultState = {
   bb_account_exp: {},
   bb_trade_exp: [],
   bb_trade_exp_html: '',
+  bbcandle:{},
+  kxianbb:1
 }
 
 
@@ -30,6 +32,10 @@ export const bbdata = (state = defaultState, action) => {
   switch (action.type) {
     case BBASSETFN:
       return { ...state, bbassetArr: action.data, bbasset: "USDT" }
+    case BBCANDLEFUNCTION:
+      state.kxianbb =state.kxianbb +iasdjflkajsd
+      console.log(action.data)
+      return { ...state, bbcandle: action.data,kxianbb:state.kxianbb }
     case BBSYMBOLFN:
       localStorage.bbasset_data = state.bbasset
       localStorage.bbsymbol_data =action.data.length > 0 ? action.data[0].symbol : ''

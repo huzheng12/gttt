@@ -14,7 +14,7 @@ import fanyongBanner from './views/fanyongbanner';
 import FullTradePage from './views/fulltradepage';
 import { Xfn } from '../utils/axiosfn';
 import { candlefunction, pcassetqueryfn, pairqueryfn, marketsquery, instrumentfn, pacaccoundt, orderBookLfn, positionfunction, pcaccount, orderfuntion, candlefunallction, assetfn } from './action';
-import { bbassetfn, bbsymbolfn, bbinstrumentfn, bborderBookLfn, bbactive_orderfn, bb_account_expfn, bbtradefn } from './action/bbtion';
+import { bbassetfn, bbsymbolfn, bbinstrumentfn, bborderBookLfn, bbactive_orderfn, bb_account_expfn, bbtradefn, bbcandlefunction } from './action/bbtion';
 import store from './store';
 import { connect } from "react-redux";
 import IosDownload from './views/IOSdownload';
@@ -158,6 +158,10 @@ class Index extends Component {
 					case 'trade':
 						store.dispatch(bbtradefn(_data.data))
 						break;
+						case 'candle':
+							console.log(_data,'111111')
+								store.dispatch(bbcandlefunction(_data, 0))
+							break;
 				}
 			}else{
 				switch (_data.table) {

@@ -31,8 +31,8 @@ class Bbentrust extends Component {
     this.state = {
       data3: [],
       columns3: [],
-      bbasset: '',
-      bbsymbol: '',
+      bbasset: 'USDT',
+      bbsymbol: 'BTC/USDT',
       bbsymbolArrs:[],
       isOk:true,
       isOksymbol:true,
@@ -42,46 +42,51 @@ class Bbentrust extends Component {
     }
   }
   componentDidMount() {
+    console.log('111')
+    this.history_data(this.props.type !== '1' ?'bborderquery':"bborderquery_history",{
+      bbasset:this.state.bbasset,
+      bbsymbol:this.state.bbsymbol
+    })
     this.setState({
       columns3: [
         {
           title: '交易对',
-          dataIndex: 'ctime1',
+          dataIndex: 'symbol',
           render: (text, record) => <div className="zititr" style={{ width: 80, wordWrap: "break-word" }}>
 
           </div>,
         },
         {
           title: '委托时间',
-          dataIndex: 'ctime2',
+          dataIndex: 'ctime',
           render: (text, record) => <div className="zititr" style={{ width: 80, wordWrap: "break-word" }}>
 
           </div>,
         },
         {
           title: '方向',
-          dataIndex: 'ctime3',
+          dataIndex: 'bid_flag',
           render: (text, record) => <div className="zititr" style={{ width: 80, wordWrap: "break-word" }}>
 
           </div>,
         },
         {
           title: '成交比例',
-          dataIndex: 'ctime4',
+          dataIndex: 'trade_ratio',
           render: (text, record) => <div className="zititr" style={{ width: 80, wordWrap: "break-word" }}>
 
           </div>,
         },
         {
           title: '已成交量｜委托总量',
-          dataIndex: 'ctime5',
+          dataIndex: 'filled_qty',
           render: (text, record) => <div className="zititr" style={{ width: 80, wordWrap: "break-word" }}>
 
           </div>,
         },
         {
           title: '成交均价｜委托价',
-          dataIndex: 'ctime6',
+          dataIndex: 'price',
           render: (text, record) => <div className="zititr" style={{ width: 80, wordWrap: "break-word" }}>
 
           </div>,
@@ -90,7 +95,6 @@ class Bbentrust extends Component {
           title: this.props.type === '1' ? '手续费' : '操作',
           dataIndex: 'ctime7',
           render: (text, record) => <div className="zititr" style={{ width: 80, wordWrap: "break-word" }}>
-
           </div>,
         },
       ], 
@@ -131,7 +135,7 @@ class Bbentrust extends Component {
     }, (res, code) => {
       if (code === 0) {
         if(res.data.data.rows.length>0){
-          this.history_data('bborderquery',{
+          this.history_data(this.props.type !== '1' ?'bborderquery':"bborderquery_history",{
             bbasset:value,
             bbsymbol:res.data.data.rows[0].symbol
           })
@@ -147,7 +151,7 @@ class Bbentrust extends Component {
     })
   }
   handleChanges=(value)=>{
-    this.history_data('bborderquery',{
+    this.history_data(this.props.type !== '1' ?'bborderquery':"bborderquery_history",{
       bbasset:this.state.bbasset,
       bbsymbol:value
     })

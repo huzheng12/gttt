@@ -164,7 +164,7 @@ class Singlebox extends Component {
         let pricetr =this.state.isOk ? this.state.pricedata : this.props.bborder_book_data_one
         var n = this.props.bbinstrument.number_precision * 1
         var numdd = new RegExp(`^(.*\\..{${n}}).*$`)
-        let value = String(this.props.bb_account_exp.currency_available/pricetr * val / 100).toString().replace(numdd, "$1")
+        let value = String(this.props.bb_account_exp.currency_available/this.props.bbinstrument.last_pric * val / 100).toString().replace(numdd, "$1")
         this.setState({
           num17: val,
           lotdata: value
@@ -182,7 +182,7 @@ class Singlebox extends Component {
       // this.state.isOk ? this.state.pricedata : this.props.bborder_book_data_one
       var n = this.props.bbinstrument.number_precision * 1
       var numdd = new RegExp(`^(.*\\..{${n}}).*$`)
-      let value = String(this.props.bb_account_exp.quote_available / pricetr * val / 100).toString().replace(numdd, "$1")
+      let value = String(this.props.bb_account_exp.quote_available / this.props.bbinstrument.last_price * val / 100).toString().replace(numdd, "$1")
       this.setState({
         num17: val,
         lotdata: value
@@ -210,6 +210,7 @@ class Singlebox extends Component {
     const {
       type, bbasset, bb_account_exp, bborder_book_data_one, bborder_book_data_teo, bborder_book_data_teoo, bbaymbol, bbinstrument
     } = this.props
+    console.log(bbinstrument.last_price,'wosheng')
     return (
       <div className="single_warp">
         <div className="xiaotitle">
@@ -284,20 +285,11 @@ class Singlebox extends Component {
               (() => {
                 var n = this.props.bbinstrument.number_precision * 1
                 var numdd = new RegExp(`^(.*\\..{${n}}).*$`)
-                if (!bb_account_exp.quote_available && !bborder_book_data_one) {
+                if (!bb_account_exp.quote_available || !bbinstrument.last_price) {
                   return '--'
                 }
-                if (!isOk && this.props.bborder_book.arrBids.length > 0 && bb_account_exp.quote_available) {
-                  return type === '1' ? (bb_account_exp.quote_available / bborder_book_data_one).toString().replace(numdd, "$1") :
-                    (bb_account_exp.currency_available * bborder_book_data_one).toString().replace(numdd, "$1")
-
-                } else {
-                  if (!pricedata) {
-                    return 0
-                  }
-                  return type === '1' ? (bb_account_exp.quote_available / pricedata).toString().replace(numdd, "$1") :
-                    (bb_account_exp.quote_available * pricedata).toString().replace(numdd, "$1")
-                }
+                  return type === '1' ? (bb_account_exp.quote_available / bbinstrument.last_price).toString().replace(numdd, "$1") :
+                    (bb_account_exp.currency_available * bbinstrument.last_price).toString().replace(numdd, "$1")
               })()
             }
           </span>

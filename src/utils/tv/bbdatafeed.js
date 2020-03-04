@@ -45,7 +45,6 @@ BbDataFeeds.Tv.prototype.getBars = function (symbolInfo, resolution, rangeStartD
         }
     }, (res, code) => {
         if (code == 0) {
-            console.log(res)
             store.dispatch(bbcandlefunction(res.data, 1))
         }
     })
@@ -69,6 +68,7 @@ BbDataFeeds.Tv.prototype.subscribeBars = function (symbolInfo, resolution, onRea
 BbDataFeeds.Tv.prototype.unsubscribeBars = function (listenerGUID) {
     if (window.wss && window.wss.readyState === 1) {
         const time = Date.now();
+        
         window.wss.send(JSON.stringify({
             "op": "unsub",
             "args": { "instrument_type": "bb", "table": "candle", "settle_currency": localStorage.bbasset, "symbol": window.bblistenerGuid.name, "interval": window.listenerGuid.resolution }

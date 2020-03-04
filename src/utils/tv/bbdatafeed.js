@@ -61,7 +61,7 @@ BbDataFeeds.Tv.prototype.subscribeBars = function (symbolInfo, resolution, onRea
     if (window.wss) {
         window.wss.send(JSON.stringify({
             "op": "sub",
-            "args": { "instrument_type": "pc", "table": "candle", "settle_currency": localStorage.bbasset_data, "symbol": localStorage.bbsymbol_data, "interval": resolution }
+            "args": { "instrument_type": "bb", "table": "candle", "settle_currency": localStorage.bbasset_data, "symbol": localStorage.bbsymbol_data, "interval": resolution }
         }))
     }
 };

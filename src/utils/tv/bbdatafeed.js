@@ -71,7 +71,7 @@ BbDataFeeds.Tv.prototype.unsubscribeBars = function (listenerGUID) {
         const time = Date.now();
         window.wss.send(JSON.stringify({
             "op": "unsub",
-            "args": { "instrument_type": "pc", "table": "candle", "settle_currency": localStorage.bbasset, "symbol": window.bblistenerGuid.name, "interval": window.listenerGuid.resolution }
+            "args": { "instrument_type": "bb", "table": "candle", "settle_currency": localStorage.bbasset, "symbol": window.bblistenerGuid.name, "interval": window.listenerGuid.resolution }
         }))
     }
 };

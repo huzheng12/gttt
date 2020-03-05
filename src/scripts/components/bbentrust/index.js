@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { Select, Table,Spin } from 'antd';
+import { Select, Table, Spin } from 'antd';
 // import { Table, Modal, Spin, Select } from 'antd';
 import { connect } from "react-redux";
 import './index.scss'
 import { Xfn } from '../../../utils/axiosfn';
 import { FormattedMessage } from 'react-intl';
 import { NavLink } from "react-router-dom"
+import { timehuansuan } from '../../../utils/time';
 
 const { Option } = Select;
 
@@ -21,6 +22,7 @@ const { Option } = Select;
       bbasset: state.bbdata.bbasset,
       bbsymbolArr: state.bbdata.bbsymbolArr,
       bb_switch_ok: state.bbdata.bb_switch_ok,
+      bbaymbol: state.bbdata.bbaymbol,
     }
   }
 )
@@ -30,22 +32,23 @@ class Bbentrust extends Component {
     super()
     this.state = {
       data3: [],
+      data3A: [],
       columns3: [],
       bbasset: 'USDT',
       bbsymbol: 'BTC/USDT',
-      bbsymbolArrs:[],
-      isOk:true,
-      isOksymbol:true,
+      bbsymbolArrs: [],
+      isOk: true,
+      isOksymbol: true,
       imgArr: {
         ioo: require("../../img/nothing_data.png"),
       },
+      isofk: true
     }
   }
   componentDidMount() {
-    console.log('111')
-    this.history_data(this.props.type !== '1' ?'bborderquery':"bborderquery_history",{
-      bbasset:this.state.bbasset,
-      bbsymbol:this.state.bbsymbol
+    this.history_data(this.props.type !== '1' ? 'bborderquery' : "bborderquery_history", {
+      bbasset: this.state.bbasset,
+      bbsymbol: this.props.bbaymbol ? this.props.bbaymbol : this.state.bbsymbol
     })
     this.setState({
       columns3: [
@@ -53,56 +56,73 @@ class Bbentrust extends Component {
           title: '交易对',
           dataIndex: 'symbol',
           render: (text, record) => <div className="zititr" style={{ width: 80, wordWrap: "break-word" }}>
-
+            {
+              text
+            }
           </div>,
         },
         {
           title: '委托时间',
           dataIndex: 'ctime',
           render: (text, record) => <div className="zititr" style={{ width: 80, wordWrap: "break-word" }}>
-
+            <p>
+              {timehuansuan(text).date}
+            </p>
+            <p>
+              {timehuansuan(text).dates}
+            </p>
           </div>,
         },
         {
           title: '方向',
           dataIndex: 'bid_flag',
-          render: (text, record) => <div className="zititr" style={{ width: 80, wordWrap: "break-word" }}>
-
+          render: (text, record) => <div className="zititr" style={{ color: text === '1' ? '#339F58' : '#E53F39', width: 80, wordWrap: "break-word" }}>
+            {text === '1' ? "买入" : "卖出"}
           </div>,
         },
         {
           title: '成交比例',
           dataIndex: 'trade_ratio',
           render: (text, record) => <div className="zititr" style={{ width: 80, wordWrap: "break-word" }}>
+            {
+              String(text * 100).replace(/^(.*\..{2}).*$/, "$1") + '%'
 
+            }
           </div>,
         },
         {
           title: '已成交量｜委托总量',
           dataIndex: 'filled_qty',
           render: (text, record) => <div className="zititr" style={{ width: 80, wordWrap: "break-word" }}>
-
+            {record.filled_qty + ' | ' + record.qty}
           </div>,
         },
         {
           title: '成交均价｜委托价',
           dataIndex: 'price',
           render: (text, record) => <div className="zititr" style={{ width: 80, wordWrap: "break-word" }}>
-
+            {record.avg_price + ' | ' + record.price}
           </div>,
         },
         {
           title: this.props.type === '1' ? '手续费' : '操作',
-          dataIndex: 'ctime7',
-          render: (text, record) => <div className="zititr" style={{ width: 80, wordWrap: "break-word" }}>
+          dataIndex: 'fee',
+          align:'right',
+          render: (text, record) => <div className="zititr" style={{wordWrap: "break-word" }}>
+            {this.props.type !== '1' ? <div className="spl2" onClick={() => this.Cancel_order(record)} style={{ color: "#2f6fed", cursor: 'pointer' }}>
+              撤单
+         </div> : <div>{text}</div>}
           </div>,
         },
-      ], 
-      
+      ],
+
     })
   }
-  componentDidUpdate(){
-    if(this.props.bbassetArr.length>0&&this.state.isOk){
+  Cancel_order = (data) => {
+
+  }
+  componentDidUpdate() {
+    if (this.props.bbassetArr.length > 0 && this.state.isOk) {
       Xfn({
         _u: "bbsymbolquery",
         _m: "get",
@@ -112,14 +132,14 @@ class Bbentrust extends Component {
       }, (res, code) => {
         if (code === 0) {
           this.setState({
-            bbsymbolArrs:res.data.data.rows,
-            bbsymbol:res.data.data.rows.length>0&&res.data.data.rows[0].symbol
+            bbsymbolArrs: res.data.data.rows,
+            bbsymbol: res.data.data.rows.length > 0 && res.data.data.rows[0].symbol
           })
         }
       })
       this.setState({
         bbasset: this.props.bbassetArr[0].asset,
-        isOk:false
+        isOk: false
       })
     }
 
@@ -134,33 +154,50 @@ class Bbentrust extends Component {
       }
     }, (res, code) => {
       if (code === 0) {
-        if(res.data.data.rows.length>0){
-          this.history_data(this.props.type !== '1' ?'bborderquery':"bborderquery_history",{
-            bbasset:value,
-            bbsymbol:res.data.data.rows[0].symbol
+        if (res.data.data.rows.length > 0) {
+          this.history_data(this.props.type !== '1' ? 'bborderquery' : "bborderquery_history", {
+            bbasset: value,
+            bbsymbol: res.data.data.rows[0].symbol
           })
         }
         this.setState({
-          bbsymbolArrs:res.data.data.rows,
-          bbsymbol:res.data.data.rows.length>0&&res.data.data.rows[0].symbol
+          bbsymbolArrs: res.data.data.rows,
+          bbsymbol: res.data.data.rows.length > 0 && res.data.data.rows[0].symbol
         })
       }
     })
     this.setState({
-      bbasset:value
+      bbasset: value
     })
   }
-  handleChanges=(value)=>{
-    this.history_data(this.props.type !== '1' ?'bborderquery':"bborderquery_history",{
-      bbasset:this.state.bbasset,
-      bbsymbol:value
+  handleChanges = (value) => {
+    this.history_data(this.props.type !== '1' ? 'bborderquery' : "bborderquery_history", {
+      bbasset: this.state.bbasset,
+      bbsymbol: value
     })
     this.setState({
-      bbsymbol:value
+      bbsymbol: value
     })
   }
-  history_data = (url,data) => {
-
+  Cancel_order = (data) => {
+    console.log(data)
+    Xfn({
+      _u: "bbordercancel",
+      _m: "post",
+      _p: {
+        order_id: data.id,// 委托id,必填
+        asset: data.asset,// 资产 USD,必填
+        symbol: data.symbol,// 交易对,必填
+        bid_flag: data.bid_flag,// 1.买入,0.卖出,必填
+      }
+    }, (res, code) => {
+      this.history_data(this.props.type !== '1' ? 'bborderquery' : "bborderquery_history", {
+        bbasset: this.state.bbasset,
+        bbsymbol: this.state.bbsymbol
+      })
+    },'撤单成功')
+  }
+  history_data = (url, data) => {
     Xfn({
       _u: url,
       _m: 'get',
@@ -168,15 +205,35 @@ class Bbentrust extends Component {
         asset: data.bbasset,// 资产 USD,必填,
         symbol: data.bbsymbol, //交易对,非必填,
         // bid_flag: '1', //1.买入,0.卖出,非必填,
-        last_order_id: data.last_order_id?data.last_order_id:'', //当前页最后一张委托的id, 非必填,
+        last_order_id: data.last_order_id ? data.last_order_id : '', //当前页最后一张委托的id, 非必填,
         next_page: "1", //翻页标记,-1 上一页 , 1.下一页 必填,,
         page_size: "20", //页行数 ,必填
       }
     }, (res, code) => {
       if (code === 0) {
-        this.setState({
-          data3: res.data.data.rows?res.data.data.rows:[]
-        })
+        var arr = res.data.data.rows?res.data.data.rows:[]
+        for (var i in arr) {
+          arr[i].key = arr[i] + i+data.last_order_id
+        }
+        if (data.type === 1) {
+          arr = this.state.data3.concat(arr);
+          if (res.data.data.rows && res.data.data.rows.length === 0) {
+            this.setState({
+              isofk: false
+            })
+          } else {
+            this.setState({
+              data3: arr,
+              data3A: res.data.data
+            })
+          }
+        } else {
+          this.setState({
+            data3: res.data.data.rows ? res.data.data.rows : [],
+            data3A: res.data.data
+          })
+        }
+
       }
     })
   }
@@ -208,7 +265,7 @@ class Bbentrust extends Component {
   }
   render() {
     const {
-      data3, columns3, bbasset,bbsymbol,bbsymbolArrs
+      data3, columns3, bbasset, bbsymbol, bbsymbolArrs, data3A, isofk
     } = this.state
     const {
       bbassetArr
@@ -235,8 +292,8 @@ class Bbentrust extends Component {
             </span>
             <Select value={bbsymbol} style={{ width: 110 }} onChange={this.handleChanges}>
               {
-               bbsymbolArrs&&bbsymbolArrs.map((item,index)=>{
-                  return  <Option key={item + index} value={item.symbol}>{item.symbol}</Option>
+                bbsymbolArrs && bbsymbolArrs.map((item, index) => {
+                  return <Option key={item + index} value={item.symbol}>{item.symbol}</Option>
                 })
               }
             </Select>
@@ -245,8 +302,20 @@ class Bbentrust extends Component {
         <Table pagination={false}
           columns={columns3}
           dataSource={data3} />
-              {
+        {
           this.dangqianchipang(data3)
+        }
+        {
+          data3A.total * 1 > data3.length && isofk ? <div className="dibujiazai" onClick={() => {
+            this.history_data(this.props.type !== '1' ? 'bborderquery' : "bborderquery_history", {
+              bbasset: bbasset,
+              bbsymbol: bbsymbol,
+              type: 1,
+              last_order_id:data3[data3.length-1].id
+            })
+          }}>
+            查看更多
+        </div> : ''
         }
       </div>
     )

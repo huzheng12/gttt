@@ -485,7 +485,7 @@ class TitleFullk extends Component {
             <div className="tetle" style={{ color: (ctype === 'bb' ? bbinstrument : instrument).change_rate_24h >= 0 ? "#26994E" : "#E53F39" }}>
               {
                 EventFN.CurrencyDigitLimit({
-                  type: Decimal_point,
+                  type:ctype !== 'bb'? Decimal_point:bbinstrument.price_precision,
                   content: (ctype === 'bb' ? bbinstrument : instrument).last_price
                 })
               }

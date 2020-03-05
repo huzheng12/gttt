@@ -25,6 +25,7 @@ class Shouxufei extends Component {
       },
       lll: "<5000",
       getPcFeeListData: [],
+      bbgetPcFeeListData: [],
       getUserFeeObj: {},
       zsxx: {}
     }
@@ -44,11 +45,26 @@ class Shouxufei extends Component {
     Xfn({
       _u: "getPcFeeList",
       _m: 'get',
-      _p: {}
+      _p: {
+        fee_level_type:'2'
+      }
     }, (res, code) => {
       if (code == 0) {
         this.setState({
           getPcFeeListData: res.data.data.rows
+        })
+      }
+    })
+    Xfn({
+      _u: "getPcFeeList",
+      _m: 'get',
+      _p: {
+        fee_level_type:'1'
+      }
+    }, (res, code) => {
+      if (code == 0) {
+        this.setState({
+          bbgetPcFeeListData: res.data.data.rows
         })
       }
     })
@@ -70,7 +86,7 @@ class Shouxufei extends Component {
     console.log(value)
   }
   render() {
-    const { tou, getPcFeeListData, getUserFeeObj, imgArr, zsxx } = this.state
+    const { tou, getPcFeeListData, bbgetPcFeeListData,getUserFeeObj, imgArr, zsxx } = this.state
     return (
       <div className="sxf-warp">
         <Biaoti flg={false} title={tou} ></Biaoti>
@@ -84,11 +100,11 @@ class Shouxufei extends Component {
                <p className="row-tr-guadan">近30天交易量(截止到昨天)</p>
                <p className="row-tr-guadan">
                  <div className="left">币币</div>
-                 <div className="right">0.0000 BTC</div>
+                 <div className="right">{getUserFeeObj.volume?getUserFeeObj.bb_volume:"--"} BTC</div>
                </p>
                <p className="row-tr-guadan row-tr-guadans">
                  <div className="left">永续合约</div>
-                 <div className="right">0.0000 BTC</div>
+                 <div className="right">{getUserFeeObj.volume?getUserFeeObj.volume:"--"} BTC</div>
                </p>              </div>
               {/* <div className="tr-guadan ">
                 <p>Maker（{lang().List}）</p>
@@ -104,18 +120,18 @@ class Shouxufei extends Component {
                   提现额度
                     </span>
                     <span className="shul">
-                      300 BTC
+                    {getUserFeeObj.maker_fee?getUserFeeObj.withdraw_limit:"--"} BTC
                     </span>
                 </p>
                 <div className="row_pans">
                   <span>币币手续费</span>
-                  <span>挂单成交0.1%</span>
-                  <span>吃单成交0.15%</span>
+                  <span>挂单成交{getUserFeeObj.maker_fee?String(getUserFeeObj.bb_maker_fee * 100).replace(/^(.*\..{2}).*$/, "$1"):"--" + '%'}</span>
+                  <span>吃单成交{getUserFeeObj.maker_fee?String(getUserFeeObj.bb_taker_fee * 100).replace(/^(.*\..{2}).*$/, "$1"):'--' + '%'}</span>
                 </div>
                 <div className="row_pans">
                   <span>永续合约手续费</span>
-                  <span>挂单成交0.1%</span>
-                  <span>吃单成交0.15%</span>
+                  <span>挂单成交{getUserFeeObj.maker_fee?String(getUserFeeObj.maker_fee * 100).replace(/^(.*\..{2}).*$/, "$1"):'--' + '%'}</span>
+                  <span>吃单成交{getUserFeeObj.maker_fee?String(getUserFeeObj.taker_fee * 100).replace(/^(.*\..{2}).*$/, "$1"):'--' + '%'}</span>
                 </div>
               </div>
             </div>
@@ -180,7 +196,7 @@ class Shouxufei extends Component {
             </div >
             <Tabs defaultActiveKey="1" onChange={this.callback}>
               <TabPane tab="币币交易" key="1">
-                <Tableshouxufei getPcFeeListData={getPcFeeListData}></Tableshouxufei>
+                <Tableshouxufei getPcFeeListData={bbgetPcFeeListData}></Tableshouxufei>
               </TabPane>
               <TabPane tab="永续合约" key="2">
 

@@ -58,10 +58,22 @@
         }
       }
     }
-    padding:0 ;
+    padding:14px 0 ;
  
     @include themify($themes) {
       border-color: themed('border-color-1');
      }
+  }
+  .ant-table-thead > tr > th{
+    padding: 8px 0;
+  }
+
+  .dibujiazai{
+    margin-top: 20px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 400;
+    color: #2e6be6;
+    cursor: pointer;
   }
 }

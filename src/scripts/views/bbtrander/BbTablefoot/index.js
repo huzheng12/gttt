@@ -21,6 +21,7 @@ const { TabPane } = Tabs;
     super()
     this.state = {
       data: [],
+      dataA: {},
       imgArr: {
         ioo: require("../../../img/nothing_data.png"),
       },
@@ -64,7 +65,6 @@ const { TabPane } = Tabs;
     }
   }
   history_data = (url) => {
-
     Xfn({
       _u: 'bborderquery_history',
       _m: 'get',
@@ -81,7 +81,8 @@ const { TabPane } = Tabs;
         console.log(res)
         this.setState({
           data: res.data.data.rows?res.data.data.rows:[],
-          datanull:'1'
+          datanull:'1',
+          dataA:res.data.data
         })
       }
     })
@@ -110,7 +111,7 @@ const { TabPane } = Tabs;
   }
   render() {
     const {
-      data,datanull
+      data,datanull,dataA
     } = this.state
     const {
       bbactive_order
@@ -135,14 +136,16 @@ const { TabPane } = Tabs;
           </TabPane>
           <TabPane tab="历史委托" key="2">
           {this.dangqianchipang(data,datanull)}
-             {
-               console.log(data,'[[[[[')
-             }
             <div className="bbtablefoot_warp_box">
             {localStorage.userInfo&&data.map((itme, index) => {
               return <Onesingle Cancel_order={this.Cancel_order} data={itme} type='2' key={index + itme}></Onesingle>
 
             })}
+             {
+              localStorage.userInfo&&dataA&&dataA.total-data.length >0? <NavLink className="chak" to="/histororder/bbhistry">
+                查看更多
+              </NavLink>:''
+             }
 
             </div>
           </TabPane>

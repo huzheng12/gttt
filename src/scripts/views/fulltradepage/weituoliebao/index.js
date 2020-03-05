@@ -39,17 +39,24 @@ class Weituoliebiao extends Component {
   }
   imgdongtaijia = () => {
     const { imgArr } = this.state
-    const { instrument } = this.props
-    if (instrument && instrument.flgz == "1") {
+    const { instrument,bbinstrument } = this.props
+    let instrumentaaa
+    if(this.props.type !== 'bb'){
+      instrumentaaa=instrument
+    }else{
+      instrumentaaa=bbinstrument
+    }
+
+    if (instrumentaaa && instrumentaaa.flgz == "1") {
       return imgArr.jt4
     }
-    if (instrument && instrument.flgz == "0") {
+    if (instrumentaaa && instrumentaaa.flgz == "0") {
       return imgArr.jt2
     }
-    if (instrument && instrument.flgz == "10") {
+    if (instrumentaaa && instrumentaaa.flgz == "10") {
       return imgArr.jt3
     }
-    if (instrument && instrument.flgz == "20") {
+    if (instrumentaaa && instrumentaaa.flgz == "20") {
       return imgArr.jt1
     }
   }
@@ -101,14 +108,13 @@ class Weituoliebiao extends Component {
     const {
       imgArr, 
     } = this.state
-    console.log(bbinstrument)
     return (
       <div className="weituo-bable-warp">
         <div className="title-cd drag-handle">
           <FormattedMessage id="DelegationList" defaultMessage={'委托列表'} />
         </div>
         <div className="title-boxtou">
-          <div className="tite-biaoti"><FormattedMessage id="Price" defaultMessage={'价格'} />(USD)&emsp;</div>
+    <div className="tite-biaoti"><FormattedMessage id="Price" defaultMessage={'价格'} />({type !== 'bb'? 'USD':bbinstrument.symbol&&bbinstrument.symbol.split(bbinstrument.split_char)[0]})&emsp;</div>
           <div className="tite-biaoti"><FormattedMessage id="Number" defaultMessage={'数量'} />(<FormattedMessage id="Zhang" defaultMessage={'张'} />)</div>
           <div className="tite-biaoti"><FormattedMessage id="Cumulants" defaultMessage={'累积量'} /></div>
         </div>
@@ -159,7 +165,13 @@ class Weituoliebiao extends Component {
             type !== 'bb'?orderBookL2_25obj.arrBids ? <div className="section-titlt ul-a2" style={{ height: 55 }}>
               <div className="section-img-box" style={{
                 color: (() => {
-                  if (instrument.flgz === "1" || instrument.flgz === "10") {
+                  let instrumentaaa
+                  if(this.props.type !== 'bb'){
+                    instrumentaaa=instrument
+                  }else{
+                    instrumentaaa=bbinstrument
+                  }
+                  if (instrumentaaa.flgz === "1" || instrumentaaa.flgz === "10") {
                     return "rgba(38, 153, 78, 1)"
                   } else {
                     return "#EE6560"
@@ -168,7 +180,7 @@ class Weituoliebiao extends Component {
               }}>
                 {
                   EventFN.CurrencyDigitLimit({
-                    type: Decimal_point,
+                    type:type !== 'bb'? Decimal_point:bbinstrument.price_precision,
                     content:type === 'bb'?bbinstrument.last_price: instrument.last_price
                   })
                 }
@@ -182,7 +194,7 @@ class Weituoliebiao extends Component {
                     textOverflow: 'ellipsis', overflow: 'hidden'
                   }}>{
                       EventFN.CurrencyDigitLimit({
-                        type: Decimal_point,
+                        type:type !== 'bb'? Decimal_point:bbinstrument.price_precision,
                         content: type === 'bb'?bbinstrument.index_price:instrument.index_price
                       })
 
@@ -206,7 +218,14 @@ class Weituoliebiao extends Component {
             </div> : <Spin />:bborder_book.arrBids ?<div className="section-titlt ul-a2" style={{ height: 55 }}>
             <div className="bbsection-img-box" style={{
                 color: (() => {
-                  if (instrument.flgz === "1" || instrument.flgz === "10") {
+                  let instrumentaaa
+                  if(this.props.type !== 'bb'){
+                    instrumentaaa=instrument
+                  }else{
+                    instrumentaaa=bbinstrument
+                  }
+                  if (instrumentaaa.flgz === "1" || instrumentaaa.flgz === "10") {
+                    
                     return "rgba(38, 153, 78, 1)"
                   } else {
                     return "#EE6560"
@@ -215,7 +234,7 @@ class Weituoliebiao extends Component {
               }}>
                 {
                   EventFN.CurrencyDigitLimit({
-                    type: type !== 'bb'? Decimal_point:'1',
+                    type:type !== 'bb'? Decimal_point:bbinstrument.price_precision,
                     content:type === 'bb'?bbinstrument.last_price: instrument.last_price
                   })
                 }

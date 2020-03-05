@@ -159,7 +159,6 @@ class Index extends Component {
 						store.dispatch(bbtradefn(_data.data))
 						break;
 					case 'candle':
-						console.log(_data, '111111')
 						store.dispatch(bbcandlefunction(_data, 0))
 						break;
 				}

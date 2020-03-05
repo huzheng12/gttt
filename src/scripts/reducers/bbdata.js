@@ -85,7 +85,10 @@ export const bbdata = (state = defaultState, action) => {
     case BBINSTRUMENTFN:
       for (let i = 0; i < action.data.length; i++) {
         if (action.data[i].symbol === state.bbaymbol) {
+          console.log(action.data[i], state.bbinstrument,'day=')
+          reduxFnData.ObjectKvalue(action.data[i], state.bbinstrument)
           state.bbinstrument = action.data[i]
+
         }
       }
       return { ...state, bbinstrumentArr: action.data, bbinstrument: state.bbinstrument }

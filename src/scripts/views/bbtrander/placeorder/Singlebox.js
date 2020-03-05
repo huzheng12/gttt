@@ -127,7 +127,7 @@ class Singlebox extends Component {
     })
   }
   create = () => {
-    if (this.state.isOk ? this.state.pricedata == 0 : this.props.bborder_book.arrBids.length == 0) {
+    if (this.state.isOk ? this.state.pricedata == 0 : this.props.bborder_book_data_one == 0) {
       return openNotificationWithIcon("opne-warning", "警告", '请输入正确的价格')
     }
     if (!this.state.lotdata) {
@@ -138,6 +138,7 @@ class Singlebox extends Component {
       _u: "bbordercreate",
       _m: "post",
       _p: {
+        // isOk ? pricedata : bborder_book_data_one
         asset: this.props.bbasset,// 资产 USD,必填
         symbol: this.props.bbaymbol,// 交易对,必填
         bid_flag: this.props.type,// 1.买入,0.卖出,必填

@@ -141,7 +141,7 @@ class Index extends Component {
 		}
 		window.wss.onmessage = e => {
 			const _data = JSON.parse(e.data)
-			if(_data.instrument_type==='bb'){
+			if (_data.instrument_type === 'bb') {
 				switch (_data.table) {
 					case 'instrument_all_full':
 						store.dispatch(bbinstrumentfn(_data.data))
@@ -158,18 +158,18 @@ class Index extends Component {
 					case 'trade':
 						store.dispatch(bbtradefn(_data.data))
 						break;
-						case 'candle':
-							console.log(_data,'111111')
-								store.dispatch(bbcandlefunction(_data, 0))
-							break;
+					case 'candle':
+						console.log(_data, '111111')
+						store.dispatch(bbcandlefunction(_data, 0))
+						break;
 				}
-			}else{
+			} else {
 				switch (_data.table) {
 					case 'instrument_all_full':
 						store.dispatch(instrumentfn(_data.data))
 						break;
 					case 'order_book'://解决
-					
+
 						store.dispatch(orderBookLfn(_data))
 						break;
 					case 'pc_account':
@@ -196,7 +196,7 @@ class Index extends Component {
 				}
 			}
 			// console.log(_data,'ssd')
-	
+
 		};
 	}
 	render() {

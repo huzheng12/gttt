@@ -67,7 +67,7 @@ const reduxFnData = {
     }
   },
   //成交列表处理
-  d: (arr, action, state, fn) => {
+  d: (arr, action, state, fn,aa) => {
     var htmls = ''
     for (let i = 0; i < arr.length; i++) {
       let j = i + 1
@@ -129,6 +129,10 @@ const reduxFnData = {
       }
       var ls = (() => {
         if (!arr[i].price) { return false }
+        if(aa){
+          return number_format(arr[i].price, aa, ".", ",")
+
+        }
         return number_format(arr[i].price, state.Decimal_point, ".", ",")
       })()
       htmls += '<div class="table-spandiv clear ' + bidCo + ' ' + bg_anmetion + '"> <div class="td">' + '<div class="abcdes">' + ls + '</div><div class="img ' + as + '" ></div>' + '</div><div class="td">' + arr[i].qty + '</div><div class="td">' + bid_flage + '</div><div class="td">' + time + '</div></div>'

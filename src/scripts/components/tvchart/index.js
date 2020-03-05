@@ -162,6 +162,7 @@ class tvChart extends Component {
                 })
             }
             if (this.props.bbcandle.data) {
+                console.log(this.props.bbcandle.data,'实时数据')
                 const d = this.props.bbcandle.data
                 const bars = barsFormat(d);
                 const real = d.current;

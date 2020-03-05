@@ -62,8 +62,6 @@ export const bbdata = (state = defaultState, action) => {
     case BBACCOUNTEXPFN:
       return { ...state, bb_account_exp: action.data }
     case 'trandefnnnn':
-      // if(){}
-      console.log(state.bbaymbol,'999977777777777')
       for (let i = 0; i < state.bbinstrumentArr.length; i++) {
         if (state.bbinstrumentArr[i].symbol === state.bbaymbol) {
           state.bbinstrument = state.bbinstrumentArr[i]
@@ -79,7 +77,7 @@ export const bbdata = (state = defaultState, action) => {
 
       reduxFnData.d(arr, action, state, (htmls) => {
         state.bb_trade_exp_html = htmls
-      })
+      },state.bbinstrument.price_precision)
       if (action.language == []) {
         arr = []
       }

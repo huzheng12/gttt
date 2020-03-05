@@ -48,7 +48,7 @@ class Bbentrust extends Component {
   componentDidMount() {
     this.history_data(this.props.type !== '1' ? 'bborderquery' : "bborderquery_history", {
       bbasset: this.state.bbasset,
-      bbsymbol: this.props.bbaymbol ? this.props.bbaymbol : this.state.bbsymbol
+      bbsymbol: this.state.bbsymbol
     })
     this.setState({
       columns3: [

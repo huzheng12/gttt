@@ -162,10 +162,11 @@ class Singlebox extends Component {
           lotdata: 1
         })
       } else {
+        console.log(this.props.bb_account_exp.currency_available,this.props.bbinstrument.last_pric)
         let pricetr =this.state.isOk ? this.state.pricedata : this.props.bborder_book_data_one
         var n = this.props.bbinstrument.number_precision * 1
         var numdd = new RegExp(`^(.*\\..{${n}}).*$`)
-        let value = String(this.props.bb_account_exp.currency_available/this.props.bbinstrument.last_pric * val / 100).toString().replace(numdd, "$1")
+        let value = String(this.props.bb_account_exp.currency_available/this.props.bbinstrument.last_price * val / 100).toString().replace(numdd, "$1")
         this.setState({
           num17: val,
           lotdata: value

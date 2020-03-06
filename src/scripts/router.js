@@ -156,7 +156,8 @@ class Index extends Component {
 						store.dispatch(bb_account_expfn(_data.data))
 						break;
 					case 'trade':
-						store.dispatch(bbtradefn(_data.data))
+						console.log(_data.action)
+						store.dispatch(bbtradefn(_data.data,_data.action))
 						break;
 					case 'candle':
 						store.dispatch(bbcandlefunction(_data, 0))

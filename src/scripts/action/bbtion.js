@@ -54,12 +54,13 @@ export function bb_account_expfn(data) {
   }
 }
 export const BBTRADEFN = "bbtradefn"
-export function bbtradefn(language) {
+export function bbtradefn(language,nul) {
   for (let i = 0; i < language.length; i++) {
     language[i].xin = '1'
   }
   return {
     type: BBTRADEFN,
-    language
+    language,
+    nul
   }
 }

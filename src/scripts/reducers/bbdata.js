@@ -23,6 +23,7 @@ const defaultState = {
   bb_account_exp: {},
   bb_trade_exp: [],
   bb_trade_exp_html: '',
+  bb_trade_exp_html_ok: 1,
   bbcandle:{},
   kxianbb:1
 }
@@ -67,8 +68,11 @@ export const bbdata = (state = defaultState, action) => {
           state.bbinstrument = state.bbinstrumentArr[i]
         }
       }
-      return { ...state, bb_trade_exp: [], bb_trade_exp_html: '',bbinstrument:state.bbinstrument }
+      return { ...state, bb_trade_exp: [], bb_trade_exp_html: '',bbinstrument:state.bbinstrument,bb_trade_exp_html_ok:2 }
     case BBTRADEFN:
+      if(state.bb_trade_exp_html_ok==2&&action.nul!=='partial'){
+        return { ...state, bb_trade_exp: [], bb_trade_exp_html: '',bb_trade_exp_html_ok:1 }
+      }
       let arr = action.language.concat(state.bb_trade_exp)
       arr = arr.slice(0, 33);
       arr.sort(function (a, b) {
@@ -81,11 +85,10 @@ export const bbdata = (state = defaultState, action) => {
       if (action.language == []) {
         arr = []
       }
-      return { ...state, bb_trade_exp: arr, bb_trade_exp_html: state.bb_trade_exp_html }
+      return { ...state, bb_trade_exp: arr, bb_trade_exp_html: state.bb_trade_exp_html,bb_trade_exp_html_ok:1 }
     case BBINSTRUMENTFN:
       for (let i = 0; i < action.data.length; i++) {
         if (action.data[i].symbol === state.bbaymbol) {
-          console.log(action.data[i], state.bbinstrument,'day=')
           reduxFnData.ObjectKvalue(action.data[i], state.bbinstrument)
           state.bbinstrument = action.data[i]
 

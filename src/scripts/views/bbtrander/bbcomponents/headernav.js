@@ -136,7 +136,7 @@ class Headernav extends Component {
                   }} > {
                     item.symbol
                   }</span>
-                  <span>
+                  <span style={{ color: item.change_rate_24h && item.change_rate_24h >= 0 ? "#26994E" : "#E53F39" }}>
                     {
                       item.change_rate_24h && item.change_rate_24h > 0 ? "+" + String(item.change_rate_24h * 100).replace(/^(.*\..{2}).*$/, "$1") : String(item.change_rate_24h * 100).replace(/^(.*\..{2}).*$/, "$1")
                     }

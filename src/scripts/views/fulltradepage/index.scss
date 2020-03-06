@@ -404,15 +404,19 @@
     font-weight:400;
     color:rgba(38,153,78,1);
     line-height: 66px;
-       text-align: center;
+    text-align: center;
        img{
            display: inline-block;
            margin-left: 10px;
            margin-top: -5px;
        }
+       ul{
+           flex: 1;
+           overflow: hidden;
+       }
 }
    .section-titlt{
-       height: 70px !important;
+       height: 60px !important;
        border-top: 1px solid #2F3746;
        border-bottom: 1px solid #2F3746;
     

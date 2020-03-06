@@ -88,5 +88,20 @@
       margin-right: 0px; 
       width: 100%;
   }
+
+
+  .userInfowei{
+    width: 100%;
+    background: #0f1526;
+    border-radius: 4px;
+    line-height: 40px;
+    display: flex;
+    color: #fff;
+    justify-content: center;
+    .userInfowei1{
+      color: #2f6fed;
+      cursor: pointer;
+    }
+  }
   }
 }

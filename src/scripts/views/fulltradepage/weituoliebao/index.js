@@ -218,17 +218,12 @@ class Weituoliebiao extends Component {
             </div> : <Spin />:bborder_book.arrBids ?<div className="section-titlt ul-a2" style={{ height: 55 }}>
             <div className="bbsection-img-box" style={{
                 color: (() => {
-                  let instrumentaaa
-                  if(this.props.type !== 'bb'){
-                    instrumentaaa=instrument
-                  }else{
-                    instrumentaaa=bbinstrument
-                  }
-                  if (instrumentaaa.flgz === "1" || instrumentaaa.flgz === "10") {
+               
+                  if (bbinstrument.change_rate_24h*1 >0 ) {
                     
-                    return "rgba(38, 153, 78, 1)"
+                    return "#26994E"
                   } else {
-                    return "#EE6560"
+                    return "#E53F39"
                   }
                 })(), whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', fontWeight: 900
               }}>
@@ -238,7 +233,11 @@ class Weituoliebiao extends Component {
                     content:type === 'bb'?bbinstrument.last_price: instrument.last_price
                   })
                 }
-                <img src={this.imgdongtaijia()} alt="" />
+                &nbsp;
+                 {
+              (type === 'bb' ? bbinstrument : instrument).change_rate_24h ? (type === 'bb' ? bbinstrument : instrument).change_rate_24h >= 0 ? <span className="iconfont imgastd" style={{ color: "#26994E" }}>&#xe60e;</span> : <span className="iconfont imgastd" style={{ color: "#E53F39" }}>&#xe610;</span> : ""
+            }
+                {/* <img src={this.imgdongtaijia()} alt="" /> */}
               </div>
             </div> : <Spin />
           }

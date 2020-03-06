@@ -157,6 +157,11 @@ class Singlebox extends Component {
     return `${value}%`;
   }
   modify_lever = (val) => {
+    if(localStorage.userInfo){
+
+    }else{
+      return false
+    }
     if (this.props.type !== '1') {
       if (val === 0) {
         this.setState({

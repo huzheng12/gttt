@@ -46,7 +46,7 @@ class Shouxufei extends Component {
       _u: "getPcFeeList",
       _m: 'get',
       _p: {
-        fee_level_type:'2'
+        fee_level_type:'1'
       }
     }, (res, code) => {
       if (code == 0) {
@@ -59,7 +59,7 @@ class Shouxufei extends Component {
       _u: "getPcFeeList",
       _m: 'get',
       _p: {
-        fee_level_type:'1'
+        fee_level_type:'2'
       }
     }, (res, code) => {
       if (code == 0) {

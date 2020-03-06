@@ -79,20 +79,20 @@ class Weituoliebiao extends Component {
       }
 
     }
-    var scrollBar = document.getElementById('scrollBar');
-    if (scrollBar_switch && scrollBar.scrollTop === 0) {
-      scrollBar.scrollTop = (scrollBar.scrollHeight - scrollBar.clientHeight) / 2;
-    } else {
-      scrollBar_switch = false
-    }
+    // var scrollBar = document.getElementById('scrollBar');
+    // if (scrollBar_switch && scrollBar.scrollTop === 0) {
+    //   scrollBar.scrollTop = (scrollBar.scrollHeight - scrollBar.clientHeight) / 2;
+    // } else {
+    //   scrollBar_switch = false
+    // }
   }
   componentDidMount() {
-    var scrollBar = document.getElementById('scrollBar');
-    if (scrollBar_switch && scrollBar.scrollTop === 0) {
-      scrollBar.scrollTop = (scrollBar.scrollHeight - scrollBar.clientHeight) / 2;
-    } else {
-      scrollBar_switch = false
-    }
+    // var scrollBar = document.getElementById('scrollBar');
+    // if (scrollBar_switch && scrollBar.scrollTop === 0) {
+    //   scrollBar.scrollTop = (scrollBar.scrollHeight - scrollBar.clientHeight) / 2;
+    // } else {
+    //   scrollBar_switch = false
+    // }
   }
   paricefn=(data)=>{
     store.dispatch({type:"paricefn",data:data,isof:true})

@@ -218,9 +218,7 @@ class Weituoliebiao extends Component {
             </div> : <Spin />:bborder_book.arrBids ?<div className="section-titlt ul-a2" style={{ height: 55 }}>
             <div className="bbsection-img-box" style={{
                 color: (() => {
-               
-                  if (bbinstrument.change_rate_24h*1 >0 ) {
-                    
+                  if (bbinstrument.change_rate_24h*1 >=0 ) {
                     return "#26994E"
                   } else {
                     return "#E53F39"

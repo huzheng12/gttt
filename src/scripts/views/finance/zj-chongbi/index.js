@@ -59,8 +59,8 @@ class Chongbi extends Component {
             {
               text == "1" ? <FormattedMessage id="Created" defaultMessage={'已创建'} /> :
                 text == "2" ?
-                  <FormattedMessage id="To_be_confirmed" defaultMessage={'待确认'} /> :
-                  <FormattedMessage id="Arrival_account" defaultMessage={'已到账'} />}
+                  <FormattedMessage id="To_be_confirmed" defaultMessage={'待确认'} /> :text == "3" ?
+                  <FormattedMessage id="Arrival_account" defaultMessage={'已到账'} />:'失败'}
           </span >
         },
       ],

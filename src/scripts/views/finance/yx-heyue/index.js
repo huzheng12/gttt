@@ -22,7 +22,9 @@ class Yongxu extends Component {
       valuation_symbol: "",
       visible: false, 
       available: {},
-      bbasset:""
+      bbasset:"",
+      zjzhfangxiang: "1",
+      zjzhfangxiangchu: "3",
     }
   }
   componentDidMount() {
@@ -174,11 +176,12 @@ class Yongxu extends Component {
 
     }
     this.setState({
-      visible: flg
+      visible: flg,
+      zjzhfangxiang: "1",
+      zjzhfangxiangchu: "3",
     })
   }
   bboaccountavailablefn = (type,data) => {
-    console.log(type,data)
     Xfn({
       _u: "bboaccountavailable",
       _m: "get",
@@ -193,7 +196,6 @@ class Yongxu extends Component {
       this.setState({
         available: res.data.data
       })
-      console.log(res)
     })
   }
   render() {
@@ -236,7 +238,7 @@ class Yongxu extends Component {
           <Table pagination={1 == 2} columns={columns} dataSource={data} />
           {dangqianchipang(data.length)}
         </div>
-        <Modeltrund type={9} bboaccountavailablefn={this.bboaccountavailablefn} available={available} asset={bbasset} visible={visible} visibleFn={this.visibleFn}></Modeltrund>
+        <Modeltrund _this={this} type={9} bboaccountavailablefn={this.bboaccountavailablefn} available={available} asset={bbasset} visible={visible} visibleFn={this.visibleFn}></Modeltrund>
       </div>
     );
   }

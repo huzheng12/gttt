@@ -87,10 +87,7 @@ class BBTradePage extends Component {
   }
   send_wss=()=>{
     let options = bbsendMessage(this.props).bbobj
-    console.log(this.props.bbaymbol,'================')
-    var obj={
 
-    }
     if (window.wss.readyState === 1) {
         window.wss.send(JSON.stringify(options.bbinstrument_all));
       if (localStorage.userInfo) {

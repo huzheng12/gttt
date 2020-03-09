@@ -54,7 +54,10 @@ class Singlebox extends Component {
       num17: "",
       aaa: 100,
       isOk: false,
-      tanasset: ""
+      tanasset: "",
+      visibleIsok:true,
+      zjzhfangxiang: "1",
+      zjzhfangxiangchu: "3",
     }
   }
   priceFn = (e) => {
@@ -117,7 +120,6 @@ class Singlebox extends Component {
       this.setState({
         tanasset: data
       })
-      console.log(data)
     }
     // type ===1  点击划转
     if (type === 1) {
@@ -125,8 +127,19 @@ class Singlebox extends Component {
     } else if (type === 2) {
 
     }
+    if(flg){
+      this.setState({
+        visibleIsok:false
+      })
+    }else{
+      this.setState({
+        visibleIsok:true
+      })
+    }
     this.setState({
-      visible: flg
+      visible: flg,
+      zjzhfangxiang: "1",
+      zjzhfangxiangchu: "3",
     })
   }
   create = () => {
@@ -214,7 +227,8 @@ class Singlebox extends Component {
   }
   render() {
     const {
-      num17, pricedata, lotdata, visible, asset, available, aaa, isOk, tanasset
+      num17, pricedata, lotdata, visible, asset, available, aaa, isOk, tanasset,  zjzhfangxiang,
+      zjzhfangxiangchu,
     } = this.state
     const {
       type, bbasset,bb_old_account_exp, bb_account_exp, bborder_book_data_one, bborder_book_data_teo, bborder_book_data_teoo, bbaymbol, bbinstrument
@@ -312,6 +326,7 @@ class Singlebox extends Component {
           asset={tanasset}
           visible={visible}
           visibleFn={this.visibleFn}
+          _this={this}
         >
         </Modeltrund>
       </div>

@@ -84,8 +84,10 @@ class TitleFullk extends Component {
       LeverAir: "",//***杠杆空***
       confirmLoading: false,
       ModalText: '账户模式：',
+      zjzhfangxiangs: "1",
+      zjzhfangxiangchus: "2",
       zjzhfangxiang: "1",
-      zjzhfangxiangchu: "2",
+      zjzhfangxiangchu: "3",
       numshuliangold: "",
       available: "",
       visible: false
@@ -120,7 +122,9 @@ class TitleFullk extends Component {
 
     }
     this.setState({
-      visible: flg
+      visible: flg,
+      zjzhfangxiang: "1",
+      zjzhfangxiangchu: "3",
     })
   }
   handleCancel3 = () => {
@@ -250,8 +254,8 @@ class TitleFullk extends Component {
   hideModalok2 = () => {
     // this.props.pc_account.symbol
     let asset = this.props.asset
-    let from_account = this.state.zjzhfangxiang
-    let to_account = this.state.zjzhfangxiangchu
+    let from_account = this.state.zjzhfangxiangs
+    let to_account = this.state.zjzhfangxiangchus
     let qty = this.state.valuequanbushuliang
     let time = new Date().getTime().toString()
     let obj = { asset, from_account, to_account, qty, time }
@@ -315,8 +319,8 @@ class TitleFullk extends Component {
 
   zijinzhuan = () => {
     this.setState({
-      zjzhfangxiang: "1",
-      zjzhfangxiangchu: "2"
+      zjzhfangxiangs: "1",
+      zjzhfangxiangchus: "2"
     })
     if (localStorage.userInfo) {
       const obj = {
@@ -350,7 +354,7 @@ class TitleFullk extends Component {
     this.setState({
       numshuliangold: this.state.numshuliang
     })
-    if (this.state.zjzhfangxiang == "1") {
+    if (this.state.zjzhfangxiangs == "1") {
       if (this.state.lis > 0) {
         this.setState({
           numshuliang: "0",
@@ -389,12 +393,12 @@ class TitleFullk extends Component {
     })
   }
   zjzhfangxiang = (val) => {
-    this.setState({ zjzhfangxiang: val })
+    this.setState({ zjzhfangxiangs: val })
     this.yuehuazhuan(val)
 
-    if (val == this.state.zjzhfangxiangchu) {
+    if (val == this.state.zjzhfangxiangchus) {
       this.setState({
-        zjzhfangxiangchu: this.state.zjzhfangxiang,
+        zjzhfangxiangchus: this.state.zjzhfangxiangs,
         numshuliang: this.state.lis,
         valuequanbushuliang: ""
       })
@@ -407,11 +411,11 @@ class TitleFullk extends Component {
 
   }
   zjzhfangxiangchu = (val) => {
-    this.setState({ zjzhfangxiangchu: val })
-    if (val == this.state.zjzhfangxiang) {
-      this.yuehuazhuan(this.state.zjzhfangxiangchu)
+    this.setState({ zjzhfangxiangchus: val })
+    if (val == this.state.zjzhfangxiangs) {
+      this.yuehuazhuan(this.state.zjzhfangxiangchus)
       this.setState({
-        zjzhfangxiang: this.state.zjzhfangxiangchu,
+        zjzhfangxiangs: this.state.zjzhfangxiangchus,
         numshuliang: this.props.pc_account.available,
         valuequanbushuliang: ""
       })
@@ -691,6 +695,7 @@ class TitleFullk extends Component {
                           asset={bbasset}
                           visible={visible}
                           visibleFn={this.visibleFn}
+                          _this={this}
                         >
                         </Modeltrund>
                         <div style={{ float: "left", fontSize: "14px", lineHeight: "40px", marginRight: 10 }}>
@@ -772,7 +777,7 @@ class TitleFullk extends Component {
             </div>
             <div className="abc-a">
               <Select defaultValue="1" className="select2222"
-                value={this.state.zjzhfangxiang}
+                value={this.state.zjzhfangxiangs}
                 style={{ width: 160, height: 42, float: "left" }}
                 onChange={this.zjzhfangxiang}>
                 <Option value="1">  <FormattedMessage id="Funds_account" defaultMessage={'资金账户'} /></Option>
@@ -783,7 +788,7 @@ class TitleFullk extends Component {
               <span className="chongbi-span-huazhuan" style={{ float: "left", lineHeight: "42px" }}> <FormattedMessage id="Transfer" defaultMessage={'划转'} /></span>
               <Select defaultValue="2" className="select2222"
                 style={{ width: 160, height: 42, float: "left" }}
-                value={this.state.zjzhfangxiangchu}
+                value={this.state.zjzhfangxiangchus}
                 onChange={this.zjzhfangxiangchu}>
                 <Option value="1"><FormattedMessage id="Funds_account" defaultMessage={'资金账户'} /></Option>
                 <Option value="2"><FormattedMessage id="Sustainable_Contract_Account" defaultMessage={'永续合约账户'} /></Option>
@@ -818,3 +823,6 @@ class TitleFullk extends Component {
 }
 
 export default TitleFullk;
+
+
+// _this={this}

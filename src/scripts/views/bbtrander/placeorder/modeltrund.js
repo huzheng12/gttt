@@ -17,30 +17,31 @@ class Modeltrund extends Component {
   constructor() {
     super()
     this.state = {
-      zjzhfangxiang: "1",
-      zjzhfangxiangchu: "3",
       valuequanbushuliang: "",
       numshuliangold:null
 
     }
   }
 
-
   onOkFn = () => {
-    console.log(this.props.asset)
     Xfn({
       _u: 'bboaccounttransfer',
       _m: "post",
       _p: {
         asset:this.props.asset,// 资产 USD,必填
-        from_account: this.state.zjzhfangxiang,// 转出账户类型 1 资金账户 2 永续合约账户 3 bb账户,必填
-        to_account: this.state.zjzhfangxiangchu,// 转入账户类型,必填
+        from_account: this.props._this.state.zjzhfangxiang,// 转出账户类型 1 资金账户 2 永续合约账户 3 bb账户,必填
+        to_account: this.props._this.state.zjzhfangxiangchu,// 转入账户类型,必填
         volume: this.state.valuequanbushuliang,// 数量,必填
       }
     }, (res, code) => {
       if (code === 0) {
         this.props.visibleFn(false, 2)
         this.setState({
+          valuequanbushuliang:"",
+          numshuliangold:null
+    
+        })
+        this.props._this.setState({
           zjzhfangxiang: "1",
           zjzhfangxiangchu: "3",
         })
@@ -49,28 +50,35 @@ class Modeltrund extends Component {
   }
   zjzhfangxiang = (value) => {
     this.props.bboaccountavailablefn(value,this.props.asset)
-    if(value===this.state.zjzhfangxiangchu){
-      this.setState({
-        zjzhfangxiangchu:this.state.zjzhfangxiang
+    if(value===this.props._this.state.zjzhfangxiangchu){
+      this.props._this.setState({
+        zjzhfangxiangchu:this.props._this.state.zjzhfangxiang,
       })
     }
+    this.props._this.setState({
+      zjzhfangxiang: value,
+    })
     this.setState({
-      zjzhfangxiang: value
+      valuequanbushuliang:"",
+      numshuliangold:null
+
     })
   }
   zjzhfangxiangchu = (value) => {
-    if(this.state.zjzhfangxiang===value){
-      this.props.bboaccountavailablefn(this.state.zjzhfangxiangchu,this.props.asset)
-
-      this.setState({
-        zjzhfangxiang:this.state.zjzhfangxiangchu
+    if(this.props._this.state.zjzhfangxiang===value){
+      this.props.bboaccountavailablefn(this.props._thisstate.zjzhfangxiangchu,this.props.asset)
+      this.props._this.setState({
+        zjzhfangxiang:this.props._this.state.zjzhfangxiangchu
       })
     }else{
-
-      this.props.bboaccountavailablefn(this.state.zjzhfangxiang,this.props.asset)
+      this.props.bboaccountavailablefn(this.props._thisstate.zjzhfangxiang,this.props.asset)
     }
-    this.setState({
+    this.props._this.setState({
       zjzhfangxiangchu: value
+    })
+    this.setState({
+      valuequanbushuliang:"",
+      numshuliangold:null
     })
   }
   valuequanbushuliang = (e) => {
@@ -95,12 +103,13 @@ class Modeltrund extends Component {
       valuequanbushuliang:this.props.available.available
     })
   }
+
   render() {
     const {
-      numshuliang, valuequanbushuliang, zjzhfangxiang, zjzhfangxiangchu,numshuliangold
+      numshuliang, valuequanbushuliang,numshuliangold
     } = this.state
     const {
-      visible, visibleFn,available,asset,type
+      visible, visibleFn,available,asset,type,_this
     } = this.props
     return (
       <Modal
@@ -130,7 +139,7 @@ class Modeltrund extends Component {
           </div>
           <div className="abc-a">
             <Select defaultValue="1" className="select2222"
-              value={zjzhfangxiang}
+              value={_this.state.zjzhfangxiang}
               style={{ width: 160, height: 42, float: "left" }}
               onChange={this.zjzhfangxiang}>
               <Option value="1">  <FormattedMessage id="Funds_account" defaultMessage={'资金账户'} /></Option>
@@ -141,7 +150,7 @@ class Modeltrund extends Component {
             <span className="chongbi-span-huazhuan" style={{ float: "left", lineHeight: "42px" }}> <FormattedMessage id="Transfer" defaultMessage={'划转'} /></span>
             <Select defaultValue="2" className="select2222"
               style={{ width: 160, height: 42, float: "left" }}
-              value={zjzhfangxiangchu}
+              value={_this.state.zjzhfangxiangchu}
               onChange={this.zjzhfangxiangchu}>
               <Option value="1"><FormattedMessage id="Funds_account" defaultMessage={'资金账户'} /></Option>
               <Option value="2"><FormattedMessage id="Sustainable_Contract_Account" defaultMessage={'永续合约账户'} /></Option>

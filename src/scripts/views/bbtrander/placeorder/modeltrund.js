@@ -66,13 +66,14 @@ class Modeltrund extends Component {
   }
   zjzhfangxiangchu = (value) => {
     if(this.props._this.state.zjzhfangxiang===value){
-      this.props.bboaccountavailablefn(this.props._thisstate.zjzhfangxiangchu,this.props.asset)
+      this.props.bboaccountavailablefn(this.props._this.state.zjzhfangxiangchu,this.props.asset)
       this.props._this.setState({
         zjzhfangxiang:this.props._this.state.zjzhfangxiangchu
       })
     }else{
-      this.props.bboaccountavailablefn(this.props._thisstate.zjzhfangxiang,this.props.asset)
+      this.props.bboaccountavailablefn(this.props._this.state.zjzhfangxiang,this.props.asset)
     }
+    console.log(value)
     this.props._this.setState({
       zjzhfangxiangchu: value
     })

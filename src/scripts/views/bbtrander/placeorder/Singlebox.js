@@ -39,6 +39,7 @@ const marks = {
       bborder_book_data_teo: state.bbdata.bborder_book_data_teo,
       bborder_book_data_teoo: state.bbdata.bborder_book_data_teoo,
       bbinstrument: state.bbdata.bbinstrument,
+      bb_old_account_exp: state.bbdata.bb_old_account_exp,
     }
   }
 )
@@ -169,12 +170,10 @@ class Singlebox extends Component {
           lotdata: 1
         })
       } else {
-        console.log(this.props.bb_account_exp.currency_available, this.props.bbinstrument.last_pric)
         let pricetr = this.state.isOk ? this.state.pricedata : this.props.bborder_book_data_one
         var n = this.props.bbinstrument.number_precision * 1
         var numdd = new RegExp(`^(.*\\..{${n}}).*$`)
-        let value = String(this.props.bb_account_exp.currency_available * val / 100).toString().replace(numdd, "$1")
-        // let value = String(this.props.bb_account_exp.currency_available/this.props.bbinstrument.last_price * val / 100).toString().replace(numdd, "$1")
+        let value = String(this.props.bb_old_account_exp.available * val / 100).toString().replace(numdd, "$1")
         this.setState({
           num17: val,
           lotdata: value
@@ -192,7 +191,7 @@ class Singlebox extends Component {
       // this.state.isOk ? this.state.pricedata : this.props.bborder_book_data_one
       var n = this.props.bbinstrument.number_precision * 1
       var numdd = new RegExp(`^(.*\\..{${n}}).*$`)
-      let value = String(this.props.bb_account_exp.quote_available / this.props.bbinstrument.last_price * val / 100).toString().replace(numdd, "$1")
+      let value = String(this.props.bb_account_exp.available / this.props.bbinstrument.last_price * val / 100).toString().replace(numdd, "$1")
       this.setState({
         num17: val,
         lotdata: value
@@ -218,7 +217,7 @@ class Singlebox extends Component {
       num17, pricedata, lotdata, visible, asset, available, aaa, isOk, tanasset
     } = this.state
     const {
-      type, bbasset, bb_account_exp, bborder_book_data_one, bborder_book_data_teo, bborder_book_data_teoo, bbaymbol, bbinstrument
+      type, bbasset,bb_old_account_exp, bb_account_exp, bborder_book_data_one, bborder_book_data_teo, bborder_book_data_teoo, bbaymbol, bbinstrument
     } = this.props
     return (
       <div className="single_warp">
@@ -228,7 +227,7 @@ class Singlebox extends Component {
          </div>
           <div className="data_box_span">
             {
-             localStorage.userInfo ? type === '1' ? bb_account_exp.quote_available : bb_account_exp.currency_available:'--'
+             localStorage.userInfo ? type === '1' ? bb_account_exp.available : bb_old_account_exp.available:'--'
             }
             {
               type === '1' ? " USDT" : " " + (bbinstrument.symbol ? bbinstrument.symbol.split(bbinstrument.split_char)[0] : "BTC")
@@ -298,11 +297,11 @@ class Singlebox extends Component {
               (() => {
                 var n = this.props.bbinstrument.number_precision * 1
                 var numdd = new RegExp(`^(.*\\..{${n}}).*$`)
-                if (!bb_account_exp.quote_available || !bbinstrument.last_price) {
+                if (!bb_account_exp.available || !bbinstrument.last_price) {
                   return '--'
                 }
-                return type === '1' ? (bb_account_exp.quote_available / bbinstrument.last_price).toString().replace(numdd, "$1") :
-                  (bb_account_exp.currency_available * bbinstrument.last_price).toString().replace(numdd, "$1")
+                return type === '1' ? (bb_account_exp.available / bbinstrument.last_price).toString().replace(numdd, "$1") :
+                  (bb_old_account_exp.available * bbinstrument.last_price).toString().replace(numdd, "$1")
               })()
             }
           </span>

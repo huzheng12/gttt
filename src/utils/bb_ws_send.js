@@ -26,7 +26,7 @@ export default function bbsendMessage(props, objdata) {
         },
         bb_account_exp: {
             "op": "sub",
-            "args": { "instrument_type": "bb", "table": "bb_account_exp", "settle_currency": asset, "symbol": heyuename, "token": localStorage.userInfo }
+            "args": { "instrument_type": "bb", "table": "bb_account_exp", "settle_currency": asset, "token": localStorage.userInfo }
         },
         bb_active_order:{
             "op":"sub",

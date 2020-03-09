@@ -87,12 +87,23 @@ class BBTradePage extends Component {
   }
   send_wss=()=>{
     let options = bbsendMessage(this.props).bbobj
+    console.log(this.props.bbaymbol,'================')
+    var obj={
+
+    }
     if (window.wss.readyState === 1) {
         window.wss.send(JSON.stringify(options.bbinstrument_all));
       if (localStorage.userInfo) {
-        window.wss.send(JSON.stringify(options.bb_account_exp));
+        // window.wss.send(JSON.stringify(options.bb_account_exp));
         window.wss.send(JSON.stringify(options.bb_active_order));
-  
+        window.wss.send(JSON.stringify({
+          "op": "sub",
+          "args": { "instrument_type": "bb", "table": "bb_account_exp", "settle_currency": this.props.bbaymbol&&this.props.bbaymbol.split('/')[0], "token": localStorage.userInfo }
+        }));
+        window.wss.send(JSON.stringify({
+          "op": "sub",
+          "args": { "instrument_type": "bb", "table": "bb_account_exp", "settle_currency": this.props.bbaymbol&&this.props.bbaymbol.split('/')[1], "token": localStorage.userInfo }
+        }));
       }
       window.wss.send(JSON.stringify(options.bborder_book));
       window.wss.send(JSON.stringify(options.bb_trade));

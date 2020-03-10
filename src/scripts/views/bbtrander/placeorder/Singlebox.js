@@ -13,6 +13,7 @@ import { Xfn } from '../../../../utils/axiosfn';
 import { connect } from "react-redux";
 import store from '../../../store';
 import { history } from '@/utils/history'
+import number_format from '../../../../utils/renyinumber';
 
 var nnn = 5
 
@@ -20,11 +21,11 @@ var nnn = 5
 
 const marks = {
   0: '0',
-  20: '',
-  40: "",
-  60: "",
-  80: "",
-  100: "100%",
+  0.2: '',
+  0.4: "",
+  0.6: "",
+  0.8: "",
+  1: "100%",
 
 };
 @connect(
@@ -55,7 +56,7 @@ class Singlebox extends Component {
       aaa: 100,
       isOk: false,
       tanasset: "",
-      visibleIsok:true,
+      visibleIsok: true,
       zjzhfangxiang: "1",
       zjzhfangxiangchu: "3",
     }
@@ -127,13 +128,13 @@ class Singlebox extends Component {
     } else if (type === 2) {
 
     }
-    if(flg){
+    if (flg) {
       this.setState({
-        visibleIsok:false
+        visibleIsok: false
       })
-    }else{
+    } else {
       this.setState({
-        visibleIsok:true
+        visibleIsok: true
       })
     }
     this.setState({
@@ -171,9 +172,9 @@ class Singlebox extends Component {
     return `${value}%`;
   }
   modify_lever = (val) => {
-    if(localStorage.userInfo){
+    if (localStorage.userInfo) {
 
-    }else{
+    } else {
       return false
     }
     if (this.props.type !== '1') {
@@ -186,7 +187,7 @@ class Singlebox extends Component {
         let pricetr = this.state.isOk ? this.state.pricedata : this.props.bborder_book_data_one
         var n = this.props.bbinstrument.number_precision * 1
         var numdd = new RegExp(`^(.*\\..{${n}}).*$`)
-        let value = String(this.props.bb_old_account_exp.available * val / 100).toString().replace(numdd, "$1")
+        let value = String(this.props.bb_old_account_exp.available * val).toString().replace(numdd, "$1")
         this.setState({
           num17: val,
           lotdata: value
@@ -204,7 +205,7 @@ class Singlebox extends Component {
       // this.state.isOk ? this.state.pricedata : this.props.bborder_book_data_one
       var n = this.props.bbinstrument.number_precision * 1
       var numdd = new RegExp(`^(.*\\..{${n}}).*$`)
-      let value = String(this.props.bb_account_exp.available / this.props.bbinstrument.last_price * val / 100).toString().replace(numdd, "$1")
+      let value = String(this.props.bb_account_exp.available / this.props.bbinstrument.last_price * val ).toString().replace(numdd, "$1")
       this.setState({
         num17: val,
         lotdata: value
@@ -227,11 +228,10 @@ class Singlebox extends Component {
   }
   render() {
     const {
-      num17, pricedata, lotdata, visible, asset, available, aaa, isOk, tanasset,  zjzhfangxiang,
-      zjzhfangxiangchu,
+      num17, pricedata, lotdata, visible, available, isOk, tanasset
     } = this.state
     const {
-      type, bbasset,bb_old_account_exp, bb_account_exp, bborder_book_data_one, bborder_book_data_teo, bborder_book_data_teoo, bbaymbol, bbinstrument
+      type, bb_old_account_exp, bb_account_exp, bborder_book_data_one, bbinstrument
     } = this.props
     return (
       <div className="single_warp">
@@ -241,7 +241,30 @@ class Singlebox extends Component {
          </div>
           <div className="data_box_span">
             {
-             localStorage.userInfo ? type === '1' ? bb_account_exp.available : bb_old_account_exp.available:'--'
+              (() => {
+                if (localStorage.userInfo) {
+
+                  if (type === '1') {
+                    if (!bb_account_exp.available) {
+                      return '--'
+                    }
+                    return number_format(bb_account_exp.available, 4, ".", ",")
+                  } else {
+                    if (!bb_old_account_exp.available) {
+                      return '--'
+                    }
+                    switch (bbinstrument.symbol && bbinstrument.symbol.split(bbinstrument.split_char)[0]) {
+                      case 'BTC':
+                        return number_format(bb_old_account_exp.available, 8, ".", ",")
+                      default:
+                        return number_format(bb_old_account_exp.available, 4, ".", ",");
+                    }
+
+                  }
+                } else {
+                  return '--'
+                }
+              })()
             }
             {
               type === '1' ? " USDT" : " " + (bbinstrument.symbol ? bbinstrument.symbol.split(bbinstrument.split_char)[0] : "BTC")
@@ -286,14 +309,14 @@ class Singlebox extends Component {
           }
         />
 
-        <Slider tipFormatter={this.formatter} marks={marks} value={num17} min={0} step={0.01} max={100} tooltipVisible={1 == 2} onChange={this.modify_lever} />
+        <Slider tipFormatter={this.formatter} marks={marks} value={num17} min={0} step={0.01} max={1} tooltipVisible={1 == 2} onChange={this.modify_lever} />
         {
           localStorage.userInfo ? <Button onClick={this.create} className={"button-00010" + (type === '1' ? ' butgg lvse' : ' butgt bgred')} type="primary"  >
             {
               type === '1' ? "买入" + (bbinstrument.symbol ? bbinstrument.symbol.split(bbinstrument.split_char)[0] : 'BTC') : "卖出" + (bbinstrument.symbol ? bbinstrument.symbol.split(bbinstrument.split_char)[0] : "BTC")
             }
           </Button> : <div className="userInfowei">
-              <div className="userInfowei1"  onClick={() => { history.push('/login') }}><FormattedMessage id="Sign_in" defaultMessage={'登录'} /></div>
+              <div className="userInfowei1" onClick={() => { history.push('/login') }}><FormattedMessage id="Sign_in" defaultMessage={'登录'} /></div>
               <div >&nbsp; 或 &nbsp;</div>
               <div className="userInfowei1" onClick={() => { history.push('/register') }}><FormattedMessage id="register" defaultMessage={'注册'} /></div>
 

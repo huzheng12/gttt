@@ -74,8 +74,8 @@ export const bbdata = (state = defaultState, action) => {
       }
       return { ...state, bb_trade_exp: [], bb_trade_exp_html: '', bbinstrument: state.bbinstrument, bb_trade_exp_html_ok: 2 }
     case BBTRADEFN:
-      if (state.bb_trade_exp_html_ok == 2 && action.nul !== 'partial') {
-        return { ...state, bb_trade_exp: [], bb_trade_exp_html: '', bb_trade_exp_html_ok: 1 }
+      if (action.language.length>0&&action.language[0].symbol!==state.bbaymbol) {
+        return { ...state, bb_trade_exp: state.bb_trade_exp, bb_trade_exp_html: state.bb_trade_exp_html }
       }
       let arr = action.language.concat(state.bb_trade_exp)
       arr = arr.slice(0, 33);
@@ -89,7 +89,7 @@ export const bbdata = (state = defaultState, action) => {
       if (action.language == []) {
         arr = []
       }
-      return { ...state, bb_trade_exp: arr, bb_trade_exp_html: state.bb_trade_exp_html, bb_trade_exp_html_ok: 1 }
+      return { ...state, bb_trade_exp: arr, bb_trade_exp_html: state.bb_trade_exp_html }
     case BBINSTRUMENTFN:
       for (let i = 0; i < action.data.length; i++) {
         if (action.data[i].symbol === state.bbaymbol) {

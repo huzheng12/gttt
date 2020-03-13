@@ -9,6 +9,7 @@ import {
 } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import { Xfn } from '../../../../utils/axiosfn';
+import { openNotificationWithIcon } from '../../../../utils/NotificationCONF';
 
 
 const { Option } = Select;
@@ -24,6 +25,10 @@ class Modeltrund extends Component {
   }
 
   onOkFn = () => {
+    console.log(this.state.valuequanbushuliang,this.props.available.available)
+    if(this.state.valuequanbushuliang*1>this.props.available.available*1){
+     return openNotificationWithIcon("opne-warning", "警告", "可划转数量不足")
+    }
     Xfn({
       _u: 'bboaccounttransfer',
       _m: "post",
@@ -73,7 +78,6 @@ class Modeltrund extends Component {
     }else{
       this.props.bboaccountavailablefn(this.props._this.state.zjzhfangxiang,this.props.asset)
     }
-    console.log(value)
     this.props._this.setState({
       zjzhfangxiangchu: value
     })

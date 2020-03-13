@@ -48,7 +48,7 @@ export default class Onesingle extends Component {
           </div>
         </div>
         <div className="clo5 clo">
-          <div className="spl1">以成交量 | 委托总量</div>
+          <div className="spl1">已成交量 | 委托总量</div>
           <div className="spl2">
             {data.filled_qty + ' | ' + data.qty}
           </div>

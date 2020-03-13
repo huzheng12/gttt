@@ -24,6 +24,7 @@ class Huazhuan extends Component {
     this.state = {
       kzslGTC: "",//数量input框value值
       tank: false,
+      tanks: false,
       zxhzzhanghuname: null,//当前的币种 种类   
       page_size: "10",
       zjzhfangxiang: "1",
@@ -198,6 +199,12 @@ class Huazhuan extends Component {
   }
   // 提交订单
   aisoxtikjd = () => {
+    if(this.state.tanks){
+      return false
+    }
+    this.setState({
+      tanks:true
+    })
     if (!this.state.kzslGTC) { return this.setState({ tank: true }) }
     Xfn({
       _u: "transfer",
@@ -211,7 +218,8 @@ class Huazhuan extends Component {
     }, (res, code) => {
       if (code == 0) {
         this.setState({
-          kzslGTC: ""
+          kzslGTC: "",
+          tanks:false
         })
         this.hzavailablehis({
           asset: this.state.zxhzzhanghuname,

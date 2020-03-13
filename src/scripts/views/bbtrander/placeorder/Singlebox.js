@@ -172,7 +172,7 @@ class Singlebox extends Component {
     return `${value}%`;
   }
   modify_lever = (val) => {
-    if (localStorage.userInfo) {
+    if (localStorage.userInfo&&this.props.bb_account_exp.available) {
 
     } else {
       return false
@@ -184,7 +184,6 @@ class Singlebox extends Component {
           lotdata: 1
         })
       } else {
-        let pricetr = this.state.isOk ? this.state.pricedata : this.props.bborder_book_data_one
         var n = this.props.bbinstrument.number_precision * 1
         var numdd = new RegExp(`^(.*\\..{${n}}).*$`)
         let value = String(this.props.bb_old_account_exp.available * val).toString().replace(numdd, "$1")
@@ -201,8 +200,6 @@ class Singlebox extends Component {
         lotdata: 1
       })
     } else {
-      let pricetr = this.state.isOk ? this.state.pricedata : this.props.bborder_book_data_one
-      // this.state.isOk ? this.state.pricedata : this.props.bborder_book_data_one
       var n = this.props.bbinstrument.number_precision * 1
       var numdd = new RegExp(`^(.*\\..{${n}}).*$`)
       let value = String(this.props.bb_account_exp.available / this.props.bbinstrument.last_price * val ).toString().replace(numdd, "$1")
@@ -213,9 +210,7 @@ class Singlebox extends Component {
     }
 
   }
-  componentDidMount() {
 
-  }
   componentDidUpdate() {
     if (this.props.bborder_book_data_teo && this.props.bborder_book_data_teoo) {
       store.dispatch({ type: "paricefn", data: this.props.bborder_book_data_teo, isof: false })

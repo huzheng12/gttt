@@ -49,7 +49,6 @@ const barsFormat = (data) => {
 )
 class tvChart extends Component {
     initOnReady = (symbol) => {
-        console.log(this.props.ctype)
         window.tvWidget = new window.TradingView.widget(Object.assign({}, WidgetInfo, { //tvConfig.js
             debug: true, // uncomment this line to see Library errors and warnings in the console
             symbol: symbol,
@@ -106,7 +105,7 @@ class tvChart extends Component {
             //         window.tvWidget.chart().createStudy("Moving Average", false, false, [time], null, { "plot.color.0": colorArr[index], precision: 2 });
             //     });
             // }
-            window.tvWidget.chart().setChartType(2);
+            window.tvWidget.chart().setChartType(1);
             // window.tvWidget.chart().createPositionLine()
             //     .setPrice(this.props.instrument.index_price * 1)
             //     .setExtendLeft(false)
@@ -130,7 +129,7 @@ class tvChart extends Component {
                 buttonEl.push({ el: button, target: value.name });
                 button.textContent = value.name;
                 button.setAttribute('class', 'customButton--jqJTfH5- tv-resolution-btn')
-                if (value.name === lang().Time_sharing_diagram) button.style.color = 'rgb(183, 213, 234)'
+                if (value.name === '1m') button.style.color = 'rgb(183, 213, 234)'
                 button.addEventListener('click', function (e) {
                     if (e.target.innerHTML === value.name) {
                         window.tvWidget.chart().setChartType(value.type);

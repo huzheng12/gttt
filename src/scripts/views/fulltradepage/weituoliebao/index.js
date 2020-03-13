@@ -39,12 +39,12 @@ class Weituoliebiao extends Component {
   }
   imgdongtaijia = () => {
     const { imgArr } = this.state
-    const { instrument,bbinstrument } = this.props
+    const { instrument, bbinstrument } = this.props
     let instrumentaaa
-    if(this.props.type !== 'bb'){
-      instrumentaaa=instrument
-    }else{
-      instrumentaaa=bbinstrument
+    if (this.props.type !== 'bb') {
+      instrumentaaa = instrument
+    } else {
+      instrumentaaa = bbinstrument
     }
 
     if (instrumentaaa && instrumentaaa.flgz == "1") {
@@ -94,19 +94,19 @@ class Weituoliebiao extends Component {
     //   scrollBar_switch = false
     // }
   }
-  paricefn=(data)=>{
-    store.dispatch({type:"paricefn",data:data,isof:true})
+  paricefn = (data) => {
+    store.dispatch({ type: "paricefn", data: data, isof: true })
   }
   render() {
     const {
       heyuename,
       orderBookL2_25obj,
       instrument,
-      Decimal_point, bborder_book,order_bookshu,type,bbinstrument
+      Decimal_point, bborder_book, order_bookshu, type, bbinstrument
 
     } = this.props
     const {
-      imgArr, 
+      imgArr,
     } = this.state
     return (
       <div className="weituo-bable-warp">
@@ -114,7 +114,7 @@ class Weituoliebiao extends Component {
           <FormattedMessage id="DelegationList" defaultMessage={'委托列表'} />
         </div>
         <div className="title-boxtou">
-    <div className="tite-biaoti"><FormattedMessage id="Price" defaultMessage={'价格'} />({type !== 'bb'? 'USD':bbinstrument.symbol&&bbinstrument.symbol.split(bbinstrument.split_char)[0]})&emsp;</div>
+          <div className="tite-biaoti"><FormattedMessage id="Price" defaultMessage={'价格'} />({type !== 'bb' ? 'USD' : bbinstrument.symbol && bbinstrument.symbol.split(bbinstrument.split_char)[0]})&emsp;</div>
           <div className="tite-biaoti"><FormattedMessage id="Number" defaultMessage={'数量'} />(<FormattedMessage id="Zhang" defaultMessage={'张'} />)</div>
           <div className="tite-biaoti"><FormattedMessage id="Cumulants" defaultMessage={'累积量'} /></div>
         </div>
@@ -127,12 +127,12 @@ class Weituoliebiao extends Component {
                 // }
                 return (
                   <div key={"1321321" + i} className={item.size ? "div-liweituo" : "liweituo-div"}>
-                    <div onClick={type !== 'bb'&&item.size ? () => this.parice(item.price) :  () => this.paricefn(item.price)}
+                    <div onClick={type !== 'bb' && item.size ? () => this.parice(item.price) : () => this.paricefn(item.price)}
                       className="section-tou"
                       style={{ fontSize: 12, cursor: "pointer" }}>
                       {
                         EventFN.CurrencyDigitLimit({
-                          type:type !== 'bb'? Decimal_point:bbinstrument.price_precision,
+                          type: type !== 'bb' ? Decimal_point : bbinstrument.price_precision,
                           content: item.price
                         })
                       }&emsp;</div>
@@ -144,8 +144,12 @@ class Weituoliebiao extends Component {
                               item.color_size == 22 ? "section-red1 bg-change-greens" :
                                 "section-red1"
                       }>
+
                       {
-                      item.size
+                        EventFN.CurrencyDigitLimit({
+                          type: type !== 'bb' ? '0' : bbinstrument.number_precision,
+                          content: item.size
+                        })
                       }
                     </div>
                     {
@@ -156,12 +160,12 @@ class Weituoliebiao extends Component {
                         }}></div>
                         <div className="w">
                           {
-                              EventFN.CurrencyDigitLimit({
-                                type:type !== 'bb'? '2':bbinstrument.number_precision,
-                                content:item.ljl
-                              })
+                            EventFN.CurrencyDigitLimit({
+                              type: type !== 'bb' ? '0' : bbinstrument.number_precision,
+                              content: item.ljl
+                            })
                           }
-                       
+
                         </div>
                       </div> : ""
                     }
@@ -173,14 +177,14 @@ class Weituoliebiao extends Component {
 
           {/* type === 'bb' ? bborder_book : orderBookL2_25obj */}
           {
-            type !== 'bb'?orderBookL2_25obj.arrBids ? <div className="section-titlt ul-a2" style={{ height: 55 }}>
+            type !== 'bb' ? orderBookL2_25obj.arrBids ? <div className="section-titlt ul-a2" style={{ height: 55 }}>
               <div className="section-img-box" style={{
                 color: (() => {
                   let instrumentaaa
-                  if(this.props.type !== 'bb'){
-                    instrumentaaa=instrument
-                  }else{
-                    instrumentaaa=bbinstrument
+                  if (this.props.type !== 'bb') {
+                    instrumentaaa = instrument
+                  } else {
+                    instrumentaaa = bbinstrument
                   }
                   if (instrumentaaa.flgz === "1" || instrumentaaa.flgz === "10") {
                     return "rgba(38, 153, 78, 1)"
@@ -191,13 +195,13 @@ class Weituoliebiao extends Component {
               }}>
                 {
                   EventFN.CurrencyDigitLimit({
-                    type:type !== 'bb'? Decimal_point:bbinstrument.price_precision,
-                    content:type === 'bb'?bbinstrument.last_price: instrument.last_price
+                    type: type !== 'bb' ? Decimal_point : bbinstrument.price_precision,
+                    content: type === 'bb' ? bbinstrument.last_price : instrument.last_price
                   })
                 }
                 <img src={this.imgdongtaijia()} alt="" />
               </div>
-              
+
               <div className="section-titless">
                 <div className="diqiu-img-l" style={{ height: 24 }}>
                   <div style={{
@@ -205,8 +209,8 @@ class Weituoliebiao extends Component {
                     textOverflow: 'ellipsis', overflow: 'hidden'
                   }}>{
                       EventFN.CurrencyDigitLimit({
-                        type:type !== 'bb'? Decimal_point:bbinstrument.price_precision,
-                        content: type === 'bb'?bbinstrument.index_price:instrument.index_price
+                        type: type !== 'bb' ? Decimal_point : bbinstrument.price_precision,
+                        content: type === 'bb' ? bbinstrument.index_price : instrument.index_price
                       })
 
                     }</div>
@@ -220,16 +224,16 @@ class Weituoliebiao extends Component {
                     whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden'
                   }}>{
                       EventFN.CurrencyDigitLimit({
-                        type: type === 'bb'?Decimal_point:bbinstrument.price_precision,
-                        content: type === 'bb'?bbinstrument.mark_price:instrument.mark_price
+                        type: type === 'bb' ? Decimal_point : bbinstrument.price_precision,
+                        content: type === 'bb' ? bbinstrument.mark_price : instrument.mark_price
                       })
                     }</div>
                 </div>
               </div>
-            </div> : <Spin />:bborder_book.arrBids ?<div className="section-titlt ul-a2" style={{ height: 55 }}>
-            <div className="bbsection-img-box" style={{
+            </div> : <Spin /> : bborder_book.arrBids ? <div className="section-titlt ul-a2" style={{ height: 55 }}>
+              <div className="bbsection-img-box" style={{
                 color: (() => {
-                  if (bbinstrument.change_rate_24h*1 >=0 ) {
+                  if (bbinstrument.change_rate_24h * 1 >= 0) {
                     return "#26994E"
                   } else {
                     return "#E53F39"
@@ -238,14 +242,14 @@ class Weituoliebiao extends Component {
               }}>
                 {
                   EventFN.CurrencyDigitLimit({
-                    type:type !== 'bb'? Decimal_point:bbinstrument.price_precision,
-                    content:type === 'bb'?bbinstrument.last_price: instrument.last_price
+                    type: type !== 'bb' ? Decimal_point : bbinstrument.price_precision,
+                    content: type === 'bb' ? bbinstrument.last_price : instrument.last_price
                   })
                 }
                 &nbsp;
                  {
-              (type === 'bb' ? bbinstrument : instrument).change_rate_24h ? (type === 'bb' ? bbinstrument : instrument).change_rate_24h >= 0 ? <span className="iconfont imgastd" style={{ color: "#26994E" }}>&#xe60e;</span> : <span className="iconfont imgastd" style={{ color: "#E53F39" }}>&#xe610;</span> : ""
-            }
+                  (type === 'bb' ? bbinstrument : instrument).change_rate_24h ? (type === 'bb' ? bbinstrument : instrument).change_rate_24h >= 0 ? <span className="iconfont imgastd" style={{ color: "#26994E" }}>&#xe60e;</span> : <span className="iconfont imgastd" style={{ color: "#E53F39" }}>&#xe610;</span> : ""
+                }
                 {/* <img src={this.imgdongtaijia()} alt="" /> */}
               </div>
             </div> : <Spin />
@@ -255,11 +259,11 @@ class Weituoliebiao extends Component {
               (type === 'bb' ? bborder_book : orderBookL2_25obj).arrBids.map((item, i) => {
                 return (
                   <div key={"1321321" + i} className={item.size ? "div-liweituo uli-a10" : "liweituo-div"} >
-                    <div onClick={type !== 'bb'&&item.size ? () => this.parice(item.price) : () => this.paricefn(item.price)}
+                    <div onClick={type !== 'bb' && item.size ? () => this.parice(item.price) : () => this.paricefn(item.price)}
                       className="section-tou"
                       style={{ color: "#26994E", fontSize: 12, cursor: "pointer" }}>{
                         EventFN.CurrencyDigitLimit({
-                          type: type !== 'bb'? Decimal_point:bbinstrument.price_precision,
+                          type: type !== 'bb' ? Decimal_point : bbinstrument.price_precision,
                           content: item.price
                         })
                       }&emsp;</div>
@@ -270,8 +274,11 @@ class Weituoliebiao extends Component {
                             item.color_size == 22 ? "section-red1 bg-change-greens" :
                               "section-red1"
                     }>
-                    {
-                       item.size
+                      {
+                        EventFN.CurrencyDigitLimit({
+                          type: type !== 'bb' ? '0' : bbinstrument.number_precision,
+                          content: item.size
+                        })
                       }
                     </div>
                     {
@@ -279,12 +286,12 @@ class Weituoliebiao extends Component {
                         <div className="b" style={{ width: item.bgcolor * 100 + '%', backgroundColor: i % 2 == 0 ? "rgba(38,153,78,.3)" : "rgba(38,153,78,.15) " }}></div>
                         <div className="w">
                           {
-                           
+
                             EventFN.CurrencyDigitLimit({
-                              type:type !== 'bb'? '2':bbinstrument.number_precision,
-                              content:item.ljl
+                              type: type !== 'bb' ? '0' : bbinstrument.number_precision,
+                              content: item.ljl
                             })
-                          
+
                           }
                         </div>
                       </div> : ""
@@ -292,8 +299,8 @@ class Weituoliebiao extends Component {
 
                   </div>
                 )
-              }) 
-          }
+              })
+            }
           </ul>
         </div>
       </div >

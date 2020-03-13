@@ -122,6 +122,9 @@ class Weituoliebiao extends Component {
           <ul className="ul-a1">
             {
               (type === 'bb' ? bborder_book : orderBookL2_25obj).arrAsks.map((item, i) => {
+                // if(i>15){
+                //   return
+                // }
                 return (
                   <div key={"1321321" + i} className={item.size ? "div-liweituo" : "liweituo-div"}>
                     <div onClick={type !== 'bb'&&item.size ? () => this.parice(item.price) :  () => this.paricefn(item.price)}
@@ -141,7 +144,9 @@ class Weituoliebiao extends Component {
                               item.color_size == 22 ? "section-red1 bg-change-greens" :
                                 "section-red1"
                       }>
-                      {thousands(item.size)}
+                      {
+                      item.size
+                      }
                     </div>
                     {
                       item.price ? <div className="section-foot">
@@ -150,7 +155,13 @@ class Weituoliebiao extends Component {
                             i % 2 == 0 ? "rgba(140,42,42,.3)" : "rgba(140,42,42,.15)"
                         }}></div>
                         <div className="w">
-                          {thousands(item.ljl)}
+                          {
+                              EventFN.CurrencyDigitLimit({
+                                type:type !== 'bb'? '2':bbinstrument.number_precision,
+                                content:item.ljl
+                              })
+                          }
+                       
                         </div>
                       </div> : ""
                     }
@@ -259,13 +270,22 @@ class Weituoliebiao extends Component {
                             item.color_size == 22 ? "section-red1 bg-change-greens" :
                               "section-red1"
                     }>
-                      {thousands(item.size)}
+                    {
+                       item.size
+                      }
                     </div>
                     {
                       item.price ? <div className="section-foot">
                         <div className="b" style={{ width: item.bgcolor * 100 + '%', backgroundColor: i % 2 == 0 ? "rgba(38,153,78,.3)" : "rgba(38,153,78,.15) " }}></div>
                         <div className="w">
-                          {thousands(item.ljl)}
+                          {
+                           
+                            EventFN.CurrencyDigitLimit({
+                              type:type !== 'bb'? '2':bbinstrument.number_precision,
+                              content:item.ljl
+                            })
+                          
+                          }
                         </div>
                       </div> : ""
                     }

@@ -131,7 +131,6 @@ const reduxFnData = {
         if (!arr[i].price) { return false }
         if(aa){
           return number_format(arr[i].price, aa, ".", ",")
-
         }
         return number_format(arr[i].price, state.Decimal_point, ".", ",")
       })()

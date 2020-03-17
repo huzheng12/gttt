@@ -263,6 +263,9 @@ class Huazhuan extends Component {
       from_account: val,
     })
   }
+  xiayiye=()=>{
+    
+  }
   zjzhfangxiangchu = (val) => {
     this.setState({
       kzslGTC: ""
@@ -388,16 +391,10 @@ class Huazhuan extends Component {
             <span className="tble-span-title">
               {zxhzzhanghuname}<FormattedMessage id="Transcription_Record" defaultMessage={' 划转记录'} />
             </span>
-            <Table pagination={{  // 分页
-              showQuickJumper: false,
-              simple: true,
-              hideOnSinglePage: true,
-              total: lishilength,
-              pageSize: 10,
-              onChange: this.fenyed,
-              current: current_page
-            }} style={{ marginTop: 20 }} columns={columns} dataSource={data} />
-
+            <Table pagination={false} style={{ marginTop: 20 }} columns={columns} dataSource={data} />
+            {
+              lishilength*1>data.length?<div onClick={this.xiayiye}>chakan</div>:""
+            }
             {dangqianchipang(data.length)}
           </div>
         </div>

@@ -27,6 +27,7 @@ class Asset extends Component {
       symbol: "",
       typr1:{},
       typr2:{},
+      total:{}
     }
   }
   componentDidMount() {
@@ -64,7 +65,8 @@ class Asset extends Component {
           zczx: this.state.zczx,
           total_asset: res.data.data.total,
           symbol: res.data.data.asset,
-          typr2
+          typr2,
+          total:res.data.data
         })
       }
     })
@@ -75,7 +77,8 @@ class Asset extends Component {
       zczx,
       total_asset,
       symbol,
-      typr2
+      typr2,
+      total
     } = this.state
     const {
       withdrawmoney
@@ -116,7 +119,7 @@ class Asset extends Component {
                       {item.account_mode == "1" ? < FormattedMessage id="Funds_account" defaultMessage={'资金账户'} /> : < FormattedMessage id="Transaction_account" defaultMessage={'交易账户'} />}
                     </div>
                     <div className="content-main">
-                      <p>{number_format(item.account_total, 8, ".", ",")}<span className="content-main-p-span">{symbol}</span></p>
+                      <p>{number_format(total.trade_total, 8, ".", ",")}<span className="content-main-p-span">{symbol}</span></p>
                       <div className="clear">
                         <div>
                           <img src={imgArr.coincharging} alt="" />
@@ -141,7 +144,7 @@ class Asset extends Component {
                       {item.account_mode == "1" ? < FormattedMessage id="Funds_account" defaultMessage={'资金账户'} /> : < FormattedMessage id="Transaction_account" defaultMessage={'交易账户'} />}
                     </div>
                     <div className="content-main">
-                      <p>{number_format(item.account_total, 8, ".", ",")}<span className="content-main-p-span">{symbol}</span></p>
+                      <p>{number_format(total.fund_total, 8, ".", ",")}<span className="content-main-p-span">{symbol}</span></p>
                       <div className="clear">
                         <div>
                           {item.account_type == "1" ? < FormattedMessage id="Funds_account" defaultMessage={'资金账户'} /> : item.account_type == "2" ? < FormattedMessage id="Sustainable_Contract_Account" defaultMessage={'永续合约账户'} /> : < FormattedMessage id="Spot_account" defaultMessage={'现货账户'} />}

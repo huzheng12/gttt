@@ -946,3 +946,30 @@
     width: 100%;
     text-align: center;
 }
+
+
+.g-scrollbar::-webkit-scrollbar {
+    width: 2px;
+    height: 1px;
+}
+.g-scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #2e3863;
+}
+.g-scrollbar::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: #172130;
+}
+
+.g-x-scrollbar::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+.g-x-scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #2e3863;
+}
+.g-x-scrollbar::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: #172130;
+}

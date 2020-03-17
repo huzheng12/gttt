@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { history } from '@/utils/history';
-// axios.defaults.baseURL = "https://hupa.7766.org:3013";
+// axios.defaults.baseURL = "https://service.gte.io";
 let token = "";
 axios.defaults.withCredentials = false;
 axios.defaults.headers.common["token"] = token //请求头是空

@@ -323,7 +323,7 @@ class Chongbi extends Component {
             false
           } columns={columns} dataSource={data} />
            {
-              lishilength*1>data.length?<div onClick={this.xiayiye}>chakan</div>:""
+              lishilength*1>data.length?<div className="jaizaigeng" onClick={this.xiayiye}>加载更多</div>:""
             }
           {dangqianchipang(data.length)}
         </div>

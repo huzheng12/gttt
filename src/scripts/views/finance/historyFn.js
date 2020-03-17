@@ -35,13 +35,6 @@ const _processingFn = {
         withdraw_time = _dataArr[_dataArr.length - 1].ctime
         withdraw_id = _dataArr[_dataArr.length - 1].transfer_id
       }
-    } else {
-      obj = {
-        asset: _asset,
-        current_page: "1",
-        page_size: "10",
-      }
-
       obj = {
         asset: _asset,
         page_size: "10",
@@ -49,6 +42,14 @@ const _processingFn = {
         query_id: withdraw_id,
         page_status: '1'
       }
+    } else {
+      obj = {
+        asset: _asset,
+        current_page: "1",
+        page_size: "10",
+      }
+
+      
 
     }
     Xfn({

@@ -396,7 +396,7 @@ class Huazhuan extends Component {
             </span>
             <Table pagination={false} style={{ marginTop: 20 }} columns={columns} dataSource={data} />
             {
-              lishilength*1>data.length?<div onClick={this.xiayiye}>chakan</div>:""
+              lishilength*1>data.length?<div className="jaizaigeng" onClick={this.xiayiye}>加载更多</div>:""
             }
             {/* *1>data.length */}
             {dangqianchipang(data.length)}

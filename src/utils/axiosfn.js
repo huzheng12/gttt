@@ -3,6 +3,7 @@ import { api } from '@/utils/api.js'
 import { openNotificationWithIcon } from './NotificationCONF';
 
 export const Xfn = (obj, fn, b) => {
+  console.log(obj,'=====')
   var xh = 0
   if (!obj._p.time && !obj._t) {
     obj._p.time = new Date().getTime().toString()

@@ -964,4 +964,16 @@
     border-radius: 10px;
     background: #172130;
 }
+ .ant-tabs-tabpane::-webkit-scrollbar {
+    width: 2px;
+    height: 1px;
+}
+ .ant-tabs-tabpane::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #2e3863;
+}
+ .ant-tabs-tabpane::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: #172130;
+}
 

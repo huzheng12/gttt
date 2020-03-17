@@ -846,7 +846,7 @@
         position: absolute;
         top: 20px;
         z-index: 999;
-        width: 464px;
+        width: 313px;
 
         .nav{
             margin-top: 40px;
@@ -881,7 +881,7 @@
                 width: 40%;
             }
             .lie3{
-                padding-left: 44px;
+                padding-left: 26px;
                 display: flex;
                 .img_box_d{
                     margin-top: 11px;
@@ -891,14 +891,15 @@
         .li_box{
             display: flex;
             height: 100%;
-            min-height: 358px;
+            min-height: 313px;
             border: 1px solid #4D4949;
             border-top:transparent;
+            font-size: 14px;
             .box_bb{
               width: 30%;
           
                 background-color:#0B101F;
-                font-size:18px;
+                font-size:14px;
                 font-family:Microsoft YaHei;
                 font-weight:400;
                 line-height: 50px;
@@ -919,6 +920,9 @@
             .box_bb1{
                 background: #191E2E;
                 padding-left: 0px;
+                li{
+                    padding-left: 15px;
+                }
             }
             .box_bb3{
                 li{
@@ -961,15 +965,3 @@
     background: #172130;
 }
 
-.g-x-scrollbar::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-}
-.g-x-scrollbar::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: #2e3863;
-}
-.g-x-scrollbar::-webkit-scrollbar-track {
-    border-radius: 10px;
-    background: #172130;
-}

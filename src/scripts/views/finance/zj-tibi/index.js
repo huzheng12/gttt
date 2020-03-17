@@ -101,7 +101,7 @@ class Tibi extends Component {
         )
         this.tbquery_history(
           {
-            asset: _asset
+            asset: _asset,
           }
         )
 
@@ -119,6 +119,11 @@ class Tibi extends Component {
       for (var i in arr) {
         arr[i].key = arr[i] + i + this.state.current_page
       }
+      if(_data&&_data.qiehuan==='1'){
+        arr = this.state.data.concat(arr);
+
+      }
+
       this.setState({
         data: arr,
         lishilength: _res.total,
@@ -192,13 +197,12 @@ class Tibi extends Component {
       })
     }
   }
-  fenyed = (val) => {
+  xiayiye = () => {
     this.tbquery_history({
-      current_page: val
+      qiehuan:'1',
+      ctime:'0'
     })
-    this.setState({
-      current_page: val
-    })
+ 
   }
   tibiCancel = () => {
     this.setState({
@@ -332,15 +336,10 @@ class Tibi extends Component {
             <span className="tble-span-title">
               {symbols}提币记录
             </span>
-            <Table pagination={{  // 分页
-              showQuickJumper: false,
-              simple: true,
-              hideOnSinglePage: true,
-              total: lishilength,
-              pageSize: 10,
-              onChange: this.fenyed,
-              current: current_page
-            }} columns={columns} dataSource={data} />
+            <Table pagination={false} columns={columns} dataSource={data} />
+              {
+              lishilength*1>data.length?<div onClick={this.xiayiye}>chakan</div>:""
+            }
             {dangqianchipang(data.length)}
           </div>
         </div>

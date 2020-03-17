@@ -132,7 +132,7 @@ class Headernav extends Component {
                 return <li className={bbaymbol !== item.symbol ? "" : 'box_bbspan999 '} key={item + index} onClick={() => this.symbolfn(item.symbol)}>
                   <span style={{
                     display: 'inline-block',
-                    width: 180
+                    width: 114
                   }} > {
                     item.symbol
                   }</span>

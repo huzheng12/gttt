@@ -132,8 +132,11 @@ class Huazhuan extends Component {
       for (var i in arr) {
         arr[i].key = arr[i] + i + this.state.current_page
       }
+      if(_data&&_data.qiehuan==='1'){
+        arr = this.state.data.concat(arr);
+      }
       this.setState({
-        data: _res.rows,
+        data: arr,
         lishilength: _res.total
       })
     })
@@ -157,20 +160,17 @@ class Huazhuan extends Component {
         )
         this.cczxquery_history(
           {
-            asset: _asset
+            asset: _asset,
           }
         )
       }
     })
   }
   fenyed = (val) => {
-    console.log(typeof val)
     this.cczxquery_history({
-      current_page: val
+      current_page: val,
     })
-    this.setState({
-      current_page: val
-    })
+
   }
   kzslGTC = (e) => {
     const n = 8
@@ -231,7 +231,7 @@ class Huazhuan extends Component {
   }
   zxhzzhanghu = (val) => {
     this.cczxquery_history({
-      asset: val
+      asset: val,
     })
     this.hzavailablehis({
       asset: val
@@ -264,7 +264,11 @@ class Huazhuan extends Component {
     })
   }
   xiayiye=()=>{
-    
+    this.cczxquery_history({
+      qiehuan:'1',
+      ctime:'0'
+
+    })
   }
   zjzhfangxiangchu = (val) => {
     this.setState({
@@ -320,7 +324,6 @@ class Huazhuan extends Component {
       lishilength,
       tank,
       zxhzzhanghuname,
-      current_page
     } = this.state
     return (
       <div className="huazhuan-warp">
@@ -395,6 +398,7 @@ class Huazhuan extends Component {
             {
               lishilength*1>data.length?<div onClick={this.xiayiye}>chakan</div>:""
             }
+            {/* *1>data.length */}
             {dangqianchipang(data.length)}
           </div>
         </div>

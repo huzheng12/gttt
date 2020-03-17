@@ -110,7 +110,7 @@ class Chongbi extends Component {
 
         this.depositMarketsQuery()
         this.cbquery_historyFn({
-          asset: asset
+          asset: asset,
         })
       }
     })
@@ -147,6 +147,10 @@ class Chongbi extends Component {
       for (var i in arr) {
         arr[i].key = arr[i] + i + this.state.current_page
       }
+      if(_data&&_data.qiehuan==='1'){
+        arr = this.state.data.concat(arr);
+
+      }
       this.setState({
         data: arr,
         lishilength: _res.total
@@ -171,14 +175,12 @@ class Chongbi extends Component {
       }
     })
   }
-  fenyed = (val) => {
+  xiayiye = (val) => {
     this.cbquery_historyFn({
-      current_page: val,
-      asset: this.state.symbols
+      qiehuan:'1',
+      ctime:'0'
     })
-    this.setState({
-      current_page: val
-    })
+
   }
   addressoncchagn = (value) => {
     this.depositMarketsQuery({
@@ -318,16 +320,11 @@ class Chongbi extends Component {
             {symbols}<FormattedMessage id="Coin_record" defaultMessage={'充币记录'} />
           </div>
           <Table pagination={
-            {
-              showQuickJumper: false,
-              simple: true,
-              hideOnSinglePage: true,
-              total: lishilength,
-              pageSize: 10,
-              onChange: this.fenyed,
-              current: current_page
-            }
+            false
           } columns={columns} dataSource={data} />
+           {
+              lishilength*1>data.length?<div onClick={this.xiayiye}>chakan</div>:""
+            }
           {dangqianchipang(data.length)}
         </div>
       </div >

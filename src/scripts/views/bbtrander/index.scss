@@ -132,7 +132,7 @@
         height: 100%;
         .ant-tabs .ant-tabs-top-content, .ant-tabs .ant-tabs-bottom-content {
             width: 100%;
-            height: 80%;
+            height: calc(100% - 85px);
         }
         .bbtablefoot_warp_box{
             height: 100%;
@@ -955,6 +955,7 @@
     display: block;
     width: 100%;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 

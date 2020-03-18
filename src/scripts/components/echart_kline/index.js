@@ -11,6 +11,7 @@ var kline_datas = []; // k线数据存储容器
 
 var kChart;
 var symbol;
+var isoksymbol=true
 
 
 // 时间格式化处理
@@ -227,10 +228,16 @@ class echart_kline extends Component {
                 kChart.hideLoading();
             } else if (data.current == 1 && kline_datas.length > 0 && data.rows.length > 0) { // 实时数据
                 if (data.rows.length > 1) {
-                    kline_datas.pop();
                     for (var i = 0; i < data.rows.length; i++) {
-                        if (data.rows[i][0] > kline_datas[kline_datas.length - 1][0]) kline_datas.push(data.rows[i])
+                        if (data.rows[i][0] > kline_datas[kline_datas.length - 1][0]){
+                            if(isoksymbol){
+                                kline_datas.pop();
+                                isoksymbol=false
+                            }
+                            kline_datas.push(data.rows[i])
+                        } 
                     }
+                    isoksymbol=true
                 } else if (data.rows.length == 1) {
                     if (data.rows[0][0] == kline_datas[kline_datas.length - 1][0]) kline_datas.pop();
                     kline_datas.push(data.rows[0])
@@ -244,6 +251,7 @@ class echart_kline extends Component {
             }
         }
     }
+
     changeResolute = (e) => {
         let resolution = e.currentTarget.getAttribute('value')
         let type = e.currentTarget.getAttribute('type')

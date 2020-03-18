@@ -95,6 +95,7 @@ class Huazhuan extends Component {
       lishilength: '',
       current_page: 1,//当前页数  切换页数的时候需要对比
       availables: '',
+      isok:true
 
     }
   }
@@ -133,11 +134,24 @@ class Huazhuan extends Component {
         arr[i].key = arr[i] + i + this.state.current_page
       }
       if(_data&&_data.qiehuan==='1'){
+        if(_res.rows.length===0){
+          this.setState({
+            isok:false
+          })
+        }else{
+          this.setState({
+            isok:true
+          })
+        }
         arr = this.state.data.concat(arr);
+      }else{
+        this.setState({
+          isok:true
+        })
       }
       this.setState({
         data: arr,
-        lishilength: _res.total
+        lishilength: _res.total,
       })
     })
   }
@@ -324,6 +338,7 @@ class Huazhuan extends Component {
       lishilength,
       tank,
       zxhzzhanghuname,
+      isok
     } = this.state
     return (
       <div className="huazhuan-warp">
@@ -395,10 +410,22 @@ class Huazhuan extends Component {
               {zxhzzhanghuname}<FormattedMessage id="Transcription_Record" defaultMessage={' 划转记录'} />
             </span>
             <Table pagination={false} style={{ marginTop: 20 }} columns={columns} dataSource={data} />
-            {
-              lishilength*1>data.length?<div className="jaizaigeng" onClick={this.xiayiye}>加载更多</div>:""
+           
+             {
+          (()=>{
+            if(data.length>0){
+              if(data.length<10){
+                return <div className="wugengd">
+                无更多数据
+                </div>
+              }
+             return isok ? <div className="jaizaigeng" onClick={this.xiayiye}>加载更多</div>: <div className="wugengd">
+            无更多数据
+            </div>
             }
-            {/* *1>data.length */}
+          })()
+
+        }
             {dangqianchipang(data.length)}
           </div>
         </div>

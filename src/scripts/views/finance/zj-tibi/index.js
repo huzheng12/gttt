@@ -79,7 +79,8 @@ class Tibi extends Component {
       tibivisible: false,
       tibiValue: "",
       current_page: 1,
-      last_withdraw_address: ""
+      last_withdraw_address: "",
+      isok:true
     }
   }
   componentDidMount() {
@@ -119,9 +120,23 @@ class Tibi extends Component {
       for (var i in arr) {
         arr[i].key = arr[i] + i + this.state.current_page
       }
-      if(_data&&_data.qiehuan==='1'){
+      if (_data && _data.qiehuan === '1') {
+        if(_res.rows.length===0){
+          this.setState({
+            isok:false
+          })
+        }else{
+          this.setState({
+            isok:true
+          })
+        }
         arr = this.state.data.concat(arr);
+     
 
+      }else{
+        this.setState({
+          isok:true
+        })
       }
 
       this.setState({
@@ -199,10 +214,10 @@ class Tibi extends Component {
   }
   xiayiye = () => {
     this.tbquery_history({
-      qiehuan:'1',
-      ctime:'0'
+      qiehuan: '1',
+      ctime: '0'
     })
- 
+
   }
   tibiCancel = () => {
     this.setState({
@@ -248,7 +263,8 @@ class Tibi extends Component {
       lishilength,
       tibivisible, tibiValue,
       last_withdraw_address,
-      current_page
+      current_page,
+      isok
     } = this.state
     return (
       <div className="tibi-warp">
@@ -337,8 +353,21 @@ class Tibi extends Component {
               {symbols}提币记录
             </span>
             <Table pagination={false} columns={columns} dataSource={data} />
-              {
-              lishilength*1>data.length?<div className="jaizaigeng" onClick={this.xiayiye}>加载更多</div>:""
+            
+            {
+              (() => {
+                if (data.length > 0) {
+                  if (data.length < 10) {
+                    return <div className="wugengd">
+                      无更多数据
+                </div>
+                  }
+                  return isok ? <div className="jaizaigeng" onClick={this.xiayiye}>加载更多</div> : <div className="wugengd">
+                    无更多数据
+            </div>
+                }
+              })()
+
             }
             {dangqianchipang(data.length)}
           </div>

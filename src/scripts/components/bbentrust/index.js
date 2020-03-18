@@ -167,7 +167,8 @@ class Bbentrust extends Component {
       }
     })
     this.setState({
-      bbasset: value
+      bbasset: value,
+      isofk:true
     })
   }
   handleChanges = (value) => {
@@ -176,7 +177,8 @@ class Bbentrust extends Component {
       bbsymbol: value
     })
     this.setState({
-      bbsymbol: value
+      bbsymbol: value,
+      isofk:true
     })
   }
   Cancel_order = (data) => {
@@ -224,7 +226,8 @@ class Bbentrust extends Component {
           } else {
             this.setState({
               data3: arr,
-              data3A: res.data.data
+              data3A: res.data.data,
+              isofk: true
             })
           }
         } else {
@@ -306,16 +309,28 @@ class Bbentrust extends Component {
           this.dangqianchipang(data3)
         }
         {
-          data3A.total * 1 > data3.length && isofk ? <div className="dibujiazai" onClick={() => {
-            this.history_data(this.props.type !== '1' ? 'bborderquery' : "bborderquery_history", {
-              bbasset: bbasset,
-              bbsymbol: bbsymbol,
-              type: 1,
-              last_order_id:data3[data3.length-1].id
-            })
-          }}>
-            查看更多
-        </div> : ''
+          (()=>{
+            if(data3.length>0){
+              if(data3.length<10){
+                return <div className="wugengd">
+                无更多数据
+                </div>
+              }
+             return isofk ? <div className="dibujiazai" onClick={() => {
+                this.history_data(this.props.type !== '1' ? 'bborderquery' : "bborderquery_history", {
+                  bbasset: bbasset,
+                  bbsymbol: bbsymbol,
+                  type: 1,
+                  last_order_id:data3[data3.length-1].id
+                })
+              }}>
+                加载更多
+            </div> : <div className="wugengd">
+            无更多数据
+            </div>
+            }
+          })()
+
         }
       </div>
     )

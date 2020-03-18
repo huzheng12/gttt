@@ -57,7 +57,8 @@ class Innercangs extends Component {
     chexiaoFlg: true,
     fenyexianshi: true,
     last_yema: true,
-    yema_numb: 1
+    yema_numb: 1,
+    isok:true
   }
   chexiao1 = (a, b) => {
     if (this.state.chexiaoFlg) {
@@ -194,9 +195,20 @@ class Innercangs extends Component {
           }
           window.allposiont = "1"
           if (type) {
-            if (this.state.data3 !== null) {
+            if (this.state.data3 !== null||this.state.data3.length===0) {
               arr = this.state.data3.concat(arr);
+              this.setState({
+                isok:false
+              })
+            }else{
+              this.setState({
+                isok:true
+              })
             }
+          }else{
+            this.setState({
+              isok:true
+            })
           }
           this.setState({
             current_page: this.state.current_page + 1,
@@ -311,7 +323,8 @@ class Innercangs extends Component {
       chakanshu,
       lishilength,
       pairArr,
-      current_page
+      current_page,
+      isok
     } = this.state
     return (
       < div className="Innercang-warp tabe-war" >
@@ -363,17 +376,25 @@ class Innercangs extends Component {
           dataSource={data3} />
         {/* 分页 */}
         {
-          console.log(lishilength, current_page, '[[[')
+          (()=>{
+            if(data3&&data3.length>0){
+              if(data3.length<10){
+                return <div className="wugengd">
+                无更多数据
+                </div>
+              }
+             return isok ? <div className="view_more" onClick={() => this.screen({
+              next_page: '1',
+              type: '1'
+            }, '1')}>
+              < FormattedMessage id="ViewMore" defaultMessage={'查看更多'} />
+            </div> : <div className="wugengd">
+            无更多数据
+            </div>
+            }
+          })()
         }
-        {
-
-          lishilength * 1 > 20 && Math.ceil(lishilength / 20) !== current_page ? <div className="view_more" onClick={() => this.screen({
-            next_page: '1',
-            type: '1'
-          }, '1')}>
-            < FormattedMessage id="ViewMore" defaultMessage={'查看更多'} />
-          </div> : ""
-        }
+      
         <Modal
           className="but0006 but0008 but118"
           centered

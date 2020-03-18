@@ -59,8 +59,8 @@ class Chongbi extends Component {
             {
               text == "1" ? <FormattedMessage id="Created" defaultMessage={'已创建'} /> :
                 text == "2" ?
-                  <FormattedMessage id="To_be_confirmed" defaultMessage={'待确认'} /> :text == "3" ?
-                  <FormattedMessage id="Arrival_account" defaultMessage={'已到账'} />:'失败'}
+                  <FormattedMessage id="To_be_confirmed" defaultMessage={'待确认'} /> : text == "3" ?
+                    <FormattedMessage id="Arrival_account" defaultMessage={'已到账'} /> : '失败'}
           </span >
         },
       ],
@@ -72,7 +72,8 @@ class Chongbi extends Component {
       lishilength: "",
       current_page: 1,
       addresds: "",
-      Virtualcurrency: true
+      Virtualcurrency: true,
+      isok: true
     }
   }
   componentDidMount() {
@@ -147,9 +148,22 @@ class Chongbi extends Component {
       for (var i in arr) {
         arr[i].key = arr[i] + i + this.state.current_page
       }
-      if(_data&&_data.qiehuan==='1'){
+      if (_data && _data.qiehuan === '1') {
+        if (_res.rows.length === 0) {
+          this.setState({
+            isok: false
+          })
+        } else {
+          this.setState({
+            isok: true
+          })
+        }
         arr = this.state.data.concat(arr);
 
+      } else {
+        this.setState({
+          isok: true
+        })
       }
       this.setState({
         data: arr,
@@ -177,8 +191,8 @@ class Chongbi extends Component {
   }
   xiayiye = (val) => {
     this.cbquery_historyFn({
-      qiehuan:'1',
-      ctime:'0'
+      qiehuan: '1',
+      ctime: '0'
     })
 
   }
@@ -239,7 +253,8 @@ class Chongbi extends Component {
       lishilength,
       Virtualcurrency,
       addresds,
-      current_page
+      current_page,
+      isok
     } = this.state
     return (
       <div className="chongbi-warp">
@@ -322,9 +337,22 @@ class Chongbi extends Component {
           <Table pagination={
             false
           } columns={columns} dataSource={data} />
-           {
-              lishilength*1>data.length?<div className="jaizaigeng" onClick={this.xiayiye}>加载更多</div>:""
-            }
+
+          {
+            (() => {
+              if (data.length > 0) {
+                if (data.length < 10) {
+                  return <div className="wugengd">
+                    无更多数据
+                </div>
+                }
+                return isok ? <div className="jaizaigeng" onClick={this.xiayiye}>加载更多</div> : <div className="wugengd">
+                  无更多数据
+            </div>
+              }
+            })()
+
+          }
           {dangqianchipang(data.length)}
         </div>
       </div >

@@ -206,7 +206,8 @@ class AccountRecords extends Component {
       endValue: null,
       pairArr: [],
       page_size_odl: 0,
-      page_size_odlFlg: true
+      page_size_odlFlg: true,
+      isok:true
     }
   }
   historylength = () => {
@@ -309,10 +310,19 @@ class AccountRecords extends Component {
           arrw[i].key = arrw[i] + i + a
         }
         if (a === 1) {
-
+          this.setState({
+            isok:true
+          })
         } else {
           if (this.state.data3 !== null && a !== '1') {
             arrw = this.state.data3.concat(arrw);
+            this.setState({
+              isok:true
+            })
+          }else{
+            this.setState({
+              isok:false
+            })
           }
         }
         this.setState({
@@ -482,7 +492,8 @@ class AccountRecords extends Component {
       lishilength,
       startValue,
       endValue,
-      current_page
+      current_page,
+      isok
     } = this.state
     const {
       heyuenameSlipt
@@ -586,13 +597,21 @@ class AccountRecords extends Component {
             dataSource={data3} />
           {/* 分页 */}
           {
-            console.log(this.state.page_size_odl, Math.ceil(this.state.page_size_odl / 20))
-          }
-          {
-            this.state.page_size_odl > 20 && (Math.ceil(this.state.page_size_odl / 20) !== current_page) ? <div className="view_more" onClick={this.historylength}>
-              < FormattedMessage id="ViewMore" defaultMessage={'查看更多'} />
-            </div> : ""
-          }
+          (()=>{
+            if(data3&&data3.length>0){
+              if(data3.length<10){
+                return <div className="wugengd">
+                无更多数据
+                </div>
+              }
+             return isok ? <div className="view_more" onClick={this.historylength}>
+             < FormattedMessage id="ViewMore" defaultMessage={'查看更多'} />
+           </div>: <div className="wugengd">
+            无更多数据
+            </div>
+            }
+          })()
+        }
         </div>
       </div>
     );

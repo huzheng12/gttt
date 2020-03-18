@@ -100,6 +100,9 @@ export const bbdata = (state = defaultState, action) => {
       }
       return { ...state, bbinstrumentArr: action.data, bbinstrument: state.bbinstrument }
     case BBORDERBOOKLFN:
+      if (action.data.data.length>0&&action.data.data[0].symbol!==state.bbaymbol) {
+        return state
+      }
       if (iasdjflkajsd > 100000000) {
         iasdjflkajsd = iasdjflkajsd - 1
       } else {

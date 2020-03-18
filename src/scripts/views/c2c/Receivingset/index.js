@@ -80,6 +80,7 @@ export default class Receivingset extends Component {
   showDrawer = (showDrawer, type) => {
     // type ==  1  点击解绑  弹窗；   ===2  确认    ===3  取消  
     if (type === 2) {
+      console.log(this.state.authrenzzData ,'------------')
       if (this.state.authrenzzData && this.state.authrenzzData.identity_auth === "0") {
         this.setState({
           visible1: true
@@ -194,7 +195,7 @@ export default class Receivingset extends Component {
             </Button>
           </div>
         </Drawer>
-        <C2cModalarr title={'为了您的账户安全，请立即设置资金密码'} okText="立即设置" okTextUrl="/personal/security/xgzjpsd" visible1={visible1} _this={this}></C2cModalarr>
+        <C2cModalarr title={'为了您的账户安全，请立即设置资金密码'} okText="立即设置" okTextUrl="/personal/security/zjpass" visible1={visible1} _this={this}></C2cModalarr>
       </div>
     )
   }

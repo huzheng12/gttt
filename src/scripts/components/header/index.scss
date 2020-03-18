@@ -223,7 +223,6 @@
         font-weight:400;
         color:rgba(230,234,242,1);
         line-height:50px;
-        width: 100px;
         height: 100%;
         float: left;
       }
@@ -319,7 +318,6 @@
     }
     
 .inpusll_wawrp_box{
-  width:450px;
   height: 1000px;
   position: absolute;
   top: 45px;
@@ -355,7 +353,7 @@
           height: 24px;
           // border: 1px solid #b8becc;
           // margin: auto 0;
-          margin-left: 25px;
+          margin-left: 16px;
           line-height: 19px;
           text-align: center;
           border-radius: 12px;
@@ -499,9 +497,7 @@
 
 
 @media screen and (max-width:1450px) {
-  .header-warp .header-left > ul > a{
-    width: 60px;
-  }
+
   .header-warp{
     min-width: 1210px;
   }

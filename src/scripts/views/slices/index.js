@@ -47,7 +47,7 @@ class Sices extends Component {
       information: [],
       isInsement: true,
       input_acc: '',
-      arr_data: [{ symbol: "ETH_USD", a: '7.00' }, { symbol: "ESO_USD" }],
+      arr_data: [{ symbol: "ETH_USDT", a: '7.00' }, { symbol: "ESO_USDT" }],
       a: true
     }
   }

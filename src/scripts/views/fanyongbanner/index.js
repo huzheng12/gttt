@@ -377,6 +377,10 @@ class fanyongBanner extends Component {
                   </div>
                   {
                     getSortRakeBack.map((item, index) => {
+                      console.log(index,'=========')
+                      if(index*1>=3){
+                        return false
+                      }
                       return <div className="content-table-td clear" key={index + item}>
                         <div className="tr"><img src={(() => {
                           switch (item.sort) {

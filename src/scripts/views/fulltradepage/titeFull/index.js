@@ -686,9 +686,11 @@ class TitleFullk extends Component {
                   (() => {
                     if (this.props.ctype === 'bb') {
                       return <div className="right-box">
-                        <Button className="button00155" type="primary" onClick={() => this.visibleFn(true, 1)} style={{ float: "left", fontSize: "14px", width: 80 }}>
-                          <FormattedMessage id="Transfer_of_funds" defaultMessage={'资金划转'} />
-                        </Button>
+                       {
+                         localStorage.userInfo&& <Button className="button00155" type="primary" onClick={() => this.visibleFn(true, 1)} style={{ float: "left", fontSize: "14px", width: 80 }}>
+                         <FormattedMessage id="Transfer_of_funds" defaultMessage={'资金划转'} />
+                       </Button>
+                       }
                         <Modeltrund
                           bboaccountavailablefn={this.bboaccountavailablefn}
                           available={available}
@@ -698,10 +700,12 @@ class TitleFullk extends Component {
                           _this={this}
                         >
                         </Modeltrund>
-                        <div style={{ float: "left", fontSize: "14px", lineHeight: "40px", marginRight: 10 }}>
+                       {
+                         localStorage.userInfo&& <div style={{ float: "left", fontSize: "14px", lineHeight: "40px", marginRight: 10 }}>
 
-                          计价单位 USDT
-                        </div>
+                         计价单位 USDT
+                       </div>
+                       }
                         <button className="reset-btn" onClick={resetLayouts}> <FormattedMessage id="ResetLayout" defaultMessage={'重置布局'} /></button>
 
                       </div>

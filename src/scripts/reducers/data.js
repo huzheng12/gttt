@@ -59,7 +59,7 @@ const defaultState = {
     funding_rate: {},
     depth: {},
     order: [],
-    heyuename: "BTC_USD",//当前使用的交易对
+    heyuename: "BTC_USDT",//当前使用的交易对
     heyuenameSlipt: [],//交易对的切割符
     heyuenameischange: 0, // 判断交易对是否切换
     pc_account: {},

@@ -600,3 +600,10 @@ color:rgba(255,255,255,1) !important;
       color:rgba(46,107,230,1);
       cursor:pointer;
     }
+
+    .ant-tooltip-inner{
+      background-color: #5E87E7;
+    }
+    .ant-tooltip-arrow::before{
+      background-color: #5E87E7;
+    }

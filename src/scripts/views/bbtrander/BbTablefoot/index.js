@@ -121,7 +121,7 @@ const { TabPane } = Tabs;
         <Tabs defaultActiveKey="1" style={{height:"100%"}} onChange={this.callback}>
           <TabPane style={{height:"100%",overflow:'auto'}} tab={"当前委托["+(localStorage.userInfo?bbactive_order.order_total?bbactive_order.order_total:'--':'0')+"]"} key="1">
           {this.dangqianchipang(bbactive_order.data&&bbactive_order.data.length,'1')}
-
+          <Onesingle ctypeis='1'></Onesingle>
             {
               localStorage.userInfo&&bbactive_order.data&&bbactive_order.data.map((itme, index) => {
                 return <Onesingle Cancel_order={this.Cancel_order} data={itme} type='1' key={index + itme}></Onesingle>
@@ -136,6 +136,7 @@ const { TabPane } = Tabs;
           </TabPane>
           <TabPane tab="历史委托" key="2">
           {this.dangqianchipang(data,datanull)}
+          <Onesingle ctypeis='1'></Onesingle>
             <div className="bbtablefoot_warp_box">
             {localStorage.userInfo&&data.map((itme, index) => {
               return <Onesingle Cancel_order={this.Cancel_order} data={itme} type='2' key={index + itme}></Onesingle>

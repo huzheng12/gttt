@@ -67,7 +67,7 @@ const zh_CN = {
   "To_be_confirmed": "待确认",
   "Arrival_account": "已到账",
   "Withdraw_money_text_1": "您的提币操作一旦完成，对应的资产所有权将由您变更为目标地址所对应的账户所有人享有，请您务必在提币操作前，仔细核对提币地址信息，确保提币属于自愿行为，并确认不涉及任何传销、非法集资、诈骗等违法情形，谨防上当受骗，避免造成不必要的财产损失。",
-  "Withdraw_money_text_2": "为保障资金安全，当您账户安全策略变更、密码修改、我们会对提币进行人工审核，请耐心等待工作人员电话或邮件联系。_请务必确认电脑及浏览器安全，防止信息被篡改或泄露",
+  "Withdraw_money_text_2": "为保障资金安全，当您账户安全策略变更、密码修改、我们会对提币进行人工审核，请耐心等待工作人员电话或邮件联系。请务必确认电脑及浏览器安全，防止信息被篡改或泄露",
   "Currency_withdrawal_address": "提币地址",
   "Please_enter_the_withdrawal_address": "请输入提币地址",
   "Address_management_of_withdrawal_currency": "提币地址管理",

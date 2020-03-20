@@ -582,7 +582,7 @@ class TitleFullk extends Component {
                   </div>
                 </div>
                 <div className="zijinfeilvbox">
-                  <Tooltip placement="topRight" title={<FormattedMessage id="Current_Rate" defaultMessage={'由上一个资金费用时段计算得出'} />}>
+                  <Tooltip placement="topLeft" title={<FormattedMessage id="Current_Rate" defaultMessage={'由上一个资金费用时段计算得出'} />}>
                     <div className="box-a">
                       <span className="span_dashed_box">
                         <FormattedMessage id="Current_fund_rate" defaultMessage={'当期资金费率'} />
@@ -596,7 +596,7 @@ class TitleFullk extends Component {
                   </div>
                 </div>
                 <div className="zijinfeilvbox">
-                  <Tooltip placement="topRight" title={<FormattedMessage id="Predicted_Rate" defaultMessage={'交易单位为BTC等币种时，显示的持仓与挂单数量是根据实际张数换算的，所显示的持仓量数值会根据最新成交价变动而变动。'} />}>
+                  <Tooltip placement="topLeft" title={<FormattedMessage id="Predicted_Rate" defaultMessage={'交易单位为BTC等币种时，显示的持仓与挂单数量是根据实际张数换算的，所显示的持仓量数值会根据最新成交价变动而变动。'} />}>
                     <div className="box-a">
                       <span className="span_dashed_box">
                         <FormattedMessage id="Budget_fund_rate" defaultMessage={'预测资金费率'} />

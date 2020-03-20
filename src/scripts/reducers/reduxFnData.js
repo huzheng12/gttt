@@ -1,5 +1,7 @@
 import { timehuansuan } from '@/utils/time'
 import number_format from '../../utils/renyinumber';
+var yanse = ''
+var bidCo = ""
 const reduxFnData = {
   //ORDERBOOKL225  数据处理函数
   peixu: (data) => {
@@ -67,8 +69,29 @@ const reduxFnData = {
     }
   },
   //成交列表处理
-  d: (arr, action, state, fn,aa) => {
+  d: (arr, action, state, fn, aa) => {
+     arr.reverse()
+     for (let i = 0; i < arr.length; i++) {
+      if (i == 0) {
+        arr[i].yanse = '1'
+      }
+      if (i >0) {
+        let j = i - 1
+        if (arr[j].price - arr[i].price > 0) {
+          arr[i].yanse = '2'
+
+        }
+        if (arr[j].price - arr[i].price < 0) {
+          arr[i].yanse = '1'
+
+        }
+        if(arr[j].price === arr[i].price){
+          arr[i].yanse = arr[j].yanse
+        }
+      }
+    }
     var htmls = ''
+    arr.reverse()
     for (let i = 0; i < arr.length; i++) {
       let j = i + 1
       arr[i].JT = "0"
@@ -79,12 +102,12 @@ const reduxFnData = {
       if (i < arr.length - 1) {
         if (arr[i].price - arr[j].price > 0) {
           arr[i].JT = "1"
+
         }
         if (arr[i].price - arr[j].price < 0) {
           arr[i].JT = "2"
         }
       }
-
       var bg_anmetion = ""
       if (i >= action.language.length) {
         arr[i].xin = "2"
@@ -98,38 +121,42 @@ const reduxFnData = {
         var tiem = timehuansuan(arr[i].trade_time)
         time = tiem.dates
       }
-
       var bid_flage = "S"
-      var bidCo = "table-spandiv-2"
       var as = ""
+      if (arr[i].yanse === '1') {
+        bidCo = "table-spandiv-1"
+      }else if(arr[i].yanse === '2'){
+        bidCo = "table-spandiv-2"
+      }else{
+        if(yanse==='2'){
+          bidCo='table-spandiv-1'
+        }else{
+          bidCo='table-spandiv-2'
+        }
+      }
+      
       if (arr[i].JT == "1") {
+        as = "as"
+       
         if (arr[i].side == "buy") {
           bid_flage = "B"
-          bidCo = "table-spandiv-1"
-          as = "as"
-        } else {
-          as = "as1"
         }
       }
       if (arr[i].JT == "2") {
+        as = "ax"
+
         if (arr[i].side == "buy") {
           bid_flage = "B"
-          bidCo = "table-spandiv-1"
-          as = "ax1"
-        } else {
-          as = "ax"
+
         }
       } else {
         if (arr[i].side == "buy") {
           bid_flage = "B"
-          bidCo = "table-spandiv-1"
-        } else {
-
         }
       }
       var ls = (() => {
         if (!arr[i].price) { return false }
-        if(aa){
+        if (aa) {
           return number_format(arr[i].price, aa, ".", ",")
         }
         return number_format(arr[i].price, state.Decimal_point, ".", ",")

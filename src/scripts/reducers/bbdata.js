@@ -82,7 +82,6 @@ export const bbdata = (state = defaultState, action) => {
       arr.sort(function (a, b) {
         return b.trade_time - a.trade_time;
       })
-
       reduxFnData.d(arr, action, state, (htmls) => {
         state.bb_trade_exp_html = htmls
       }, state.bbinstrument.price_precision)

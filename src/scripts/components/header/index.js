@@ -185,7 +185,7 @@ class Header extends Component {
           <div className="imgtupian1 img5" style={{ cursor: 'pointer' }}>
             <span className="iconfont">&#xe603;</span>
             <article className="hexizbox" style={{
-              top: '60px',
+              top: '46px',
               left: '-224px'
             }}>
               <article style={{ width: 100, height: 100, margin: 10, backgroundColor: "#fff" }}>

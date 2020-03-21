@@ -202,6 +202,9 @@ export const count = (state = defaultState, action) => {
         case HISTORYWEITUO:
             return { ...state, historyweituo: action.language }
         case PACACCOUNDT:
+            if (action.language.length>0&&action.language[0].symbol!==state.heyuename) {
+                return state
+              }
             if (action.num) { return { ...state, pcaccoundt: action.language, pcaccounddt: "", pcaccoundtnumflg: 1 } }
             if (action.language && action.language.length == 0) { return { ...state, pcaccoundt: action.language } }
             let arr = action.language.concat(state.pcaccoundt)
@@ -269,6 +272,9 @@ export const count = (state = defaultState, action) => {
             } else {
                 iasdjflkajsd = iasdjflkajsd + 1
             }
+            if (action.data.data.length>0&&action.data.data[0].symbol!==state.heyuename) {
+                return state
+              }
             if (action.data.action === "partial") {
                 state.orderBookL2_25obj.arrAsks = []
                 state.orderBookL2_25obj.arrBids = []

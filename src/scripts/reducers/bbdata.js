@@ -94,7 +94,6 @@ export const bbdata = (state = defaultState, action) => {
         if (action.data[i].symbol === state.bbaymbol) {
           reduxFnData.ObjectKvalue(action.data[i], state.bbinstrument)
           state.bbinstrument = action.data[i]
-
         }
       }
       return { ...state, bbinstrumentArr: action.data, bbinstrument: state.bbinstrument }

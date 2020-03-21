@@ -16,8 +16,8 @@ export const SymbolInfo = {
   intraday_multipliers: ['1', '5', '15', '30', '60', '360'],
   supported_resolutions: ['1', '5', '15', '30', '60', '120', '240', '360', '720', '1D', '1W'],
   pricescale: 100000000, //价格精度
-  name: 'btc_usd',
-  ticker: 'btc_usd',
+  name: 'btc_usdt',
+  ticker: 'btc_usdt',
   volume_precision: 3, //数量精度
 };
 

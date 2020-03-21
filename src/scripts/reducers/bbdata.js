@@ -72,7 +72,10 @@ export const bbdata = (state = defaultState, action) => {
           state.bbinstrument = state.bbinstrumentArr[i]
         }
       }
-      return { ...state, bb_trade_exp: [], bb_trade_exp_html: '', bbinstrument: state.bbinstrument, bb_trade_exp_html_ok: 2 }
+      return { ...state, bb_trade_exp: [], bb_trade_exp_html: '', bbinstrument: state.bbinstrument, bb_trade_exp_html_ok: 2 ,bborder_book: {
+        arrAsks: [],
+        arrBids: [],
+      },}
     case BBTRADEFN:
       if (action.language.length>0&&action.language[0].symbol!==state.bbaymbol) {
         return { ...state, bb_trade_exp: state.bb_trade_exp, bb_trade_exp_html: state.bb_trade_exp_html }

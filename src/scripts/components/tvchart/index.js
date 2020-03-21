@@ -54,7 +54,7 @@ class tvChart extends Component {
             symbol: symbol,
             interval: '1',
             container_id: "tv_chart_container",
-            datafeed:this.props.ctype==='bb'?new BbDataFeeds.Tv(): new DataFeeds.Tv(),
+            datafeed: this.props.ctype === 'bb' ? new BbDataFeeds.Tv() : new DataFeeds.Tv(),
             locale: 'zh',
             theme: this.props.type === 1 ? localStorage.theme : 'dark',
             autosize: true,
@@ -91,11 +91,12 @@ class tvChart extends Component {
             overrides: {
                 // "paneProperties.background": "#fff",
                 // "scalesProperties.backgroundColor": "#171a32",
-
+                'paneProperties.topMargin':25
             },
             custom_css_url: "./css/custom_css.css",
             indicators_file_name: "test.js",
             study_count_limit: 20
+
         }));
 
         window.tvWidget.onChartReady(() => {
@@ -143,26 +144,26 @@ class tvChart extends Component {
         })
     }
     componentDidMount() {
-        if(this.props.ctype==='bb'){
+        if (this.props.ctype === 'bb') {
             console.log(this.props.bbaymbol)
 
             this.initOnReady(this.props.bbaymbol)
-        }else{
+        } else {
             this.initOnReady(this.props.heyuename)
         }
 
     }
     componentDidUpdate() {
-        if(this.props.ctype==='bb'){
-            if(this.props.bb_switch_ok===1){
+        if (this.props.ctype === 'bb') {
+            if (this.props.bb_switch_ok === 1) {
                 this.initOnReady(this.props.bbaymbol);
                 store.dispatch({
-                    type:"bbsymbolgaibaianIs",
-                    data:0
+                    type: "bbsymbolgaibaianIs",
+                    data: 0
                 })
             }
             if (this.props.bbcandle.data) {
-                console.log(this.props.bbcandle.data,'实时数据')
+                console.log(this.props.bbcandle.data, '实时数据')
                 const d = this.props.bbcandle.data
                 const bars = barsFormat(d);
                 const real = d.current;
@@ -183,7 +184,7 @@ class tvChart extends Component {
                     }
                 }
             }
-        }else{
+        } else {
             if (this.props.asset_switch === 1) {
                 this.initOnReady(this.props.heyuename);
                 store.dispatch(assetfn(this.props.asset, 0))
@@ -218,13 +219,13 @@ class tvChart extends Component {
                 }
             }
         }
-  
+
     }
     render() {
         return (
             < div className="chart-box" style={{ padding: this.props.type === 1 ? "0" : "" }}>
                 {
-                    this.props.type !== 1 ? <h4 className="box-title drag-handle">{lang().Chart_type + '( ' +(this.props.ctype==='bb'?this.props.bbaymbol: this.props.heyuename) + ' )'}</h4> : ""
+                    this.props.type !== 1 ? <h4 className="box-title drag-handle">{lang().Chart_type + '( ' + (this.props.ctype === 'bb' ? this.props.bbaymbol : this.props.heyuename) + ' )'}</h4> : ""
                 }
 
                 <div id="tv_chart_container"></div>

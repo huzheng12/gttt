@@ -8,7 +8,7 @@ import number_format from '../../../../utils/renyinumber';
 const Orderweituo = (props) => {
   const { order, chexiao1, type, fenyemashu, dianjigengduo, heyuename } = props
   return (
-    <div style={{ minWidth: 1400 + 'px' }}>
+    <div>
       <div className="titlew">
         <div className="titpx" style={{ width: "10%" }}>< FormattedMessage id="Delegation_time" defaultMessage={'委托时间'} /></div>
         <div className="titpx" style={{ width: "9%" }}>< FormattedMessage id="contract" defaultMessage={'合约'} /></div>

@@ -120,7 +120,9 @@ const { TabPane } = Tabs;
       <div className="bbtablefoot_warp">
         <Tabs defaultActiveKey="1" style={{height:"100%"}} onChange={this.callback}>
           <TabPane tab={"当前委托["+(localStorage.userInfo?bbactive_order.order_total?bbactive_order.order_total:'--':'0')+"]"} key="1">
-          <Onesingle ctypeis='1'></Onesingle>
+          {
+              localStorage.userInfo&&<Onesingle ctypeis='1'></Onesingle>
+            }
           {this.dangqianchipang(bbactive_order.data&&bbactive_order.data.length,'1')}
           <div className="bbtablefoot_warp_box">
 
@@ -139,7 +141,10 @@ const { TabPane } = Tabs;
           </TabPane>
           
           <TabPane tab="历史委托" key="2">
-            <Onesingle ctypeis='1'></Onesingle>
+            {
+              localStorage.userInfo&&<Onesingle ctypeis='1'></Onesingle>
+            }
+            
           {this.dangqianchipang(data,datanull)}
           
             <div className="bbtablefoot_warp_box">

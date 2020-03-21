@@ -187,10 +187,10 @@ class TableFoot extends Component {
       <div className="tablefoot-warp">
         <div className="title-cd drag-handle">
           <div className={"tp " + classTpL1} onClick={() => this.classTpl("classTpL1", 1)}>
-            <FormattedMessage id="Current_position" defaultMessage={'当前持仓'} />[{position.length}]
+            <FormattedMessage id="Current_position" defaultMessage={'当前持仓'} />[{localStorage.userInfo? position.length:"--"}]
           </div>
           <div className={"tp " + classTpL2} onClick={() => this.classTpl("classTpL2", 2)}>
-            <FormattedMessage id="Activity_Delegation" defaultMessage={'活动委托'} />[{order_total}]
+            <FormattedMessage id="Activity_Delegation" defaultMessage={'活动委托'} />[{localStorage.userInfo&&order_total? order_total:"--"}]
           </div>
           <div className={"tp " + classTpL3} onClick={() => this.classTpl("classTpL3", 3)}>
             <FormattedMessage id="Historical_entrustment" defaultMessage={'历史委托'} />

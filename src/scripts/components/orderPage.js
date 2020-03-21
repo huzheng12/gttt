@@ -152,7 +152,7 @@ class OrderPage extends Component {
             prefix={<span><FormattedMessage id="Fixed_price" defaultMessage={'限价'} /></span>}
             suffix={
               <Tooltip className="tooltip-001">
-                USD
+                USDT
             </Tooltip>}
           />
         </div>
@@ -183,7 +183,10 @@ class OrderPage extends Component {
                         {pc_account && pc_account.available ? pc_account.available : '--'}
                       </span>
                       <span>
-                        {pc_account && pc_account.symbol}
+                        {
+                          console.log(pc_account,'7777')
+                        }
+                        {pc_account && pc_account.asset}
                       </span>
                     </p>
                   </div>

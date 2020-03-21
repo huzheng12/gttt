@@ -11,11 +11,20 @@ const LoginPhoneEmail = (props) => {
         {(() => {
           if (type == "1") {
             return <div className="select-box">
-              <Select defaultValue="86" style={{ width: 110 }} onChange={props.handleChange}>
+              <Select defaultValue="86" style={{ width: 340 }} onChange={props.handleChange}>
                 {
                   props.area.map((item, index) => {
                     return (
-                      <Option value={item.area_code} key={item + index}>+{item.area_code}</Option>
+                      <Option value={item.area_code} key={item + index}>
+                        <div className="boxguoji">
+                          <div className="boxguojia">
+                          {item.area_name}
+                          </div>
+                          <div className="boxgojiquhao">
+                          +{item.area_code}
+                          </div>
+                        </div>
+                      </Option>
                     )
                   })
                 }

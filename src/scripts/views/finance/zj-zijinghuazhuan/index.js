@@ -398,7 +398,7 @@ class Huazhuan extends Component {
             <span style={{ color: "#333" }}>
               {number_format(available, 8, ".", ",")}
             </span>
-            <span onClick={this.qquanbuhuaz} style={{ cursor: 'pointer' }} className="span-quanbu">
+            <span onClick={this.qquanbuhuaz}  style={{ cursor: butflg?'no-drop':'pointer',color:butflg?"#999999":"" }} className="span-quanbu">
               <FormattedMessage id="All_Rolls" defaultMessage={'全部划转'} />
             </span>
           </div>

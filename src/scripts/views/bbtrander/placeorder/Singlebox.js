@@ -238,7 +238,6 @@ class Singlebox extends Component {
             {
               (() => {
                 if (localStorage.userInfo) {
-
                   if (type === '1') {
                     if (!bb_account_exp.available) {
                       return '--'
@@ -254,7 +253,6 @@ class Singlebox extends Component {
                       default:
                         return number_format(bb_old_account_exp.available, 4, ".", ",");
                     }
-
                   }
                 } else {
                   return '--'

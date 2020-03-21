@@ -55,7 +55,8 @@ class Header extends Component {
       ],
       quanbu: true,
       information: [],
-      bbasset: []
+      bbasset: [],
+      openflg: false
     }
   }
   componentDidMount() {
@@ -196,7 +197,7 @@ class Header extends Component {
               </article>
               <article className="androidclass">
                 <p><FormattedMessage id="ScanCodeToDownloadApp" defaultMessage={'扫码下载App'} /></p>
-                <p style={{ color: '#666666', }}>Android & iOS</p>
+                <p>Android & iOS</p>
                 <Button onClick={() => {
                   history.push('/iosdownload')
                 }} type="primary" style={{ width: 100, height: 30, marginTop: 5, marginLeft: 10 }}>
@@ -249,7 +250,7 @@ class Header extends Component {
               </div>
               <div className="androidclass">
                 <p><FormattedMessage id="ScanCodeToDownloadApp" defaultMessage={'扫码下载App'} /></p>
-                <p style={{ color: '#666666', }}>Android & iOS</p>
+                <p>Android & iOS</p>
 
                 <Button onClick={() => {
                   history.push('/iosdownload')
@@ -331,7 +332,6 @@ class Header extends Component {
     }
   }
   qiehuanusd = (a) => {
-    console.log(a)
     Xfn({
       _u: 'pairQuery',
       _m: 'get',
@@ -350,16 +350,23 @@ class Header extends Component {
       }
     })
   }
+  openflg = () => {
+    this.setState({
+      openflg: true
+    })
+  }
   render() {
     const {
       imgArr,
       selecta,
       quanbu,
-      bbasset
+      bbasset,
+      openflg
     } = this.state
     const {
       language,
-      pcassetquery
+      pcassetquery,
+      asset
     } = this.props
     return (
       <div className="header-warp">
@@ -399,20 +406,19 @@ class Header extends Component {
           }
           {
             (window.location.href.indexOf('sices') !== -1 ||
-            window.location.href.indexOf('transaction') !== -1 ||
-            window.location.href.indexOf('fulltrade') !== -1) && <div className="xuanxiang" onClick={this.dianjiquanbu}>
+              window.location.href.indexOf('transaction') !== -1 ||
+              window.location.href.indexOf('fulltrade') !== -1) && <div className="xuanxiang">
               <div className="ggang"></div>
               <div className="inputxiala">
                 {
                   this.props.asset ? this.props.asset + " " + lang().Trading_area : ""
                 }
               </div>
-              <img className="sximg" src={quanbu ? imgArr.a1 : imgArr.a2} alt="" />
+              <div className="sximg" />
               <div className="ggang">
-
               </div>
-              <div className="inpusll_wawrp_box" style={{ display: quanbu ? "none" : "block" }}>
-                <div className="inpusll-wawrp" style={{ display: quanbu ? "none" : "block" }} >
+              <div className="inpusll_wawrp_box">
+                <div className="inpusll-wawrp">
                   {
                     pcassetquery.map((item, index) => {
                       return <li key={item + index} onClick={() => this.qiehuanusd(item.asset)} className={item.asset === this.props.asset ? "action-inputxiala" : ""}>
@@ -425,14 +431,39 @@ class Header extends Component {
                       </li>
                     })
                   }
-
                 </div>
               </div>
             </div>
           }
           <div className="guojihua">
-            <Select
+            <div className="guojihuaone">
+                {
+                  (()=>{
+                    for(let i=0;i<selecta.length;i++){
+                      if(selecta[i].tiile===language){
+                        return <li>
+                        <img style={{ display: "inline-block", marginRight: 10 }} src={selecta[i].imgUrl} alt="" />
+                        <span style={{ display: "inline-block", marginTop: 1 }}>{selecta[i].conten}</span>
+                        <div className="imgjianto"></div>
+                      </li>
+                      }
+                    }
+                  })()
+                }
+            </div>
+            <div className="guojihua_box_wrp">
+              {
+                selecta.map((item, index) => {
+                  return <li key={item + index} onClick={() => this.handleChangeguoji(item.tiile)} className={item.tiile === this.props.language ? "action-inputxiala" : ""}>
+                    <img style={{ display: "inline-block", marginRight: 10,marginLeft:10 }} src={item.imgUrl} alt="" />
+                    <span style={{ display: "inline-block", marginTop: 1 }}>{item.conten}</span>
+                  </li>
+                })
+              }
+            </div>
+            {/* <Select
               className="eme_lig"
+              open={openflg}
               defaultValue={language}
               style={{ width: 120, border: 0, backgroundColor: "rgba(18,24,38,1)" }}
               onChange={this.handleChangeguoji}>
@@ -446,7 +477,7 @@ class Header extends Component {
                   )
                 })
               }
-            </Select>
+            </Select> */}
           </div>
         </div>
       </div >

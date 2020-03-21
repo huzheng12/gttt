@@ -88,14 +88,14 @@ export default class DrawerInput extends Component {
                 </Select>
               } else if (type === 2) {
                 // 是否判断  值的限制
-                if (this.props.value) {
+                // if (this.props.value) {
                   return <Input value={this.props.value} placeholder={placeholder} onChange={this.onChangeVal} style={{ height: 42 }} />
-                }
-                return <Input placeholder={placeholder} onChange={this.onChangeVal} style={{ height: 42 }} />
+                // }
+                // return <Input placeholder={placeholder} onChange={this.onChangeVal} style={{ height: 42 }} />
               } else {
                 // 发送验证码
                 return <div className="right_box_mian">
-                  <Input placeholder={placeholder} onChange={this.onChangeVal} style={{ height: 42, width: 170 }} />
+                  <Input value={this.props.value} placeholder={placeholder} onChange={this.onChangeVal} style={{ height: 42, width: 170 }} />
                   <Button disabled={!timeFlg} type="primary" className={!timeFlg ? "" : "primary_custom"} onClick={this.SendOutCode}>
                     <div className="but_font">
                       {

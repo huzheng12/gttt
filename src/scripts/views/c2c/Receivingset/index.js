@@ -80,7 +80,6 @@ export default class Receivingset extends Component {
   showDrawer = (showDrawer, type) => {
     // type ==  1  点击解绑  弹窗；   ===2  确认    ===3  取消  
     if (type === 2) {
-      console.log(this.state.authrenzzData ,'------------')
       if (this.state.authrenzzData && this.state.authrenzzData.identity_auth === "0") {
         this.setState({
           visible1: true
@@ -107,6 +106,13 @@ export default class Receivingset extends Component {
         if (code === 0) {
           this.setState({
             visible: showDrawer,
+            card_user_name:"",
+            card_no:"",
+            card_nos:"",
+            open_bank:"",
+            open_branch:"",
+            verify_code:"",
+
           });
           this.c2ccardQueryFn()
         } else {
@@ -131,7 +137,7 @@ export default class Receivingset extends Component {
       c2ccardQueryData,
       visible1,
       card_no,
-      card_nos, AddtoIsOk
+      card_nos, AddtoIsOk,card_user_name,open_bank,open_branch,verify_code
     } = this.state
     return (
       <div className="deaalindex receivingset_warp_box">
@@ -176,12 +182,12 @@ export default class Receivingset extends Component {
         >
           <DrawerInput title='交易币种' type={1} placeholder="" onVlue={this.onVlue} val='asset' arrData={this.state.asset_arr}></DrawerInput>
           <DrawerInput title='收款方式' type={1} placeholder="" onVlue={this.onVlue} val='gather_type' arrData={this.state.gather_type_arr}></DrawerInput>
-          <DrawerInput title='姓名' type={2} placeholder="请输入持卡人姓名" onVlue={this.onVlue} val='card_user_name'></DrawerInput>
+          <DrawerInput value={card_user_name} title='姓名' type={2} placeholder="请输入持卡人姓名" onVlue={this.onVlue} val='card_user_name'></DrawerInput>
           <DrawerInput value={card_no} title='卡号' type={2} placeholder="请输入银行卡号" onVlue={this.onVlue} val='card_no'></DrawerInput>
           <DrawerInput value={card_nos} title='确认卡号' type={2} placeholder="请输入银行卡号" onVlue={this.onVlue} val='card_nos'></DrawerInput>
-          <DrawerInput title='开户行' type={2} placeholder="请输入开户行" onVlue={this.onVlue} val='open_bank'></DrawerInput>
-          <DrawerInput title='开户支行(选填)' type={2} placeholder="请输入开户行支行" onVlue={this.onVlue} val='open_branch'></DrawerInput>
-          <DrawerInput title='发送验证码' type={3} placeholder="请输入验证码" onVlue={this.onVlue} val='verify_code'></DrawerInput>
+          <DrawerInput value={open_bank} title='开户行' type={2} placeholder="请输入开户行" onVlue={this.onVlue} val='open_bank'></DrawerInput>
+          <DrawerInput value={open_branch} title='开户支行(选填)' type={2} placeholder="请输入开户行支行" onVlue={this.onVlue} val='open_branch'></DrawerInput>
+          <DrawerInput value={verify_code} title='发送验证码' type={3} placeholder="请输入验证码" onVlue={this.onVlue} val='verify_code'></DrawerInput>
           <div className="button_box">
             <Button type="primary" className="primary_gray" onClick={() => this.showDrawer(false, 3)}>
               <div className="but_font_gray">

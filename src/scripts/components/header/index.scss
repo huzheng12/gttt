@@ -86,7 +86,7 @@
     .img6{
       width: 35px;
       height: 50px;
-   
+      position: relative;
       span{
         display: inline-block;
         line-height: 50px;
@@ -314,10 +314,14 @@
       height: 18px !important;
     }
     .sximg{
+      width: 20px;height: 20px;
       margin-right: 14px;
+      margin-top: 4px;
+      background:url('../../img/treaty_up.png') no-repeat;
     }
     
 .inpusll_wawrp_box{
+  display: none;
   height: 1000px;
   position: absolute;
   top: 45px;
@@ -325,6 +329,7 @@
 }
    
     .inpusll-wawrp{
+      display: none;
       position: absolute;
       top:0;
       right: 0;
@@ -347,6 +352,9 @@
         display: flex;
         @include themify($themes) {
           background-color: themed('background-color-34' ) ;
+        }
+        @include themify($themes) {
+          color: themed('color-17' ) ;
         }
         .bizhong{
           width: 24px;
@@ -376,34 +384,63 @@
       }
     }
   }
+  .xuanxiang:hover{
+    .inpusll_wawrp_box{
+      display: block;
+    }
+    .inpusll-wawrp{
+      display: block;
+    }
+    .sximg{
+      background: no-repeat url('../../img/treaty_down.png');
+    }
+  }
   .guojihua{
-    .ant-select-arrow{
-      top: 55%;
-    }
-    .ant-select-arrow-icon{
-      color:#E5E9F2;
-      
-    }
-    .ant-select-selection:focus{
-      box-shadow: none !important;
-    }
-    width: 120px !important;
-    >div{
-      width: 60px;
-      float: left;
-      line-height: 50px;
-    }
-    .ant-select-selection--single{
-      background-color: rgb(18, 24, 38);
-      border: 0;
-      .ant-select-selection-selected-value{
-        width: 120px;
-        height: 50px;
-        color: aliceblue;
-        line-height: 45px;
+    width: 100px;
+    margin-left: 10px;
+    height: 50px;
+    line-height: 50px;
+    position: relative;
+    .guojihua_box_wrp{
+      display: none;
+      position: absolute;
+      z-index: 9999;
+      top: 46px;
+      left: 0;
+      border-radius: 4px;
+      overflow: hidden;
+      li{
+        @include themify($themes) {
+          background-color: themed('background-color-34' ) ;
+        }
+        @include themify($themes) {
+          color: themed('color-17' ) ;
+        }
       }
-      
+      li:hover{
+        @include themify($themes) {
+          background-color: themed('background-color-33' ) ;
+        }
+      }
+     
     }
+    .imgjianto{
+      display: inline-block;
+      width: 20px;height: 13px;
+      margin-left: 10px;
+      background:url('../../img/treaty_up.png') no-repeat;
+
+    }
+  }
+  .guojihua:hover{
+    .guojihua_box_wrp{
+      display: block;
+      width: 100px;
+    }
+    .imgjianto{
+      background:url('../../img/treaty_down.png') no-repeat;
+    }
+  
   }
   .selectedaaa{
     // border-bottom: 3px solid #fff;
@@ -423,9 +460,9 @@
 .notice_box{
   display: none;
   width: 300px;
-  position: relative;
-  left: -258px;
-  top: 10px;
+  position: absolute;
+  left: -93px;
+  top: 46px;
   @include themify($themes) {
     background-color: themed('background-color-32' ) ;
   }
@@ -450,7 +487,9 @@
     .itend_information{
       padding: 0 19px 0 15px;
       line-height: 42px;
-      color:rgba(102,102,102,1);
+      @include themify($themes) {
+        color: themed('color-17' ) ;
+      }
       font-size: 14px;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -466,7 +505,7 @@
   position: absolute;
   width: 250px;
   height: 120px;
-  top: 50px;
+  top: 46px;
   left: -68px;
   z-index: 9999;
        @include themify($themes) {
@@ -475,7 +514,9 @@
   border-radius:4px;
   display: none;
   .androidclass{
-    color:#666 ;
+    @include themify($themes) {
+      color: themed('color-17' ) ;
+    }
     font-size:14px;
     font-family:Microsoft YaHei;
    display: flex;

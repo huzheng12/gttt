@@ -4,6 +4,14 @@
     float: left;
     margin-right: 10px;
     height: 42px;
+    width: 110px;
+
+    .boxguoji{
+      display: flex;
+      .boxguojia{
+        display: none;
+      }
+    }
   }
   .input-box{
     float: left;
@@ -50,4 +58,9 @@
       font-family:Microsoft YaHei;
     }
   }
+}
+
+.boxguoji{
+  display: flex;
+  justify-content: space-between;
 }

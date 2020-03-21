@@ -623,9 +623,10 @@ class TitleFullk extends Component {
                 <Button className="button00155" type="primary" onClick={this.zijinzhuan} style={{ float: "left", fontSize: "14px", width: 80 }}>
                   <FormattedMessage id="Transfer_of_funds" defaultMessage={'资金划转'} />
                 </Button>
-                <Button className="button00155 reset-btn1" type="primary" onClick={this.showModal} style={{ float: "left" }}>
+                {/* className="button00155 reset-btn1" */}
+                <Button disabled  type="primary" onClick={this.showModal} style={{ float: "left" }}>
                   <FormattedMessage id="AccountMode" defaultMessage={'账号模式'} />
-                  <div>
+                  <div  style={{color:"#999"}}>
                     {moshi !== "1" ? <FormattedMessage id="Warehouse_by_warehouse" defaultMessage={'逐仓'} /> : <FormattedMessage id="FullWarehouse" defaultMessage={'全仓'} />}
                   </div>
                 </Button>

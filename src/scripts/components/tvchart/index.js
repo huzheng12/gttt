@@ -91,6 +91,7 @@ class tvChart extends Component {
             overrides: {
                 // "paneProperties.background": "#fff",
                 // "scalesProperties.backgroundColor": "#171a32",
+
             },
             custom_css_url: "./css/custom_css.css",
             indicators_file_name: "test.js",

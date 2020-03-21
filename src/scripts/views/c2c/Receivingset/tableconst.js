@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
-import { Button, Modal } from 'antd'
+import { Button, Modal, message } from 'antd'
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Xfn } from '../../../../utils/axiosfn';
+import { FormattedMessage } from 'react-intl';
+import { openNotificationWithIcon } from '../../../../utils/NotificationCONF';
+
 export default class Tableconst extends Component {
   constructor() {
     super()
@@ -61,7 +64,9 @@ export default class Tableconst extends Component {
           {
             item.card_no
           }
-          <CopyToClipboard text={item.card_no}>
+          <CopyToClipboard text={item.card_no} onCopy={() => {
+            openNotificationWithIcon("opne-success", "成功", '复制成功')
+          }}>
             <i className="iconfont iconicon-test6 but_c2c_fuzhi"></i>
           </CopyToClipboard>
         </div>

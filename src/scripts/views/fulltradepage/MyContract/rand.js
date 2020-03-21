@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
+import number_format from '../../../../utils/renyinumber';
 const Rand = (props) => {
   const { heyuename, pc_account, position, instrument, allposiont, asset } = props.props
   return (
@@ -14,8 +15,9 @@ const Rand = (props) => {
             <FormattedMessage id="TotalAssets" defaultMessage={'资产总额'} />
           </div>
           <div className="ri">
-            {localStorage.userInfo && pc_account.total ? String(pc_account.total).replace(/^(.*\..{4}).*$/, "$1") + " " + asset : "--"}
-
+          
+            {localStorage.userInfo && pc_account.total ? number_format(pc_account.total, 4, ".", ",") + " " + asset : "--"}
+            
           </div>
         </div>
         <div className="cond-tr">
@@ -24,7 +26,7 @@ const Rand = (props) => {
 
           </div>
           <div className="ri">
-            {localStorage.userInfo && pc_account.available ? String(pc_account.available).replace(/^(.*\..{4}).*$/, "$1") + " " + asset : "--"}
+            {localStorage.userInfo && pc_account.available ?number_format(pc_account.available, 4, ".", ",") + " " + asset : "--"}
           </div>
         </div>
         <div className="cond-tr">
@@ -41,7 +43,7 @@ const Rand = (props) => {
                     realised_pnlshuju += position[i].realised_pnl * 1
                   }
                 }
-                return localStorage.userInfo ? allposiont == 0 ? "--" : String(realised_pnlshuju).replace(/^(.*\..{4}).*$/, "$1") + " " + asset : "--"
+                return localStorage.userInfo ? allposiont == 0 ? "--" :number_format(realised_pnlshuju, 4, ".", ",")  + " " + asset : "--"
               })()
             }
           </div>
@@ -60,7 +62,7 @@ const Rand = (props) => {
                     realised_pnlshuju += position[i].pnl * 1
                   }
                 }
-                return localStorage.userInfo ? allposiont == 0 ? "--" : String(realised_pnlshuju).replace(/^(.*\..{4}).*$/, "$1") + " " + asset : '--'
+                return localStorage.userInfo ? allposiont == 0 ? "--" :number_format(realised_pnlshuju, 4, ".", ",")  + " " + asset : '--'
               })()
             }
           </div>

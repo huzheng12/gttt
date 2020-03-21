@@ -234,9 +234,9 @@ const EventFN = {
   CurrencyName: (data) => {
     let _name = null
     switch (data.heyuename) {
-      case 'BTC_USD': _name = "比特币"; break;
-      case 'ETH_USD': _name = "以太坊"; break;
-      case 'EOS_USD': _name = "柚子币"; break;
+      case 'BTC_USDT': _name = "比特币"; break;
+      case 'ETH_USDT': _name = "以太坊"; break;
+      case 'EOS_USDT': _name = "柚子币"; break;
       default: break;
     }
     return _name

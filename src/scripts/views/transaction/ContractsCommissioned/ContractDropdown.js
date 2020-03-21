@@ -65,7 +65,7 @@ class ContractDropdown extends Component {
       }
     }
     return flg ? <div className="tibao">
-      <Tooltip placement="topRight" title={<FormattedMessage id="Swap_Detail" defaultMessage={'永续合约类似传统的期货合约，区别在于永续合约没有交割日期，且每日结算，因此你可以一直持有永续合约，且更快提取盈利资金。'} />}>
+      <Tooltip placement="topLeft" title={<FormattedMessage id="Swap_Detail" defaultMessage={'永续合约类似传统的期货合约，区别在于永续合约没有交割日期，且每日结算，因此你可以一直持有永续合约，且更快提取盈利资金。'} />}>
         <img className="xiabioa" src={imgArr.modifyt1} alt="" />
       </Tooltip>
     </div> : <div className="xiabioa1" alt="" >

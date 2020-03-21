@@ -13,6 +13,7 @@ import { Xfn } from '../../../utils/axiosfn';
 // import EventFN from '../../../utils/eventfn';
 import { FormattedMessage } from 'react-intl';
 import lang from '@/utils/language';
+import { openNotificationWithIcon } from '../../../utils/NotificationCONF';
 class fanyongBanner extends Component {
   constructor() {
     super()
@@ -251,7 +252,7 @@ class fanyongBanner extends Component {
                   <CopyToClipboard text={addresse}
                     onCopy={() => {
                       this.setState({ copied: true })
-                      message.success(< FormattedMessage id="Replication_success" defaultMessage={'复制成功'} />);
+                      openNotificationWithIcon("opne-success", "成功", '复制成功')
                     }}>
                     <Button className="bglanse" style={{ width: 80 }} type="primary">< FormattedMessage id="copy" defaultMessage={'复制'} /></Button>
                   </CopyToClipboard>
@@ -281,8 +282,7 @@ class fanyongBanner extends Component {
                           <CopyToClipboard text={address}
                             onCopy={() => {
                               this.setState({ copied: true })
-                              message.success(< FormattedMessage id="Replication_success" defaultMessage={'复制成功'} />);
-                            }}>
+                              openNotificationWithIcon("opne-success", "成功", '复制成功')                            }}>
                             <Button className="bglanse" style={{ width: 80 }} type="primary">< FormattedMessage id="copy" defaultMessage={'复制'} /></Button>
                           </CopyToClipboard>
                           <div className="span-my-6" style={{ fontSize: 16 }}>

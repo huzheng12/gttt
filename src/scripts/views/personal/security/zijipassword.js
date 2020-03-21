@@ -21,6 +21,7 @@ class ZjAssembly extends Component {
       butFlg: true,
       fasongzi: lang().Send_Verification_Code,
       timeFlg: true,
+      timeFlgs: true,
       sty: null
     }
   }
@@ -53,6 +54,12 @@ class ZjAssembly extends Component {
     })
   }
   fasongyanz = () => {
+    if(!this.state.timeFlgs){
+      return false
+    }
+    this.setState({
+      timeFlgs:false
+    })
     Xfn({
       _u: this.props.type == "1" ? "sendResetFundpwdSms" : "send_change_fundpwd_sms",
       _p: {
@@ -64,9 +71,9 @@ class ZjAssembly extends Component {
         let time = 60
         this.setState({
           timeFlg: false,
+          timeFlgs:true,
           fasongzi: 60
         })
-        console.log(res)
         if (res.data.data.notify_address.indexOf("@") == -1) {
           this.setState({
             sty: <span style={{ width: 300, textAlign: "left" }}><span style={{ color: "rgb(189, 179, 179)", marginRight: 5 }}>{

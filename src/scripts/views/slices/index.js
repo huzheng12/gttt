@@ -47,7 +47,7 @@ class Sices extends Component {
       information: [],
       isInsement: true,
       input_acc: '',
-      arr_data: [{ symbol: "ETH_USDT", a: '7.00' }, { symbol: "ESO_USDT" }],
+      arr_data: [{ symbol: "ETH_USDT", a: '7.00' }, { symbol: "EOS_USDT" }],
       a: true
     }
   }
@@ -58,7 +58,7 @@ class Sices extends Component {
   }
   componentDidMount() {
     const bodys = document.getElementsByTagName("body")[0]
-    bodys.className = "theme-light"
+    bodys.className = "theme-dark"
     this.sendMessage()
     store.dispatch({ type: "differentiatedtransactions", num: 1 })
     Xfn({

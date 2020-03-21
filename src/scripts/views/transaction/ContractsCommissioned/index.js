@@ -173,6 +173,7 @@ class ContractsCommissioned extends Component {
   };
 
   showModal = (val) => {
+    return false
     if (this.props.position.length > 0) {
       this.setState({
         visible8: true,
@@ -485,7 +486,7 @@ class ContractsCommissioned extends Component {
                 instrument.symbol ? <ContractDropdown ticker_all={instrumentArr} uil={uil}></ContractDropdown> : ""
               }
             </span>
-            <Tooltip placement="topRight" title={<FormattedMessage id="Current_Rate" defaultMessage={'由上一个资金费用时段计算得出'} />}>
+            <Tooltip placement="topLeft" title={<FormattedMessage id="Current_Rate" defaultMessage={'由上一个资金费用时段计算得出'} />}>
               <div>
                 <p> <FormattedMessage id="Current_fund_rate" defaultMessage={'当期资金费率'} /></p>
                 <span> {
@@ -493,7 +494,7 @@ class ContractsCommissioned extends Component {
                 }</span>
               </div>
             </Tooltip>
-            <Tooltip placement="topRight" title={<FormattedMessage id="Predicted_Rate" defaultMessage={'由当前资金费用时段计算得出'} />}>
+            <Tooltip placement="topLeft" title={<FormattedMessage id="Predicted_Rate" defaultMessage={'由当前资金费用时段计算得出'} />}>
               <div>
                 <p><FormattedMessage id="Budget_fund_rate" defaultMessage={'预测资金费率'} /></p>
                 <span>
@@ -633,10 +634,11 @@ class ContractsCommissioned extends Component {
                 if (localStorage.userInfo) {
                   return (
                     <div style={{ float: "right", marginLeft: 0 }}>
-                      <Button className="button00155 bglanse" type="primary" onClick={this.showModal} style={{ float: "left", fontSize: "12px" }}>
+                      {/* bglanse button00155  */}
+                      <Button disabled  type="primary" onClick={this.showModal} style={{ float: "left", fontSize: "12px",cursor:"no-drop" }}>
 
                         <FormattedMessage id="AccountMode" defaultMessage={'账号模式'} />
-                        <div>
+                        <div style={{color:"#999"}}>
                           {pc_account.margin_mode !== "1" ? <FormattedMessage id="Warehouse_by_warehouse" defaultMessage={'逐仓'} /> : <FormattedMessage id="FullWarehouse" defaultMessage={'全仓'} />}
                         </div>
                       </Button>

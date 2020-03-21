@@ -210,7 +210,7 @@ class Header extends Component {
           </div>
           <div className="imgtupian1 img6" style={{ cursor: 'pointer' }}>
             <span className="iconfont">&#xe607;</span>
-            <div className="notice_box">
+            <div className="notice_box" style={{left:"-262px"}}>
               <div className="title_box">
                 <FormattedMessage id="Platform_Bulletin" defaultMessage={'平台公告'} />
               </div>

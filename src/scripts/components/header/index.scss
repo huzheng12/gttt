@@ -501,7 +501,9 @@
       display: block;
     }
     .itend_information:hover{
-      background:rgba(211,221,241,1);
+      @include themify($themes) {
+        background-color: themed('background-color-33' ) ;
+      }
     }
 
 }

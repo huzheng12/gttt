@@ -314,15 +314,17 @@ div .ant-btn-primary{
     overflow: hidden;
     .section-titless{
       li{
-        @include themify($themes) {
-          background-color: themed('background-color-3');
-        }
+        background-color:transparent !important;
+        // @include themify($themes) {
+        //   background-color: themed('background-color-3');
+        // }
 
       }
       li:hover{
-        @include themify($themes) {
-          background-color: themed('background-color-3' !important);
-        }
+        background-color:transparent !important;
+        // @include themify($themes) {
+        //   background-color: themed('background-color-3' !important);
+        // }
       }
       :nth-child(3){
           padding-left: 10px;

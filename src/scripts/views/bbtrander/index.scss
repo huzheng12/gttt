@@ -63,70 +63,14 @@
     background: #172130;
 }
 
-.rand-warp{
-    .content-cd{
-        display: flex;
-        flex-direction:column;
-        justify-content:flex-start !important;
-        font-size:12px;
-        font-family:Microsoft YaHei;
-        font-weight:400;
-         .cond-tr{
-            display: flex;
-            justify-content:space-between;
-            padding: 5px 0 !important;
-            .le{
-                color:rgba(137,142,152,1); 
-                white-space: nowrap;
-            }
-            .ri{
-                color:rgba(225,233,250,1);
-            }
-        }
-    }
-   
-}
+
 .fulltra-warp-d{
     // width: 1380px;
     .ant-tabs-bar{
         border-color: #2F3746 !important;
         margin: 0;
     }
-    .contractdetails-warp{
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        
-        color: #E1E9FA;
-        .title-cd{
-            height: 40px;
-            line-height: 38px;
-            font-size:14px;
-            font-family:Microsoft YaHei;
-            font-weight:400;
-            padding-left: 11px;
-            border-bottom: 1px solid #2F3746;
-        }
-        .content-cd{
-            display: flex;
-            flex-direction:column;
-            justify-content:space-around;
-            font-size:12px;
-            font-family:Microsoft YaHei;
-            font-weight:400;
-            padding: 0 11px;
-            .cond-tr{
-                display: flex;
-                justify-content:space-between;
-                .le{
-                    color:rgba(137,142,152,1); 
-                }
-                .ri{
-                    color:rgba(225,233,250,1);
-                }
-            }
-        }
-    }
+   
 // foot  表格
     .bbtablefoot_warp{
         height: 100%;

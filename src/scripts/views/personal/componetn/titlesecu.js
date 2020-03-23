@@ -45,7 +45,7 @@ class TitleSE extends Component {
               <div className="conten-went">
                 <p className="wenZZ1 clear">
                   <span>{
-                    zsxx.user_name
+                    zsxx.phone? zsxx.phone.substr(0, 3) + "****" + zsxx.phone.substr(-4):zsxx.email?zsxx.email.substr(0, 3) + "****"+zsxx.email.split("@")[1]:''
                   }</span>
                   <img src={(() => {
                     switch (zsxx.user_level) {

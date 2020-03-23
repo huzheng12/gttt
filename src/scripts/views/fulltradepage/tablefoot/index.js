@@ -12,6 +12,7 @@ import { timehuansuan } from '@/utils/time'
 import { FormattedMessage } from 'react-intl';
 import EventFN from '../../../../utils/eventfn';
 import { assetfn } from '../../../action';
+import Comtabletitle from '../../transaction/innerCang/comtabletitle';
 
 @connect(
   state => {
@@ -49,7 +50,6 @@ class TableFoot extends Component {
     }
   }
   classTpl = (item, num) => {
-    console.log(item, num)
     this.setState({
       classTpL1: "",
       classTpL2: "",
@@ -58,6 +58,9 @@ class TableFoot extends Component {
       tpnum: num,
       visible8: false,
     })
+    if(num===3){
+      this.historyJIlu()
+    }
   }
   componentDidUpdate() {
     if (this.props.asset_switch === 1) {
@@ -198,22 +201,27 @@ class TableFoot extends Component {
         </div>
         {
           tpnum === 1 ? <div className="tpnum1 g-x-scrollbar">
-            {this.dangqianchipang(this.props.position.length, allposiont)}
+            {
+               localStorage.userInfo&&<Comtabletitle></Comtabletitle>
+            }
+            
             {
               this.props && this.props.position.map((item, index) => {
                 return <TablePosition fenyemashu={this.fenyemashu} total={totallishi} item={item} imgArr={imgArr} key={item + index} ></TablePosition>
               })
             }
+            {this.dangqianchipang(this.props.position.length, allposiont)}
           </div> : tpnum === 2 ? <div className="tpnum2 g-x-scrollbar">
-            {this.dangqianchipang(this.props.order.length, allposiont)}
+         
             {
               localStorage.userInfo&&<Orderweituo heyuename={heyuename} order={order} type={1} chexiao1={this.chexiao1}></Orderweituo>
             }
+            {this.dangqianchipang(this.props.order.length, allposiont)}
           </div> : <div className="tpnum2 g-x-scrollbar">
-                {this.dangqianchipang(this.state.data3.length, window.historylength)}
                 {
                   localStorage.userInfo&&<Orderweituo heyuename={heyuename} dianjigengduo={this.dianjigengduo} order={data3} type={2} chexiao1={this.chexiao} ></Orderweituo>
                 }
+                {this.dangqianchipang(this.state.data3.length, window.historylength)}
               </div>
         }
         <Modal

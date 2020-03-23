@@ -18,7 +18,8 @@ class C2Ctrade extends Component {
       c2ccardQueryData: [],
       JsonObj: {
 
-      }
+      },
+      isokflg:true
     }
   }
 
@@ -126,6 +127,12 @@ class C2Ctrade extends Component {
         }
       })
     } else {
+      if(!this.state.isokflg){
+        return
+      }
+      this.setState({
+        isokflg:false
+      })
       const obj = {
         source_asset: this.props.source_asset_data,// 原资产 必填
         target_asset: this.props.target_asset_data,// 兑换资产 必填
@@ -139,6 +146,9 @@ class C2Ctrade extends Component {
       }, (res, code) => {
         if (code === 0) {
           window.open(res.data.data.url);
+          this.setState({
+            isokflg:true
+          })
         }
       })
     }

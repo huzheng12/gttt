@@ -125,13 +125,13 @@ class Shouxufei extends Component {
                 </p>
                 <div className="row_pans">
                   <span>币币手续费</span>
-                  <span>挂单成交{getUserFeeObj.maker_fee?getUserFeeObj.bb_maker_fee + '%':"--" + '%'}</span>
-                  <span>吃单成交{getUserFeeObj.maker_fee?getUserFeeObj.bb_taker_fee + '%':'--' + '%'}</span>
+                  <span>挂单成交 {getUserFeeObj.maker_fee?getUserFeeObj.bb_maker_fee + '%':"--" + '%'}</span>
+                  <span>吃单成交 {getUserFeeObj.maker_fee?getUserFeeObj.bb_taker_fee + '%':'--' + '%'}</span>
                 </div>
                 <div className="row_pans">
                   <span>永续合约手续费</span>
-                  <span>挂单成交{getUserFeeObj.maker_fee?getUserFeeObj.maker_fee + '%':'--' + '%'}</span>
-                  <span>吃单成交{getUserFeeObj.maker_fee?getUserFeeObj.taker_fee + '%':'--' + '%'}</span>
+                  <span>挂单成交 {getUserFeeObj.maker_fee?getUserFeeObj.maker_fee + '%':'--' + '%'}</span>
+                  <span>吃单成交 {getUserFeeObj.maker_fee?getUserFeeObj.taker_fee + '%':'--' + '%'}</span>
                 </div>
               </div>
             </div>

@@ -6,11 +6,11 @@ import { FormattedMessage } from 'react-intl';
 import lang from '@/utils/language';
 import number_format from '../../../../utils/renyinumber';
 const Orderweituo = (props) => {
-  const { order, chexiao1, type, fenyemashu, dianjigengduo, heyuename } = props
+  const { order, chexiao1, type, fenyemashu, dianjigengduo, heyuename, titletype } = props
   return (
     <div>
       <div className="titlew">
-        <div className="titpx" style={{ width: "10%" }}>< FormattedMessage id="Delegation_time" defaultMessage={'委托时间'} /></div>
+        <div className="titpx" style={{ width: "10%", minWidth: 160 }}>< FormattedMessage id="Delegation_time" defaultMessage={'委托时间'} /></div>
         <div className="titpx" style={{ width: "9%" }}>< FormattedMessage id="contract" defaultMessage={'合约'} /></div>
         <div className="titpx" style={{ width: "9%" }}>< FormattedMessage id="lever" defaultMessage={'杠杆'} /></div>
         <div className="titpx" style={{ width: "9%" }}>< FormattedMessage id="Type_of_transaction" defaultMessage={'交易类型'} /></div>
@@ -26,7 +26,7 @@ const Orderweituo = (props) => {
         {
           order.map((item, index) => {
             return <div className="wuflex-cont" key={item + index}>
-              <div className="cont-tp" style={{ width: "10%" }}>
+              <div className="cont-tp" style={{ width: "10%", minWidth: 160 }}>
                 {timehuansuan(item.ctime).date}
                 &emsp;
                 {timehuansuan(item.ctime).dates}
@@ -130,6 +130,9 @@ const Orderweituo = (props) => {
         }
         {
           (() => {
+            if (order.length == 0) {
+              return
+            }
             if (type == "2" || type == "1") {
               return <div className="kangengduo">
                 <Link style={{ float: 'right' }} to="/transaction/inner" target="_blank" onClick={dianjigengduo}>< FormattedMessage id="ViewMore" defaultMessage={'查看更多'} />>></Link>

@@ -99,6 +99,24 @@ class xgloginpass extends Component {
     const obj = {
       time: new Date().getTime().toString()
     }
+    let time = 60
+    this.setState({
+      timeFlg: false,
+      fasongzi: 60
+    })
+    times = setInterval(() => {
+      time = time - 1
+      this.setState({
+        fasongzi: time
+      })
+      if (time === 0) {
+        clearInterval(times)
+        this.setState({
+          timeFlg: true,
+          fasongzi: lang().Send_Verification_Code
+        })
+      }
+    }, 1000)
     Xfn({
       _u: "send_chang_login_pwd_sms",
       _m: "post",
@@ -122,25 +140,25 @@ class xgloginpass extends Component {
               </span></span>
           })
         }
-        let time = 60
-        this.setState({
-          timeFlg: false,
-          fasongzi: 60
-        })
-        times = setInterval(() => {
-          console.log(time)
-          time = time - 1
-          this.setState({
-            fasongzi: time
-          })
-          if (time === 0) {
-            clearInterval(times)
-            this.setState({
-              timeFlg: true,
-              fasongzi: lang().Send_Verification_Code
-            })
-          }
-        }, 1000)
+        // let time = 60
+        // this.setState({
+        //   timeFlg: false,
+        //   fasongzi: 60
+        // })
+        // times = setInterval(() => {
+        //   console.log(time)
+        //   time = time - 1
+        //   this.setState({
+        //     fasongzi: time
+        //   })
+        //   if (time === 0) {
+        //     clearInterval(times)
+        //     this.setState({
+        //       timeFlg: true,
+        //       fasongzi: lang().Send_Verification_Code
+        //     })
+        //   }
+        // }, 1000)
       }
     }, lang().Verification_code_sent_successfully)
   }

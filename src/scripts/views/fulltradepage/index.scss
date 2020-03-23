@@ -108,7 +108,7 @@
         .content-cd{
             display: flex;
             flex-direction:column;
-            justify-content:space-between;
+            justify-content:space-around;
             font-size:12px;
             font-family:Microsoft YaHei;
             font-weight:400;
@@ -768,7 +768,7 @@
             justify-content: space-around;
             .gteio-box{
                 display: flex;
-                justify-content: space-evenly;
+                justify-content: space-around;
                 font-size: 14px;
             }
 

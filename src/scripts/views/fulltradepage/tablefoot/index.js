@@ -206,10 +206,14 @@ class TableFoot extends Component {
             }
           </div> : tpnum === 2 ? <div className="tpnum2 g-x-scrollbar">
             {this.dangqianchipang(this.props.order.length, allposiont)}
-            <Orderweituo heyuename={heyuename} order={order} type={1} chexiao1={this.chexiao1}></Orderweituo>
+            {
+              localStorage.userInfo&&<Orderweituo heyuename={heyuename} order={order} type={1} chexiao1={this.chexiao1}></Orderweituo>
+            }
           </div> : <div className="tpnum2 g-x-scrollbar">
                 {this.dangqianchipang(this.state.data3.length, window.historylength)}
-                <Orderweituo heyuename={heyuename} dianjigengduo={this.dianjigengduo} order={data3} type={2} chexiao1={this.chexiao} ></Orderweituo>
+                {
+                  localStorage.userInfo&&<Orderweituo heyuename={heyuename} dianjigengduo={this.dianjigengduo} order={data3} type={2} chexiao1={this.chexiao} ></Orderweituo>
+                }
               </div>
         }
         <Modal

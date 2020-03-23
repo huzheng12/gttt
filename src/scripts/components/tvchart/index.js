@@ -50,7 +50,7 @@ const barsFormat = (data) => {
 class tvChart extends Component {
     initOnReady = (symbol) => {
         window.tvWidget = new window.TradingView.widget(Object.assign({}, WidgetInfo, { //tvConfig.js
-            debug: true, // uncomment this line to see Library errors and warnings in the console
+            debug: false, // uncomment this line to see Library errors and warnings in the console
             symbol: symbol,
             interval: '1',
             container_id: "tv_chart_container",

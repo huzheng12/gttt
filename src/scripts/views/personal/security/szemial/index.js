@@ -95,23 +95,7 @@ class Szemail extends Component {
   }
   yzphone = () => {
     this.xphoneB(() => {
-      Xfn({
-        _u: "bind_email",
-        _m: "post",
-        _p: {
-          email: this.state.phoneInp,
-          time: new Date().getTime().toString()
-        }
-      }, (res, code) => {
-        if (code == 0) {
-          if (this.state.phoneInp) {
-            const str = this.state.phoneInp.substr(0, 3) + "****" + this.state.phoneInp.split("@")[1]
-            this.setState({
-              yfs1: <span><span style={{ color: "rgb(189, 179, 179)", marginRight: 5 }}>{lang().has_been_sent}</span>{str}</span>
-            })
-
-          }
-          let time = 60
+      let time = 60
           this.setState({
             timeFlg: false,
             fasongzi: 60
@@ -130,6 +114,23 @@ class Szemail extends Component {
               })
             }
           }, 1000)
+      Xfn({
+        _u: "bind_email",
+        _m: "post",
+        _p: {
+          email: this.state.phoneInp,
+          time: new Date().getTime().toString()
+        }
+      }, (res, code) => {
+        if (code == 0) {
+          if (this.state.phoneInp) {
+            const str = this.state.phoneInp.substr(0, 3) + "****" + this.state.phoneInp.split("@")[1]
+            this.setState({
+              yfs1: <span><span style={{ color: "rgb(189, 179, 179)", marginRight: 5 }}>{lang().has_been_sent}</span>{str}</span>
+            })
+
+          }
+          
         }
       }, lang().Verification_code_sent_successfully)
 

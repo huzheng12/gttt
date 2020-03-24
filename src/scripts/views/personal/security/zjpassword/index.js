@@ -20,7 +20,8 @@ class Zjpassword extends Component {
       yzmInp: "",
       butFlg: true,
       fasongzi: lang().Send_Verification_Code,
-      timeFlg: true
+      timeFlg: true,
+      isok:true
 
     }
   }
@@ -74,16 +75,14 @@ class Zjpassword extends Component {
     clearInterval(times)
   }
   yzphone = () => {
-    Xfn({
-      _u: "send_installed_fundpwd_sms",
-      _m: "post",
-      _p: {}
-    }, (res, code) => {
-      if (code == 0) {
-        let time = 60
+    if(!this.state.isok){
+      return
+    }
+    let time = 60
         this.setState({
           timeFlg: false,
-          fasongzi: 60
+          fasongzi: 60,
+          isok:false
         })
         times = setInterval(() => {
           time = time - 1
@@ -100,6 +99,16 @@ class Zjpassword extends Component {
 
           }
         }, 1000)
+   
+    Xfn({
+      _u: "send_installed_fundpwd_sms",
+      _m: "post",
+      _p: {}
+    }, (res, code) => {
+      if (code == 0) {
+        this.setState({
+          isok:true
+        })
         if (res.data.data.notify_address.indexOf("@") == -1) {
           this.setState({
             yfs: <span style={{ width: 300 }}><span style={{ color: "rgb(189, 179, 179)", marginRight: 5 }}>{

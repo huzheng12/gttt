@@ -54,12 +54,25 @@ class ZjAssembly extends Component {
     })
   }
   fasongyanz = () => {
-    if(!this.state.timeFlgs){
-      return false
-    }
+
+    let time = 60
     this.setState({
-      timeFlgs:false
+      timeFlg: false,
+      fasongzi: 60
     })
+    times = setInterval(() => {
+      time = time - 1
+      this.setState({
+        fasongzi: time
+      })
+      if (time === 0) {
+        clearInterval(times)
+        this.setState({
+          timeFlg: true,
+          fasongzi: lang().Send_Verification_Code
+        })
+      }
+    }, 1000)
     Xfn({
       _u: this.props.type == "1" ? "sendResetFundpwdSms" : "send_change_fundpwd_sms",
       _p: {
@@ -68,12 +81,7 @@ class ZjAssembly extends Component {
       _m: "post"
     }, (res, code) => {
       if (code == 0) {
-        let time = 60
-        this.setState({
-          timeFlg: false,
-          timeFlgs:true,
-          fasongzi: 60
-        })
+
         if (res.data.data.notify_address.indexOf("@") == -1) {
           this.setState({
             sty: <span style={{ width: 300, textAlign: "left" }}><span style={{ color: "rgb(189, 179, 179)", marginRight: 5 }}>{
@@ -91,19 +99,7 @@ class ZjAssembly extends Component {
               </span></span>
           })
         }
-        times = setInterval(() => {
-          time = time - 1
-          this.setState({
-            fasongzi: time
-          })
-          if (time === 0) {
-            clearInterval(times)
-            this.setState({
-              timeFlg: true,
-              fasongzi: lang().Send_Verification_Code
-            })
-          }
-        }, 1000)
+
 
       }
     }, lang().Verification_code_sent_successfully)

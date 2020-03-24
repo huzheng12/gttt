@@ -90,6 +90,24 @@ class Xgphone extends Component {
   }
   yzphone = () => {
     this.xphoneB(() => {
+      let time = 60
+      this.setState({
+        timeFlg: false,
+        fasongzi: 60
+      })
+      times = setInterval(() => {
+        time = time - 1
+        this.setState({
+          fasongzi: time
+        })
+        if (time === 0) {
+          clearInterval(times)
+          this.setState({
+            timeFlg: true,
+            fasongzi: lang().Send_Verification_Code
+          })
+        }
+      }, 1000)
       Xfn({
         _u: "send_change_phone_sms",
         _m: "post",
@@ -98,24 +116,7 @@ class Xgphone extends Component {
         }
       }, (res, code) => {
         if (code == 0) {
-          let time = 60
-          this.setState({
-            timeFlg: false,
-            fasongzi: 60
-          })
-          times = setInterval(() => {
-            time = time - 1
-            this.setState({
-              fasongzi: time
-            })
-            if (time === 0) {
-              clearInterval(times)
-              this.setState({
-                timeFlg: true,
-                fasongzi: lang().Send_Verification_Code
-              })
-            }
-          }, 1000)
+         
           if (res.data.data.notify_address) {
             const str = res.data.data.notify_address.substr(0, 3) + "****" + res.data.data.notify_address.substr(-4)
             this.setState({

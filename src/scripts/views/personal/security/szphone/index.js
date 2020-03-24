@@ -88,6 +88,27 @@ class Szphone extends Component {
   yzphone = () => {
 
     this.xphoneB(() => {
+      let time = 60
+      this.setState({
+        timeFlg: false,
+        fasongzi: 60
+      })
+      times = setInterval(() => {
+        console.log(time)
+        time = time - 1
+        this.setState({
+          fasongzi: time
+        })
+        if (time === 0) {
+          clearInterval(times)
+
+          this.setState({
+            timeFlg: true,
+            fasongzi: lang().Send_Verification_Code
+          })
+
+        }
+      }, 1000)
       Xfn({
         _u: "bdsjsend_bind_phone",
         _m: "post",
@@ -106,27 +127,7 @@ class Szphone extends Component {
             })
           }
 
-          let time = 60
-          this.setState({
-            timeFlg: false,
-            fasongzi: 60
-          })
-          times = setInterval(() => {
-            console.log(time)
-            time = time - 1
-            this.setState({
-              fasongzi: time
-            })
-            if (time === 0) {
-              clearInterval(times)
-
-              this.setState({
-                timeFlg: true,
-                fasongzi: lang().Send_Verification_Code
-              })
-
-            }
-          }, 1000)
+         
         }
       }, lang().Verification_code_sent_successfully)
     })

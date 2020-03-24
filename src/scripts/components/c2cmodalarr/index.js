@@ -24,7 +24,8 @@ export default class C2cModalarr extends Component {
     })
     this.setState({
       visible1: isok,
-      isOkvisi: true
+      isOkvisi: true,
+      zjPass:""
     })
     // JsonObj
     if (type === 2) {
@@ -51,15 +52,17 @@ export default class C2cModalarr extends Component {
     }
   }
   passwordFn = (val) => {
-    console.log(val.target.value)
     this.setState({
       zjPass: val.target.value
     })
   }
   render() {
     const {
-      title, okText
+      title, okText,contenttetx
     } = this.props
+    const {
+      zjPass
+    }=this.state
     return (
       <Modal
         title="提示"
@@ -76,7 +79,7 @@ export default class C2cModalarr extends Component {
             {
               title
             }
-          </div> : <Input type="password" onChange={this.passwordFn} placeholder="请输入资金密码" />
+          </div> : <Input value={zjPass} type="password" onChange={this.passwordFn} placeholder="请输入资金密码" />
         }
       </Modal>
     )

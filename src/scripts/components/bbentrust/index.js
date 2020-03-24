@@ -93,14 +93,14 @@ class Bbentrust extends Component {
         {
           title: '已成交量｜委托总量',
           dataIndex: 'filled_qty',
-          render: (text, record) => <div className="zititr" style={{ width: 80, wordWrap: "break-word" }}>
+          render: (text, record) => <div className="zititr" style={{  wordWrap: "break-word" }}>
             {record.filled_qty + ' | ' + record.qty}
           </div>,
         },
         {
           title: '成交均价｜委托价',
           dataIndex: 'price',
-          render: (text, record) => <div className="zititr" style={{ width: 80, wordWrap: "break-word" }}>
+          render: (text, record) => <div className="zititr" style={{ wordWrap: "break-word" }}>
             {record.avg_price + ' | ' + record.price}
           </div>,
         },

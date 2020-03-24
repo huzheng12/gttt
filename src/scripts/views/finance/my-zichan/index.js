@@ -49,19 +49,16 @@ class Asset extends Component {
               typr1:account[i]
             })
           }else{
-            console.log(account[i],'[[[[')
             if(account[i].account_type==='2'){
               typr2 = account[i]
             }else{
               typr2.account_total1 = account[i].account_total
             }
-            console.log(typr2)
           }
         }
         this.state.zczx.push(typr1)
         this.state.zczx.push(typr2)
         this.setState({
-          // zczx: res.data.data.accounts,
           zczx: this.state.zczx,
           total_asset: res.data.data.total,
           symbol: res.data.data.asset,

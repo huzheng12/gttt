@@ -24,6 +24,8 @@ let times = null
       asset: state.data.asset,
       asset_switch: state.data.asset_switch,
       heyuenameSlipt: state.data.heyuenameSlipt,
+      pcassetquery: state.data.pcassetquery,
+
     }
   }
 )
@@ -207,7 +209,10 @@ class AccountRecords extends Component {
       pairArr: [],
       page_size_odl: 0,
       page_size_odlFlg: true,
-      isok:true
+      isok:true,
+      assettedxt:"BTC",
+      arrasset:[],
+
     }
   }
   historylength = () => {
@@ -221,17 +226,29 @@ class AccountRecords extends Component {
     })
     this.aixosjlksdjf(this.state.current_page + 1)
   }
-  symbolqiehuan = () => {
-    if (this.props.asset === null) return false
-    if (times !== null) {
-      clearInterval(times)
-      times = null
+  symbolqiehuan = (type) => {
+
+    let assst = type
+    if(type){
+     
+    }else{
+
+      if (this.props.asset === null) return false
+      if (times !== null) {
+        clearInterval(times)
+        times = null
+      }
+       assst = this.props.asset
+       if(this.props.type==="bb"){
+        assst=this.state.assettedxt
+      }
     }
+   
     Xfn({
       _u: "pairQuery",
       _m: "get",
       _p: {
-        asset: this.props.asset
+        asset: assst
       }
     }, (res, code) => {
       if (code == 0) {
@@ -239,6 +256,7 @@ class AccountRecords extends Component {
           pairArr: res.data.data.rows,
           page_size_odl: res.data.data.total,
           pair: res.data.data.rows[0].symbol,
+          arrasset:this.props.pcassetquery
         })
         this.aixosjlksdjf("1", {
           pair: res.data.data.rows[0].symbol
@@ -269,7 +287,6 @@ class AccountRecords extends Component {
 
   }
   aixosjlksdjf = (a, obj) => {
-
     if (!this.props.asset) { return false }
     var timeend = null
     var timestart = null
@@ -287,12 +304,24 @@ class AccountRecords extends Component {
       timeend = new Date(t1.n, t1.y, t1.r, 0, 0, 0, 0).getTime().toString()
       timestart = new Date(t2.n, t2.y, t2.r, 0, 0, 0, 0).getTime().toString()
     }
+    let assetdd =  this.props.type==="bb"?this.state.assettedxt:this.props.asset
+    let symbol = ''
+
+      symbol = this.state.pair
+    if (obj && obj.pair) {
+      symbol = obj.pair
+    }
+    if(a==='1'){
+      this.setState({
+        data3:null
+      })
+    }
     Xfn({
       _u: "billheyuezhanghu",
       _m: "get",
       _p: {
-        asset: this.props.asset,
-        symbol: obj && obj.pair ? obj.pair : this.state.pair,
+        asset: assetdd,
+        symbol:symbol,
         trade_type: this.state.trade_type,
         history_type: this.state.danxuanriqi,
         current_page: a ? a : "1",
@@ -320,9 +349,9 @@ class AccountRecords extends Component {
               isok:true
             })
           }else{
-            this.setState({
-              isok:false
-            })
+            // this.setState({
+            //   isok:false
+            // })
           }
         }
         this.setState({
@@ -479,7 +508,13 @@ class AccountRecords extends Component {
       store.dispatch(assetfn(this.props.asset, 0))
     }
   }
-
+  ARHandleChanged=(val)=>{
+    this.setState({
+      assettedxt: val,
+      current_page: 1
+    })
+    this.symbolqiehuan(val)
+  }
   render() {
     const { time } = this.props
     const {
@@ -493,7 +528,8 @@ class AccountRecords extends Component {
       startValue,
       endValue,
       current_page,
-      isok
+      isok,
+      arrasset
     } = this.state
     const {
       heyuenameSlipt
@@ -506,6 +542,18 @@ class AccountRecords extends Component {
         </div>
         }
         <div className="ar-form-title clear">
+          {
+             this.props.type==='bb'&&<div className="p1">
+             <Select value={this.state.assettedxt} style={{ width: "100%", height: "100%" }} onChange={this.ARHandleChanged}>
+               {
+                 arrasset.map((item, index) => {
+                   return <Option key={item + index} value={item.asset}>{item.asset} </Option>
+                 })
+               }
+ 
+             </Select>
+           </div>
+          }
           <div className="p1">
             <Select value={this.state.pair} style={{ width: "100%", height: "100%" }} onChange={this.ARHandleChange}>
               {

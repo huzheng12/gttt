@@ -4,6 +4,7 @@ import { Xfn } from '../../../utils/axiosfn';
 import { numberHandle } from '../../../utils/numberHandle';
 import C2cModalarr from '../c2cmodalarr';
 import { openNotificationWithIcon } from '../../../utils/NotificationCONF';
+import number_format from '../../../utils/renyinumber';
 class C2Ctrade extends Component {
   constructor() {
     super()
@@ -19,7 +20,9 @@ class C2Ctrade extends Component {
       JsonObj: {
 
       },
-      isokflg:true
+      isokflg:true,
+      contenttetx:"",
+      available:"--"
     }
   }
 
@@ -61,6 +64,25 @@ class C2Ctrade extends Component {
     // "fund_pwd_auth": "1"       //资金账户密码认证
   }
   componentDidMount() {
+    Xfn({
+      _u: "zjzhanghu",
+      _m: "get",
+      _p: {}
+    }, (res, code) => {
+      if (code == 0) {
+        var arr = res.data.data.fund_accounts
+        for(let i=0;i<arr.length;i++){
+          console.log(arr[i])
+          if(arr[i].asset==='USDT'){
+            this.setState({
+              available: arr[i].available,
+            })
+          }
+        }
+       
+      }
+    })
+   
     this.authrenzzFn()
     this.c2ccardQueryFn()
   }
@@ -202,7 +224,9 @@ class C2Ctrade extends Component {
       visible1,
       okText,
       okTextUrl,
-      JsonObj
+      JsonObj,
+      contenttetx,
+      available
     } = this.state
     console.log(exchange_rate_data)
     // time: "1578637287372"
@@ -214,8 +238,11 @@ class C2Ctrade extends Component {
       <div className="c2ctrade_warp">
         <div className="title_box" style={{ color: type === 1 ? "" : "#E53F39" }}>
           {
-            type === 1 ? '买入USDT' : "卖出USDT"
+            type === 1 ? '买入USDT' : "卖出USDT "
           }
+          {
+                 type === 1 ? '' : <span className="clatrwarp_span">(可用余额：{ available!=='--'?number_format(available, 8, ".", ","):available} USDT)</span>
+              }
         </div>
         <div className="content_box">
           <div className="input_box">
@@ -223,6 +250,7 @@ class C2Ctrade extends Component {
               {
                 type === 1 ? '买入估价(CNY)' : "卖出估价(CNY)"
               }
+              
             </div>
             <div>{
               (() => {
@@ -275,7 +303,7 @@ class C2Ctrade extends Component {
             </div>
           </div>
         </div>
-        <C2cModalarr JsonObj={JsonObj} okText={okText} okTextUrl={okTextUrl} title={title} visible1={visible1} _this={this}></C2cModalarr>
+        <C2cModalarr contenttetx={contenttetx} JsonObj={JsonObj} okText={okText} okTextUrl={okTextUrl} title={title} visible1={visible1} _this={this}></C2cModalarr>
       </div>
     )
   }

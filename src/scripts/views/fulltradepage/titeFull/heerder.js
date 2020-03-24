@@ -40,7 +40,7 @@ class Heeader extends Component {
             instrumentArr.length > 0 ? instrumentArr.map((item, index) => {
               return <div onClick={() => this.SwitchingCurrencies(item, index)}
                 className={item.symbol == this.props.heyuename ? "box boxs" : "box"} key={item + index}>
-                <div>{
+                <div style={{fontSize:'16px'}}>{
                   EventFN.CurrencyName({
                     heyuename: item.symbol
                   })

@@ -768,10 +768,12 @@
             display: flex;
             flex-direction: column;
             justify-content: space-around;
+            padding: 6px;
             .gteio-box{
                 display: flex;
                 justify-content: space-around;
                 font-size: 14px;
+              
             }
 
             .iconfont{

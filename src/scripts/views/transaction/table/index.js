@@ -19,6 +19,7 @@ let times = null
       asset: state.data.asset,
       heyuename: state.data.heyuename,
       asset_switch: state.data.asset_switch,
+      pcassetquery: state.data.pcassetquery,
     }
   }
 )
@@ -58,7 +59,9 @@ class Innercangs extends Component {
     fenyexianshi: true,
     last_yema: true,
     yema_numb: 1,
-    isok:true
+    isok:true,
+    arrasset:[],
+    assettedxt:'BTC'
   }
   chexiao1 = (a, b) => {
     if (this.state.chexiaoFlg) {
@@ -105,23 +108,35 @@ class Innercangs extends Component {
       }
     })
   }
-  symbolqiehuan = () => {
-    if (this.props.asset === null) return false
-    if (times !== null) {
-      clearInterval(times)
-      times = null
+  symbolqiehuan = (type) => {
+    let assst = type
+    if(type){
+     
+    }else{
+
+      if (this.props.asset === null) return false
+      if (times !== null) {
+        clearInterval(times)
+        times = null
+      }
+       assst = this.props.asset
+       if(this.props.type==="bb"){
+        assst=this.state.assettedxt
+      }
     }
+   
     Xfn({
       _u: "pairQuery",
       _m: "get",
       _p: {
-        asset: this.props.asset
+        asset: assst
       }
     }, (res, code) => {
       if (code == 0) {
         this.setState({
           pairArr: res.data.data.rows,
-          pair: res.data.data.rows[0].symbol
+          pair: res.data.data.rows[0].symbol,
+          arrasset:this.props.pcassetquery
         })
         this.screen({
           pair: res.data.data.rows[0].symbol
@@ -163,11 +178,15 @@ class Innercangs extends Component {
       return false
     }
     var symbol = this.props.heyuename
+    let assetdd =  this.props.type==="bb"?this.state.assettedxt:this.props.asset
+    if(this.props.type==="bb"){
+      symbol = this.state.pair
+    }
     if (obj && obj.pair) {
       symbol = obj.pair
     }
     let objdata = {
-      asset: this.props.asset,
+      asset: assetdd,
       symbol: symbol,
       bid_flag: this.state.bid_flag,
       close_flag: this.state.close_flag,
@@ -178,6 +197,13 @@ class Innercangs extends Component {
     }
     if (obj.type) {
       objdata.last_order_id = this.state.data3[this.state.data3.length - 1].id
+    }
+    if(type){
+
+    }else{
+      this.setState({
+        data3:null
+      })
     }
     Xfn({
       _u: "query_alltiaojian",
@@ -260,6 +286,13 @@ class Innercangs extends Component {
       pair: val
     })
   }
+  ARHandleChanged=(val)=>{
+    this.setState({
+      assettedxt: val,
+      current_page: 1
+    })
+    this.symbolqiehuan(val)
+  }
   ARHandleChange1 = (val) => {
     this.setState({
       current_page: 1
@@ -321,10 +354,8 @@ class Innercangs extends Component {
       data3,
       objtime,
       chakanshu,
-      lishilength,
       pairArr,
-      current_page,
-      isok
+      isok,arrasset
     } = this.state
     return (
       < div className="Innercang-warp tabe-war" >
@@ -337,6 +368,18 @@ class Innercangs extends Component {
        </div>
        }
         <div className="tabe-tiele-content clear">
+          {
+            this.props.type==="bb"&& <div className="p1">
+            <Select value={this.state.assettedxt} style={{ width: "100%", height: "100%" }} onChange={this.ARHandleChanged}>
+              {
+                arrasset.map((item, index) => {
+                  return <Option key={item + index} value={item.asset}>{item.asset} </Option>
+                })
+              }
+            </Select>
+          </div>
+          }
+         
           <div className="p1">
             <Select value={this.state.pair} style={{ width: "100%", height: "100%" }} onChange={this.ARHandleChange}>
               {

@@ -34,13 +34,13 @@ class ListOnTheRight extends Component {
     if (this.props.orderBookL2_25obj.arrAsks[0] && this.props.orderBookL2_25obj.arrBids[0]) {
       if (this.props.orderBookL2_25obj.arrAsks[0].price - this.props.orderBookL2_25obj.arrBids[0].price <= 0) {
         window.wss.send(JSON.stringify({
-          "op": 'unsub',
-          "event": "pc#order_book#" + this.props.asset + "#" + this.props.heyuename
-        }));
+          "op": "unsub",
+          "args": { "instrument_type": "pc", "table": "order_book", "settle_currency":this.props.asset, "symbol": this.props.heyuename }
+      }));
         window.wss.send(JSON.stringify({
-          "op": 'sub',
-          "event": "pc#order_book#" + this.props.asset + "#" + this.props.heyuename
-        }));
+          "op": "sub",
+          "args": { "instrument_type": "pc", "table": "order_book", "settle_currency":  this.props.asset, "symbol": this.props.heyuename }
+      }));
       }
     }
     var scrollBar = document.getElementById('scrollBara');

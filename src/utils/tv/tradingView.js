@@ -36,21 +36,6 @@ export const sendMsg = (symbolInfo, resolution) => {
   if (window.barTo) to = window.barTo;
   const from = to - 400 * parseInt(resolution) * 60;
   window.barTo = from;
-
-  // const param = "req:contract:tvkline:" + symbolInfo.name + ":" + resolution + ":" + from + "," + to;
-
-  const param = JSON.stringify(
-      {
-          "op":"query",
-           "event":"pc#candle#BTC_USDT",
-           "args":{
-                    "interval": resolution + "", //时间间隔
-                    "start_time": from, //开始时间毫秒
-                    "end_time": to}   //结束时间毫秒
-      }
-  )
-
-  window.ws.send(param);
 };
 
 

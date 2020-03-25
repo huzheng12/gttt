@@ -38,8 +38,10 @@ export default class C2cModalarr extends Component {
           _m: "post",
           _p: this.props.JsonObj
         }, (res, code) => {
-          console.log(res)
-        })
+          if(code==0){
+            this.props.availableaccounts()
+          }
+        },'申请提现成功，等待客服审核')
       }
     }
   }

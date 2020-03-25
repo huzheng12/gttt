@@ -230,11 +230,11 @@ class Huazhuan extends Component {
         qty: this.state.kzslGTC,
       }
     }, (res, code) => {
+      this.setState({
+        kzslGTC: "",
+        tanks:false
+      })
       if (code == 0) {
-        this.setState({
-          kzslGTC: "",
-          tanks:false
-        })
         this.hzavailablehis({
           asset: this.state.zxhzzhanghuname,
           from_account: this.state.zjzhfangxiang,

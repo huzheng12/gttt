@@ -84,15 +84,6 @@ class MoreLeverage extends Component {
           visible: false,
           LeverageBuyingstate: res.data.data.leverage,
         })
-        window.wss.send(JSON.stringify({
-          "op": "unsub",
-          "event": "pc#position_all#" + asset
-        }));
-        window.wss.send(JSON.stringify({
-          "op": "sub",
-          "event": "pc#position_all#" + asset,
-          "args": { "token": localStorage.userInfo }
-        }));
       }
     })
   }

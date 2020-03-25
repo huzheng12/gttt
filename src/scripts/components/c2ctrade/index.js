@@ -63,7 +63,7 @@ class C2Ctrade extends Component {
     // "mail_auth": "1",          //邮箱认证
     // "fund_pwd_auth": "1"       //资金账户密码认证
   }
-  componentDidMount() {
+  availableaccounts=()=>{
     Xfn({
       _u: "zjzhanghu",
       _m: "get",
@@ -82,7 +82,10 @@ class C2Ctrade extends Component {
        
       }
     })
-   
+  }
+  componentDidMount() {
+  
+   this.availableaccounts()
     this.authrenzzFn()
     this.c2ccardQueryFn()
   }
@@ -303,7 +306,7 @@ class C2Ctrade extends Component {
             </div>
           </div>
         </div>
-        <C2cModalarr contenttetx={contenttetx} JsonObj={JsonObj} okText={okText} okTextUrl={okTextUrl} title={title} visible1={visible1} _this={this}></C2cModalarr>
+        <C2cModalarr availableaccounts={this.availableaccounts} contenttetx={contenttetx} JsonObj={JsonObj} okText={okText} okTextUrl={okTextUrl} title={title} visible1={visible1} _this={this}></C2cModalarr>
       </div>
     )
   }

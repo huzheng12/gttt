@@ -109,7 +109,7 @@ class Account extends Component {
     return (
       <div className="account-warp">
         <div className="asset-title">
-          <h1><FormattedMessage id="Account_funds" defaultMessage={'账户资金'} /></h1>
+          <h1>资金账户</h1>
         </div>
         <div className="account-current">
           <img src={imgArr.io} alt="" />

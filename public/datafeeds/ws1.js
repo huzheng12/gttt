@@ -125,16 +125,16 @@ window.ws.sendMsg = (symbolInfo, resolution) => {
 
     // const param = "req:contract:tvkline:" + symbolInfo.name + ":" + resolution + ":" + from + "," + to;
 
-    const param = JSON.stringify(
-        {
-            "op":"query",
-             "event":"pc#candle#" + symbolInfo.name,
-             "args":{
-                      "interval": resolution, //时间间隔
-                      "start_time": from.toString(), //开始时间毫秒
-                      "end_time": to.toString()}   //结束时间毫秒
-        }
-    )
+    // const param = JSON.stringify(
+    //     {
+    //         "op":"query",
+    //          "event":"pc#candle#" + symbolInfo.name,
+    //          "args":{
+    //                   "interval": resolution, //时间间隔
+    //                   "start_time": from.toString(), //开始时间毫秒
+    //                   "end_time": to.toString()}   //结束时间毫秒
+    //     }
+    // )
 
-    window.ws.send(param);
+    // window.ws.send(param);
 };

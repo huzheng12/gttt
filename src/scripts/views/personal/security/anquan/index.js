@@ -72,6 +72,9 @@ class Securityindex extends Component {
     this.aqguci()
     this.historylength()
   }
+  componentWillUnmount(){
+    window.scrollTo(0,0)
+  }
   kaiqiyouxinag = () => {
     if (this.state.zsxx.bind_email == "1") {
       Xfn({

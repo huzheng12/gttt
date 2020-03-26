@@ -268,7 +268,7 @@ class Securityindex extends Component {
               </div>
               <div className="but">
                 {
-                  zsxx.bind_phone == "1" ? <div className="clear" style={{ display: "flex", justifyContent: 'space-evenly' }}>
+                  zsxx.bind_phone == "1" ? <div className="clear" style={{ display: "flex", justifyContent: 'space-around' }}>
                     <div className="lll" >
                     </div>
                     <div >

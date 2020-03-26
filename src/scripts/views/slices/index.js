@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Header from '@/scripts/components/header';
 import Footer from '@/scripts/components/footer';
-import { Button, Popover, Input } from 'antd';
+import { Button, Popover, Input, Tooltip } from 'antd';
 import { history } from '@/utils/history'
 import './index.scss'
 import { FormattedMessage } from 'react-intl';
@@ -15,11 +15,15 @@ import { downloadgeturlfn } from '../../action/tction';
 import Bg_xx from './bg_xx';
 import Firstloading from '../../components/Firstloading';
 import { connect } from "react-redux";
+import LoginPhoneEmail from '../../components/login';
+import Echartscont from './echartscont';
+const { Search } = Input;
 @connect(
   state => {
     return {
       ...state.data,
       ...state.datum,
+      ...state.bbdata,
       downloadget_url: state.tction.downloadget_url,
       downloadget_url_flg: state.tction.downloadget_url_flg,
 
@@ -35,7 +39,7 @@ class Sices extends Component {
         banner03: require('../../img/android.png'),
         banner04: require('../../img/ios.png'),
         banner05: require('../../img/bulletin.png'),
-        banner06: require('../../img/banner_img01.png'),
+        banner06: require('../../img/slices/yuhangyuan.png'),
         banner07: require('../../img/home_bg.png'),
       },
       mp4: require('../../img/slices/bg.mp4'),
@@ -89,8 +93,7 @@ class Sices extends Component {
         downloadget_url_flg: 0
       }))
     }
-    if ((this.props.ws_connect == 1 || this.props.isLogin == 1 || this.props.asset_switch === 1) && this.props.asset) {
-      store.dispatch(assetfn(this.props.asset, 0))
+    if ((this.props.ws_connect == 1 || this.props.isLogin == 1 ) && this.props.bbasset) {
       setTimeout(() => {
         if (window.wss.OPEN == 1) {
           if (this.state.isInsement) {
@@ -99,14 +102,18 @@ class Sices extends Component {
             })
             window.wss.send(JSON.stringify({
               "op": "sub",
+              "args": { "instrument_type": "bb", "table": "instrument_all_full", "settle_currency": this.props.bbasset }
+            }))
+            window.wss.send(JSON.stringify({
+              "op": "sub",
               "args": { "instrument_type": "pc", "table": "instrument_all_full", "settle_currency": this.props.asset }
             }))
           } else {
-            if (this.props.instrumentArr.length !== 0) {
-              for (let i = 0; i < this.props.instrumentArr.length; i++) {
+            if (this.props.bbsymbolArr.length !== 0) {
+              for (let i = 0; i < this.props.bbsymbolArr.length; i++) {
                 window.wss.send(JSON.stringify({
                   "op": "sub",
-                  "args": { "instrument_type": "pc", "table": "candle", "settle_currency": this.props.instrumentArr[i].settle_currency, "symbol": this.props.instrumentArr[i].symbol, "interval": "1" }
+                  "args": { "instrument_type": "bb", "table": "candle", "settle_currency": this.props.bbsymbolArr[i].settle_currency, "symbol": this.props.bbsymbolArr[i].symbol, "interval": "1" }
                 }))
               }
               store.dispatch(wsreconnect(0))
@@ -121,12 +128,12 @@ class Sices extends Component {
           setTimeout(() => {
             window.wss.send(JSON.stringify({
               "op": "sub",
-              "args": { "instrument_type": "pc", "table": "instrument_all_full", "settle_currency": this.props.asset }
+              "args": { "instrument_type": "bb", "table": "instrument_all_full", "settle_currency": this.props.bbasset }
             }))
             for (let i = 0; i < this.props.instrumentArr.length; i++) {
               window.wss.send(JSON.stringify({
                 "op": "sub",
-                "args": { "instrument_type": "pc", "table": "candle", "settle_currency": this.props.instrumentArr[i].settle_currency, "symbol": this.props.instrumentArr[i].symbol, "interval": "1" }
+                "args": { "instrument_type": "bb", "table": "candle", "settle_currency": this.props.bbsymbolArr[i].settle_currency, "symbol": this.props.bbsymbolArr[i].symbol, "interval": "1" }
               }))
             }
             store.dispatch({ type: "isHistory", isHistory: 1 })
@@ -137,20 +144,20 @@ class Sices extends Component {
   }
   sendMessage = () => {
     setTimeout(() => {
-      for (let i = 0; i < this.props.instrumentArr.length; i++) {
+      for (let i = 0; i < this.props.bbsymbolArr.length; i++) {
         Xfn({
-          _u: "candlequeryhistory",
+          _u: "bbcandlehistory",
           _m: "get",
           _p: {
-            asset: this.props.instrumentArr[i].settle_currency,
-            symbol: this.props.instrumentArr[i].symbol,
+            asset: "USDT",
+            symbol: this.props.bbsymbolArr[i].symbol,
             start_time: (new Date().getTime() - 400 * 60 * 1000).toString(), //开始时间毫秒,
             end_time: (new Date().getTime()).toString(),
             interval: "1"
           }
         }, (res, code) => {
           if (code == 0) {
-            store.dispatch(candlefunallction(res.data, this.props.instrumentArr[i].symbol))
+            store.dispatch(candlefunallction(res.data, this.props.bbsymbolArr[i].symbol))
           }
         })
       }
@@ -160,10 +167,10 @@ class Sices extends Component {
   componentWillUnmount() {
     store.dispatch({ type: "differentiatedtransactions", num: 0 })
     if (window.wss.OPEN == 1) {
-      for (let i = 0; i < this.props.instrumentArr.length; i++) {
+      for (let i = 0; i < this.props.bbsymbolArr.length; i++) {
         window.wss.send(JSON.stringify({
           "op": "unsub",
-          "args": { "instrument_type": "pc", "table": "candle", "settle_currency": this.props.asset, "symbol": this.props.instrumentArr[i].symbol, "interval": "1" }
+          "args": { "instrument_type": "pc", "table": "candle", "settle_currency": this.props.asset, "symbol": this.props.bbsymbolArr[i].symbol, "interval": "1" }
         }))
       }
       window.wss.send(JSON.stringify({
@@ -181,19 +188,20 @@ class Sices extends Component {
       arr_data,
     } = this.state
     const {
-      instrumentArr
+      instrumentArr,
+      k_line_home_page,bbinstrumentArr
     } = this.props
     return this.props.a ? <Firstloading></Firstloading> : (<div className="sices-warp">
       <Header></Header>
-      <div className="sices-warp-box" style={{ height: 720 }}>
+      <div className="sices-warp-box" style={{ height: 398 }}>
         <div className="vidage">
           <Bg_xx></Bg_xx>
           <img className="img_gb_png" src={imgarr.banner06} alt="" />
         </div>
         <div className="img-box" >
           <div className="hezi clear">
-            <div className="hezi-left" style={{ marginLeft: 289 }}>
-              <div className="x" style={{ marginTop: localStorage.language == "en" ? "141px" : "163px" }}>
+            <div className="hezi-left" >
+              <div className="x" style={{ marginTop: localStorage.language == "en" ? "71px" : "91px" }}>
                 <FormattedMessage id="Next_Generation_Encrypted_Asset_Trading_Platform" defaultMessage={'下一代加密资产交易平台'} />
               </div>
               <div className="g">
@@ -202,7 +210,7 @@ class Sices extends Component {
               <div className="b">
                 <Button className="bglanse" onClick={() => {
                   store.dispatch({ type: "isHistory", isHistory: 1 })
-                  localStorage.userInfo?history.push('/transaction/cont'):history.push('/fulltrade')
+                  localStorage.userInfo ? history.push('/transaction/cont') : history.push('/fulltrade')
                 }}>
                   <FormattedMessage id="View_Real_time_Market" defaultMessage={'查看实时行情'} />
                 </Button>
@@ -217,18 +225,7 @@ class Sices extends Component {
                 </div>
               </div> */}
           </div>
-          <div className="tongzhilan">
-            {information ? information.map((item, index) => {
-              if (index < 3) {
-                return <div className="tongzhilangg" key={item + index}>
-                  <a style={{ color: "#fff", display: "inline-block" }} href={item.link_url} target="_blank">
-                    公告{index + 1}：
-                  </a>
-                  <a style={{ color: "#fff", display: "inline-block" }} href={item.link_url} target="_blank" dangerouslySetInnerHTML={{ __html: item.title }}></a>
-                </div>
-              }
-            }) : ""}
-          </div>
+         
         </div>
         {/* <div className="echart-box">
             <div className="sange-box">
@@ -260,43 +257,88 @@ class Sices extends Component {
           </div> */}
 
       </div>
+      <div className="c2cjioaiyisj">
+        <div className="c3ctiaozhuan_box clear">
+          <div className="left">
+            <div>
+              我要买
+            </div>
+            <div className="lefttext">
+              参考价：7.19CNY/USDT
+            </div>
+          </div>
+          <div className="right clear">
+            <Search
+              placeholder="11USDT起"
+              enterButton="购买"
+              style={{height:44}}
+              size="large"
+              suffix={
+                <Tooltip className="tooltip-001">
+                  USDT
+              </Tooltip>}
+              onSearch={value => console.log(value)}
+            />
+
+          </div>
+        </div>
+        <div className="tongzhilan" style={{textAlign: 'center'}}>
+            {information ? information.map((item, index) => {
+              if (index < 3) {
+                return <div className="tongzhilangg" key={item + index}>
+                  <a style={{ color: "#fff", display: "inline-block" }} href={item.link_url} target="_blank">
+                    公告{index + 1}：
+                  </a>
+                  <a style={{ color: "#fff", display: "inline-block" }} href={item.link_url} target="_blank" dangerouslySetInnerHTML={{ __html: item.title }}></a>
+                </div>
+              }
+            }) : ""}
+          </div>
+      </div>
       <div className="jiaoyiwss_box">
         <div className="cneten_box">
           <div className="tiole">
-            支持全球热门资产交易
-                </div>
+            主流币
+          </div>
           <div className="cow_box">
+            <div className="cow_box_title">
+              <div className="tr" style={{width:233}}>USDT市场</div>
+              <div className="tr" style={{width:238}}>价格</div>
+              <div className="tr" style={{width:313,textAlign:"center"}}>涨跌幅</div>
+              <div className="tr" style={{width:233,textAlign:"center"}}>行情</div>
+              <div className="tr" style={{textAlign:'right',width:233}}>交易</div>
+            </div>
             {
-              instrumentArr.length > 0 && instrumentArr.map((item, index) => {
+              bbinstrumentArr.length > 0 && bbinstrumentArr.map((item, index) => {
                 return <div className="instrument" key={item + index} onClick={() => {
-                  localStorage.heyuename = item.symbol
-                  history.push('/fulltrade')
+                  // localStorage.heyuename = item.symbol
+                  // history.push('/fulltrade')
                 }}>
-                  <p>
-                    {
-                      item.symbol
-                    }
-                  </p>
-                  <p>
-                    <span className={item.change_rate_24h * 1 > 0 ? "p_box_data1 p_box_data2" : "p_box_data1 p_box_data3"}>
-                      {
-                        item.last_price + " "
-                      }
-                    </span>
+                    <div className="tr" style={{width:233,color:"#fff"}}>
+                    {item.symbol}
+                    </div>
+              <div className="tr" style={{width:238,color:"#fff"}}>
+               $ {item.last_price}
+              
+                
+              </div>
+              <div className="tr" style={{width:313,color: item.change_rate_24h && item.change_rate_24h >= 0 ? "#26994E" : "#E53F39" ,textAlign:"center"}}>
+                
+                {
+                item.change_rate_24h && item.change_rate_24h >= 0 ? "+ "+item.change_rate_24h :  +item.change_rate_24h
+                }
+                
+                </div>
+              <div className="tr" style={{width:233}}>
+              <Echartscont _id={"chartmain" + index} dataRes={k_line_home_page[item.symbol]} hhv={item.change_rate_24h} candle={this.props.candles[item.symbol] && this.props.candles[item.symbol].data}></Echartscont>
 
-                    <span>≈￥
-                       {item.cny_last_price}
-                    </span>
-                  </p>
-                  <p className={item.change_rate_24h * 1 > 0 ? "p_box_data2" : "p_box_data3"}>
-
-                    {String(item.change_rate_24h * 100).replace(/^(.*\..{2}).*$/, "$1") + '%'
-                    }
-                  </p>
+              </div>
+              <div className="tr" style={{textAlign:'right',width:233}}> <Button>购买</Button></div>
+          
                 </div>
               })
             }
-            {
+            {/* {
               instrumentArr.length > 0 && instrumentArr.length == 1 ? arr_data.map((item, index) => {
                 return <div className="instrument" key={item + index} >
                   <p>
@@ -309,7 +351,7 @@ class Sices extends Component {
                     </p>
                 </div>
               }) : ""
-            }
+            } */}
           </div>
         </div>
       </div>
@@ -448,10 +490,10 @@ class Sices extends Component {
           <div className="input_box">
             <Input placeholder="您的手机号或邮箱地址" onChange={this.input_acc} style={{ width: 540, height: 60 }}></Input>
             <Button onClick={() => {
-              if (this.state.input_acc){
+              if (this.state.input_acc) {
                 history.push('/register?account=' + this.state.input_acc)
 
-              }else{
+              } else {
                 history.push('/register')
               }
             }} type="primary" style={{ width: 150, height: 60, marginLeft: 20 }}>创建账户</Button>

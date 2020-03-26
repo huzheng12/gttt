@@ -56,7 +56,7 @@ class Verify_type extends Component {
           <div className="map">
             <div className="title">< FormattedMessage id="Mobile_phone_verification" defaultMessage={'手机验证'} /></div>
             <div className="inp">
-              <Input value={yanczmval} onChange={this.yanczm} placeholder={< FormattedMessage id="Please_enter_the_verification_code" defaultMessage={'请输入验证码'} />}></Input>
+              <Input value={yanczmval} onChange={this.yanczm} placeholder='请输入验证码'></Input>
             </div>
             <div className="but clear">
               <Button onClick={this.yanngzhengtonguo} type="primary">< FormattedMessage id="Verification" defaultMessage={'验证'} /></Button>

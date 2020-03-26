@@ -81,7 +81,7 @@ class Echartscont extends Component {
           type: 'line',
           symbol: 'none',
           lineStyle: {
-            color: '#2F6FED' //改变折线颜色
+            color: this.props.hhv*1>=0?"#26994E" : "#E53F39" //改变折线颜色
           },
         }]
       });
@@ -156,7 +156,7 @@ class Echartscont extends Component {
 
   render() {
     return (
-      <div id={this.props._id} style={{ width: 390, height: 100 }}>
+      <div id={this.props._id} style={{ width: 220, height: 66 }}>
       </div>
     );
   }

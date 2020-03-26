@@ -50,7 +50,6 @@ class WrappedNormalregisterForm extends Component {
     document.removeEventListener("keydown", this.onKeyDown)
   }
   componentDidMount() {
-    console.log(typeof this.props.account, this.props.account)
     document.addEventListener("keydown", this.onKeyDown)
     axios({
       method: "post",

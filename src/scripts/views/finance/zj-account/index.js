@@ -60,12 +60,19 @@ class Account extends Component {
           align: "right",
           dataIndex: 'address11',
           render: (text, index) => <div>
-            <Link to="/finance/chongbi" href="javascript:;" onClick={() => {
+          
+            <Link  to="/finance/chongbi" href="javascript:;" onClick={(e) => {
+              if(index.dw_type=='2'){
+                e.preventDefault()
+              }
               store.dispatch({ type: "tiaozhuanzijinhuanzhuan", tiaozhuanzijinhuanzhuan: index.asset })
-            }} className="linkstyle" style={{ marginRight: 20 }}><FormattedMessage id="Coin_charging" defaultMessage={'充币'} /></Link>
-            <Link to={this.props.withdrawmoney === "1" ? "/finance/withdrawmoney/sd" : "/finance/withdrawmoney/sdyan"} href="javascript:;" onClick={() => {
-              store.dispatch({ type: "tiaozhuanzijinhuanzhuan", tiaozhuanzijinhuanzhuan: index.asset })
-            }} className="linkstyle" style={{ marginRight: 20 }}><FormattedMessage id="Withdraw_money" defaultMessage={'提币'} /></Link>
+            }} className={index.dw_type=='2'?'dw_tyoe linkstyle':"linkstyle" }style={{ marginRight: 20 }}><FormattedMessage id="Coin_charging" defaultMessage={'充币'} /></Link>
+            <Link to={this.props.withdrawmoney === "1" ? "/finance/withdrawmoney/sd" : "/finance/withdrawmoney/sdyan"} href="javascript:;" onClick={(e) => {
+              if(index.dw_type=='2'){
+                e.preventDefault()
+              }
+             store.dispatch({ type: "tiaozhuanzijinhuanzhuan", tiaozhuanzijinhuanzhuan: index.asset })
+            }} className={index.dw_type=='2'?'dw_tyoe linkstyle':"linkstyle" } style={{ marginRight: 20 }}><FormattedMessage id="Withdraw_money" defaultMessage={'提币'} /></Link>
             <Link to="/finance/huazhuan" href="javascript:;" onClick={() => {
               store.dispatch({ type: "tiaozhuanzijinhuanzhuan", tiaozhuanzijinhuanzhuan: index.asset })
             }} className="linkstyle" ><FormattedMessage id="Transfer_of_funds" defaultMessage={'资金划转'} /></Link>

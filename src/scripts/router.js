@@ -187,6 +187,7 @@ class Index extends Component {
 						break;
 					case 'candle':
 						if (this.props.differentiatedtransactions === 1) {
+							console.log(_data,'----')
 							store.dispatch(candlefunallction(_data, _data.symbol))
 						} else {
 							store.dispatch(candlefunction(_data, 0))
@@ -194,7 +195,6 @@ class Index extends Component {
 						break;
 				}
 			}
-			// console.log(_data,'ssd')
 
 		};
 	}

@@ -10,7 +10,7 @@ class Bg_xx extends Component {
     var canvas = document.getElementById('canvasw'),
       ctx = canvas.getContext('2d'),
       w = canvas.width = window.innerWidth,
-      h = canvas.height = window.innerHeight,
+      h = canvas.height = 398,
       hue = 217,
       stars = [],
       count = 0,
@@ -49,6 +49,10 @@ class Bg_xx extends Component {
       //星星移动范围，值越大范围越小，
     }
 
+
+
+
+   
     var Star = function () {
 
       this.orbitRadius = random(maxOrbit(w, h));
@@ -88,13 +92,11 @@ class Bg_xx extends Component {
       ctx.globalAlpha = 0.5;         //尾巴
       ctx.fillStyle = 'hsla(' + hue + ', 64%, 6%, 2)';
       ctx.fillRect(0, 0, w, h)
-
       ctx.globalCompositeOperation = 'lighter';
       for (var i = 1,
         l = stars.length; i < l; i++) {
         stars[i].draw();
       };
-
       window.requestAnimationFrame(animation);
     }
     animation();

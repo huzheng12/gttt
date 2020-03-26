@@ -82,11 +82,11 @@
       background-color: themed('background-color-1');
     }
   } 
+  .ant-input:focus{
+    border-color: #40a9ff !important;
+  }
   .ant-input-disabled{
     background-color: #d9d9d9 !important;
-    // @include themify($themes) {
-    //   background-color: themed('background-color-19');
-    // }
   }
   margin-left: 10px;
   float: left;
@@ -144,7 +144,7 @@
 .tooltip-001{
   text-align: right;
   @include themify($themes) {
-    color: themed('color-1');
+    color: themed('color-3');
   }
 }
 .input-0008{

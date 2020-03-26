@@ -27,6 +27,9 @@
 
   }
 
+  .ant-input:focus{
+    border-color: #40a9ff !important;
+  }
 }
 .transaction-row{
   @include themify($themes) {

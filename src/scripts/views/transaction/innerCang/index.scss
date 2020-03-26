@@ -894,8 +894,11 @@ color: #999999;
   // }
   .ant-input{
     background-color: #0F1526;
-    border: #0F1526;
+    // border: #0F1526;
     color: #CFD6E7;
+  }
+  .ant-input:focus{
+    border-color: #40a9ff !important;
   }
 
 }

@@ -620,7 +620,7 @@ class ContractsCommissioned extends Component {
 
               </div>
             </Modal>
-            <div onClick={this.qiehuanmosi} style={{ float: "right", marginLeft: 0 }}>
+            {/* <div onClick={this.qiehuanmosi} style={{ float: "right", marginLeft: 0 }}>
               <Button style={{ fontSize: 9, display: this.state.zhuti == "light" ? "block" : "none" }}
                 type="primary" className="button-0000111 button-moshi "><FormattedMessage id="Pattern" defaultMessage={'模式'} />
                 <div>
@@ -633,19 +633,19 @@ class ContractsCommissioned extends Component {
               }} type="primary" className="button-1">
                 <img style={{ marginLeft: 0 }} src={imgArr.moshi_hei} alt="" />
               </Button>
-            </div>
+            </div> */}
             {
               (() => {
                 if (localStorage.userInfo) {
                   return (
                     <div style={{ float: "right", marginLeft: 0 }}>
                       {/* bglanse button00155  */}
-                      {/* <Button disabled  type="primary" onClick={this.showModal} style={{ float: "left", fontSize: "12px",cursor:"no-drop" }}>
+                      <Button disabled  type="primary" onClick={this.showModal} style={{ float: "left", fontSize: "12px",cursor:"no-drop" }}>
                         <FormattedMessage id="AccountMode" defaultMessage={'账号模式'} />
                         <div style={{color:"#999"}}>
                           {pc_account.margin_mode !== "1" ? <FormattedMessage id="Warehouse_by_warehouse" defaultMessage={'逐仓'} /> : <FormattedMessage id="FullWarehouse" defaultMessage={'全仓'} />}
                         </div>
-                      </Button> */}
+                      </Button>
                       {
                         pc_account.margin_mode !== "1" ?
                           <div className="a-but clear" style={{ float: "left" }}>

@@ -369,6 +369,9 @@
         color: #7A8599 ;
         font-size: 20px;
       }
+      .ant-input:focus{
+        border-color: #40a9ff !important;
+      }
     }
 
   }
@@ -438,6 +441,7 @@
       }
   
   }
+ 
 }
 
 .ios_Download{

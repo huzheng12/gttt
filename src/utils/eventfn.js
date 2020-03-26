@@ -29,14 +29,14 @@ const EventFN = {
       {
         title: < FormattedMessage id="contract" defaultMessage={'合约'} />,
         dataIndex: 'symbol',
-        render: (text, record) => <div style={{ width: 80, wordWrap: "break-word" }}>
+        render: (text, record) => <div style={{ width: 60, wordWrap: "break-word" }}>
           {text}
         </div>,
       },
       {
         title: < FormattedMessage id="lever" defaultMessage={'杠杆'} />,
         dataIndex: 'leverage',
-        render: (text, record) => <div style={{ width: 60, wordWrap: "break-word" }}>{text}X
+        render: (text, record) => <div style={{ width: 40, wordWrap: "break-word" }}>{text}X
       </div>,
       },
       {
@@ -45,7 +45,7 @@ const EventFN = {
         render: (text, record) => <div
           style={{
             color: record.close_flag == "0" ? (record.bid_flag == "0" ? "#E53F39" : "#26994E") : (record.bid_flag == "0" ? "#E53F39" : "#26994E")
-            , width: 80, wordWrap: "break-word"
+            , width: 50, wordWrap: "break-word"
           }}>
           {
             record.close_flag == "0" ? (record.bid_flag == "0" ? < FormattedMessage id="Short_selling" defaultMessage={'卖出开空'} /> : < FormattedMessage id="Buy_more" defaultMessage={'买入开多'} />) : (record.bid_flag == "0" ? < FormattedMessage id="Sell_Pinto" defaultMessage={'卖出平多'} /> : < FormattedMessage id="Buy_flat" defaultMessage={'买入平空'} />)
@@ -55,7 +55,7 @@ const EventFN = {
       {
         title: < FormattedMessage id="Transaction_Ratio" defaultMessage={'成交比例'} />,
         dataIndex: 'trade_ratio',
-        render: (text, record) => <div style={{ width: 100, wordWrap: "break-word" }}>
+        render: (text, record) => <div style={{ width: 50, wordWrap: "break-word" }}>
           {
             String(text * 100).replace(/^(.*\..{2}).*$/, "$1")
           }%
@@ -70,7 +70,7 @@ const EventFN = {
             title: <div>(< FormattedMessage id="Zhang" defaultMessage={'张'} />)</div>,
             className: "table-span-color",
             dataIndex: 'filled_qty',
-            render: (text, record) => <div style={{ width: 140, }}>
+            render: (text, record) => <div style={{ width: 120, }}>
               {
                 String(record.filled_qty).replace(/^(.*\..{4}).*$/, "$1")
               }
@@ -91,7 +91,7 @@ const EventFN = {
             title: "(USD)",
             className: "table-span-color",
             dataIndex: 'avg_price',
-            render: (text, record) => <div style={{ width: 140, wordWrap: "break-word" }}>
+            render: (text, record) => <div style={{ width: 120, wordWrap: "break-word" }}>
               {
                 record.avg_price ? record.avg_price : "0"
               }
@@ -120,7 +120,7 @@ const EventFN = {
         title: < FormattedMessage id="Service_Charge" defaultMessage={'手续费'} />,
         dataIndex: 'fee',
         align: "left",
-        render: (text, record) => <div style={{ width: 90, wordWrap: "break-word", color: text * 1 > 0 ? "#26994E" : text * 1 < 0 ? "#E53F39" : "" }}>
+        render: (text, record) => <div style={{ width: 60, wordWrap: "break-word", color: text * 1 > 0 ? "#26994E" : text * 1 < 0 ? "#E53F39" : "" }}>
           {
             String(text > 0 ? "+" + text : text).replace(/^(.*\..{7}).*$/, "$1")
           }
@@ -156,7 +156,7 @@ const EventFN = {
         title: < FormattedMessage id="operation" defaultMessage={'操作'} />,
         dataIndex: 'caozuo',
         align: "right",
-        render: (text, record) => <div style={{ color: "#2F6EEC", cursor: "pointer", width: 80, wordWrap: "break-word" }}>
+        render: (text, record) => <div style={{ color: "#2F6EEC", cursor: "pointer", width: 50, wordWrap: "break-word" }}>
           {
             record.status == "16" ? <div>
               <span onClick={() => data._this.chexiao(text, record)} style={{ marginRight: 10 }}>

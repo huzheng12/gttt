@@ -28,6 +28,7 @@ class fanyongBanner extends Component {
         a7: require('../../img/fanyong_bangdan_no2.png'),
         a8: require('../../img/fanyong_bangdan_no3.png'),
         a9: require('../../img/share_bg_img.png'),
+        a10: require('../../img/share_close.png'),
       },
       address: '--',
       addresse: "",
@@ -217,7 +218,7 @@ class fanyongBanner extends Component {
                 <img src={imgArr.a3} alt="" />
                 <p className="spans-cos1">
                   <span>< FormattedMessage id="Friend_registration" defaultMessage={'好友注册'} /></span>
-                  <span>< FormattedMessage id="Friends_accept_the_invitation" defaultMessage={'好友接受邀请完成注册并进行合约交易'} /></span>
+                  <span>< FormattedMessage id="Friends_accept_the_invitation" defaultMessage={'好友接受邀请完成注册并进行交易'} /></span>
                 </p>
                 <div className="br-bordayangshi">
 
@@ -318,7 +319,8 @@ class fanyongBanner extends Component {
             onCancel={this.pictureSharingCancel}
             okText={< FormattedMessage id="Save_to_local" defaultMessage={'保存到本地'} />}
           >
-            <ShareImage addresse={address} ref="shareimg" className="tupianxiazai "></ShareImage>
+
+            <ShareImage pictureSharingCancel={this.pictureSharingCancel} addresse={address} ref="shareimg" className="tupianxiazai "></ShareImage>
           </Modal>
           <section>
             <div className="content-box">

@@ -109,7 +109,7 @@ class Zback extends Component {
 			var arr = [];
 			var reg = new RegExp(val.target.value, 'i');
 			for (var i = 0; i < len; i++) {
-				let a = list[i].symbol.split("_")[0] + "永续"
+				let a = list[i].symbol
 				if (a.match(reg)) {
 					arr.push(list[i].symbol);
 				} else {
@@ -138,7 +138,7 @@ class Zback extends Component {
 		} = this.props
 		return (
 			<div style={{ width: 180 }} className="zuoyi clear">
-				<div className="content-tow inputaaa" onClick={this.heyuetia}>
+				<div className="content-tow inputaaa" style={{minHeight:300}} onClick={this.heyuetia}>
 					<Input
 						style={{ borderColor: "transparent", height: 36, color: "rgba(153,153,153,1)" }}
 						prefix={<Icon type="search" style={{ color: 'rgba(191,191,191,1)' }} />}

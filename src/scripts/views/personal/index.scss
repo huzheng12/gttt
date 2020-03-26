@@ -3,6 +3,10 @@
   min-height:910px;
   margin: 0 auto;
   margin-top: 29px;
+
+  .ant-table-thead > tr > th, .ant-table-tbody > tr > td {
+    padding: 11px 16px;
+}
   .nav-erji{
     width: 180px;
     margin-right: 20px;

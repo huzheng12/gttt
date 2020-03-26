@@ -50,11 +50,8 @@ class Transaction extends Component {
 		}
 	}
 	componentDidUpdate() {
-		console.log('[[[[')
 
 		if ((this.props.ws_connect == 1 || this.props.isLogin == 1)) {
-			console.log('[[[[')
-
 			if (this.props.asset === null) {
 				return
 			}
@@ -104,37 +101,7 @@ class Transaction extends Component {
 		return this.props.a ? <Firstloading></Firstloading> : (
 			<div className="transaction-warp clear">
 				<Header></Header>
-				{/* {
-					(() => {
-						if (localStorage.userInfo) {
-							return <div className="transaction-row">
-								{
-									instrumentArr.map((item, index) => {
-										return (
-											<span key={index}>
-												<span>
-													{item.symbol.split(item.split_char)[0] + item.symbol.split(item.split_char)[1]}
-												</span>
-												<span>
-													{
-														EventFN.CurrencyDigitLimit({
-															content: item.last_price,
-															heyuename: item.symbol
-														})
-													}
-												</span>
-												<span style={{ color: item.change_rate_24h >= 0 ? "#82D9A0" : "#E63F39" }}>
-													{item.change_rate_24h > 0 ? "+" + String(item.change_rate_24h * 100).replace(/^(.*\..{2}).*$/, "$1") : String(item.change_rate_24h * 100).replace(/^(.*\..{2}).*$/, "$1")}%
-											</span>
-											</span>
-										)
-									})
-
-								}
-							</div>
-						}
-					})()
-				} */}
+				
 				{/* 导航下边栏 */}
 				<div className="transaction-content clear" style={{ minHeight: 749 }}>
 					<div className="content-left">

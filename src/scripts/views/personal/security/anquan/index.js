@@ -280,7 +280,7 @@ class Securityindex extends Component {
                       onClick={() => history.push('/personal/security/xgphone')}>{lang().modify}</Button>
                     <div style={{ marginRight: 10, width: 1, height: 28, backgroundColor: "rgba(230,230,230,1)" }}>
                     </div>
-                    <Switch checked={switchFlg} onChange={this.kgonChange} />
+                    <Switch style={{marginTop:4}} checked={switchFlg} onChange={this.kgonChange} />
                   </div> : <div>
                       <Button type="primary" style={{ width: 60, height: 30 }}
                         onClick={() => history.push('/personal/security/szphone')}>{

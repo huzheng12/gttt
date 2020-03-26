@@ -238,7 +238,7 @@ font-weight:bold;
         }
       }
     }
-    padding:13px 0 13px 10px ;
+    padding:13px 10px 13px 10px ;
  
     @include themify($themes) {
       border-color: themed('border-color-1');

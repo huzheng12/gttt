@@ -49,7 +49,7 @@ class Singlebox extends Component {
     super()
     this.state = {
       pricedata: 0,
-      lotdata: "1",
+      lotdata: "",
       visible: false,
       available: {},
       num17: "",
@@ -306,7 +306,15 @@ class Singlebox extends Component {
         {
           localStorage.userInfo ? <Button onClick={this.create} className={"button-00010" + (type === '1' ? ' butgg lvse' : ' butgt bgred')} type="primary"  >
             {
-              type === '1' ? "买入" + (bbinstrument.symbol ? bbinstrument.symbol.split(bbinstrument.split_char)[0] : 'BTC') : "卖出" + (bbinstrument.symbol ? bbinstrument.symbol.split(bbinstrument.split_char)[0] : "BTC")
+              type === '1' ?<div style={{fontSize:16,fontWeight:900}}>
+{
+   "买入" + (bbinstrument.symbol ? bbinstrument.symbol.split(bbinstrument.split_char)[0] : 'BTC')
+}
+              </div> :<div style={{fontSize:16,fontWeight:900}}>
+                {
+                  "卖出" + (bbinstrument.symbol ? bbinstrument.symbol.split(bbinstrument.split_char)[0] : "BTC")
+                }
+              </div> 
             }
           </Button> : <div className="userInfowei">
               <div className="userInfowei1" onClick={() => { history.push('/login') }}><FormattedMessage id="Sign_in" defaultMessage={'登录'} /></div>

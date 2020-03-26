@@ -202,7 +202,7 @@ class Sices extends Component {
               <div className="b">
                 <Button className="bglanse" onClick={() => {
                   store.dispatch({ type: "isHistory", isHistory: 1 })
-                  history.push('/transaction/cont')
+                  localStorage.userInfo?history.push('/transaction/cont'):history.push('/fulltrade')
                 }}>
                   <FormattedMessage id="View_Real_time_Market" defaultMessage={'查看实时行情'} />
                 </Button>
@@ -448,8 +448,12 @@ class Sices extends Component {
           <div className="input_box">
             <Input placeholder="您的手机号或邮箱地址" onChange={this.input_acc} style={{ width: 540, height: 60 }}></Input>
             <Button onClick={() => {
-              if (!this.state.input_acc) return
-              history.push('/register?account=' + this.state.input_acc)
+              if (this.state.input_acc){
+                history.push('/register?account=' + this.state.input_acc)
+
+              }else{
+                history.push('/register')
+              }
             }} type="primary" style={{ width: 150, height: 60, marginLeft: 20 }}>创建账户</Button>
           </div>
         </div>

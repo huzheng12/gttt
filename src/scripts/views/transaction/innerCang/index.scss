@@ -8,7 +8,7 @@
 color: red;
   }
   .ant-table-thead > tr > th, .ant-table-tbody > tr > td{
-    padding: 14px 0;
+    padding: 14px 10px;
     @include themify($themes) {
       color: themed('color-9');
     }
@@ -65,7 +65,7 @@ color: red;
     // display: flex;
     // justify-content:space-between;
   > th{
-    padding: 0;
+    padding: 0 10px;
     transition: 0s;
     @include themify($themes) {
       border-color: themed('border-color-1');

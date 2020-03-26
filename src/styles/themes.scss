@@ -56,6 +56,8 @@ $themes: (
     border-color-5:#EBEBEB,
     colorTab:#2F6FED,
     color-17: #888e98,
+    color-100: #fff,
+    background-color-100:rgba(0,0,0,.75) ,
   ),
   dark: (
     color-0: #C3CAD9,
@@ -76,6 +78,7 @@ $themes: (
     color-9: #919499,
     color-4: #CED2D9,
     color-17: #c2c5cc,
+    color-100: #000,
     background-color-30: #2e3863,//g-scrollbar
     background-color-31: #172130,//g-scrollbar
     background-color-6: #030A1A,
@@ -95,6 +98,7 @@ $themes: (
     background-color-14: #262626,
     background-color-15: #333333,
     background-color-16: #171D33,
+    background-color-100: #fff,
     background-color-17: #242424,
     background-color-18: #7FAAFF,
     background-color-20: rgba(140,42,42,.3),

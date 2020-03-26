@@ -9,6 +9,7 @@ class shareImage extends Component {
         this.state = {
             Content: 'www.baidu.com/94HHH',
             bg_img_url: require('../../img/share_bg_img.png'),
+            xx_img_url: require('../../img/share_close.png'),
             a_link_url: '',
             isdonwload: false,
             canvas: '',
@@ -57,12 +58,16 @@ class shareImage extends Component {
 
     }
     render() {
-        console.log(this.props.addresse)
         return (
             <div className="tupianxiazai">
                 <canvas id="mycanvas" width="400" height="675"></canvas>
                 <QRCode id='qrid' value={this.props.addresse} size={100} />
                 <a download id="aId" className="download-btn"></a>
+                <img onClick={this.props.pictureSharingCancel} style={{
+                    position:"absolute",
+                    top: -6,
+                    right: -6
+                }} src={this.state.xx_img_url} alt="" />
             </div>
         )
 

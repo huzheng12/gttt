@@ -491,7 +491,7 @@ const zh_CN = {
   "Currency_trading": "币币交易",
   "Send_invitations_to_friends": "发送邀请给好友",
   "Invite_friends_to_register_by_sharing_link": "通过分享链接邀请好友注册",
-  "Friends_accept_the_invitation": "好友接受邀请完成注册并进行合约交易",
+  "Friends_accept_the_invitation": "好友接受邀请完成注册并进行交易",
   "Get_corresponding_proportion_of_commission": "获得相应比例返佣",
   "Easy_access_to_transaction": "轻松获得交易手续费返佣福利",
   "My_exclusive_invitation_code": "我的专属邀请码",

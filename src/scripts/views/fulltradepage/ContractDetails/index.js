@@ -35,7 +35,8 @@ class ContractDetails extends Component {
             </div>
           </div>
           <div className="cond-tr">
-            <div className="le" style={{ borderBottom: "1px dashed #898E98" }}>
+            {/* <div className="le" style={{ borderBottom: "1px dashed #898E98" }}> */}
+            <div className="le">
               <FormattedMessage id="LatestMarketPrice" defaultMessage={'最新市场价格'} />
             </div>
             <div className="ri">
@@ -49,7 +50,7 @@ class ContractDetails extends Component {
             </div>
           </div>
           <div className="cond-tr">
-            <div className="le" style={{ borderBottom: "1px dashed #898E98" }}>
+            <div className="le">
               <FormattedMessage id="MarkedPrice" defaultMessage={'标记价格'} />
 
             </div>
@@ -64,7 +65,7 @@ class ContractDetails extends Component {
             </div>
           </div>
           <div className="cond-tr">
-            <div className="le" style={{ borderBottom: "1px dashed #898E98" }}>
+            <div className="le" >
               <FormattedMessage id="IndexPrice" defaultMessage={'指数价格'} />
             </div>
             <div className="ri">

@@ -154,18 +154,23 @@ class ContractsCommissioned extends Component {
       content: this.props.instrument.last_price,
       type: this.props.Decimal_point
     }) : "") + "(" + this.props.heyuename + ")" + "交易 - GTE"
-    if (localStorage.theme) {
-      this.setState({
-        zhuti: localStorage.theme
-      })
-      bodys.className = "theme-" + localStorage.theme
-    } else {
-      this.setState({
-        zhuti: "dark"
-      })
-      bodys.className = "theme-dark"
-      localStorage.theme = "dark"
-    }
+    // if (localStorage.theme) {
+    //   this.setState({
+    //     zhuti: localStorage.theme
+    //   })
+    //   bodys.className = "theme-" + localStorage.theme
+    // } else {
+    //   this.setState({
+    //     zhuti: "dark"
+    //   })
+    //   bodys.className = "theme-dark"
+    //   localStorage.theme = "dark"
+    // }
+    this.setState({
+      zhuti: "dark"
+    })
+    bodys.className = "theme-dark"
+    localStorage.theme = "dark"
   }
 
   handleDisabledChange = disabled => {
@@ -635,13 +640,12 @@ class ContractsCommissioned extends Component {
                   return (
                     <div style={{ float: "right", marginLeft: 0 }}>
                       {/* bglanse button00155  */}
-                      <Button disabled  type="primary" onClick={this.showModal} style={{ float: "left", fontSize: "12px",cursor:"no-drop" }}>
-
+                      {/* <Button disabled  type="primary" onClick={this.showModal} style={{ float: "left", fontSize: "12px",cursor:"no-drop" }}>
                         <FormattedMessage id="AccountMode" defaultMessage={'账号模式'} />
                         <div style={{color:"#999"}}>
                           {pc_account.margin_mode !== "1" ? <FormattedMessage id="Warehouse_by_warehouse" defaultMessage={'逐仓'} /> : <FormattedMessage id="FullWarehouse" defaultMessage={'全仓'} />}
                         </div>
-                      </Button>
+                      </Button> */}
                       {
                         pc_account.margin_mode !== "1" ?
                           <div className="a-but clear" style={{ float: "left" }}>

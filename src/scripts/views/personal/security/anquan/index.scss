@@ -2,6 +2,11 @@
   display: none;
 }
 .security-warp-fu{
+
+  .ant-btn-primary span {
+    font-size: 14px;
+    color: #fff;
+  }
   .ant-table-tbody{
     font-size: 16px;
   }
@@ -163,3 +168,4 @@
   border-color: #d9d9d9;
   text-shadow: none;
 }
+

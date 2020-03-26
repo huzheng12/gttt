@@ -115,3 +115,7 @@ transition: all 0s !important;
 .ant-select-dropdown-menu{
   max-height: 270px;
 }
+
+.ant-table-thead > tr > th,.ant-table-tbody > tr > td{
+padding: 0 10px 0 10px ;
+}

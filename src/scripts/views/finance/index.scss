@@ -3,6 +3,9 @@
   min-height: 909px;
   margin: 0 auto;
   margin-top: 30px;
+  .ant-table-thead > tr > th, .ant-table-tbody > tr > td {
+    padding: 11px 16px;
+}
 .left-finance{
   width: 180px;
   float: left;

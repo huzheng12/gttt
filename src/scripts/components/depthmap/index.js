@@ -42,7 +42,6 @@ class Depthmap extends Component {
     }
     componentDidUpdate() {
         const { orderBookL2_25obj, bborder_book } = this.props;
-       
         if (this.props.ctype === 'bb') {
             if (bborder_book.arrAsks) {
                 let asks = bborder_book.arrAsks.length > 0 ? depthDatasFarms(bborder_book.arrAsks).reverse() : [];
@@ -51,6 +50,7 @@ class Depthmap extends Component {
                 this.state.depth_map.series[1].setData(asks);
             }
         } else {
+            console.log(orderBookL2_25obj,'----')
             if (orderBookL2_25obj.arrAsks) {
                 let asks = orderBookL2_25obj.arrAsks.length > 0 ? depthDatasFarms(orderBookL2_25obj.arrAsks).reverse() : [];
                 let bids = orderBookL2_25obj.arrBids.length > 0 ? depthDatasFarms(orderBookL2_25obj.arrBids).reverse() : [];

@@ -44,12 +44,11 @@ class tvChart extends Component {
                 }}>
                     专业版
                 </div>
-               
                     
                     </h4> : ""
                 }
                 {
-                    isok?<TvCharts ctype={this.props.ctype}></TvCharts>:  <Depthmap ctype={'bb'}></Depthmap>
+                    isok?<TvCharts ctype={this.props.ctype}></TvCharts>:  <Depthmap ctype={this.props.ctype}></Depthmap>
                 }
               
             </div >

@@ -89,7 +89,10 @@ class BBTradePage extends Component {
     let options = bbsendMessage(this.props).bbobj
 
     if (window.wss.readyState === 1) {
+      if(this.props.bbshouye==='0'){
         window.wss.send(JSON.stringify(options.bbinstrument_all));
+
+      }
       if (localStorage.userInfo) {
         // window.wss.send(JSON.stringify(options.bb_account_exp));
         window.wss.send(JSON.stringify(options.bb_active_order));

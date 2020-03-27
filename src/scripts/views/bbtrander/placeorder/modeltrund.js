@@ -19,7 +19,10 @@ class Modeltrund extends Component {
     super()
     this.state = {
       valuequanbushuliang: "",
-      numshuliangold:null
+      numshuliangold:null,
+      imgArr:{
+        io:require('../../../img/finance/transferoffunds.png')
+      }
 
     }
   }
@@ -69,6 +72,13 @@ class Modeltrund extends Component {
 
     })
   }
+  qiehuanduidiao=()=>{
+    this.props.bboaccountavailablefn(this.props._this.state.zjzhfangxiangchu,this.props.asset)
+    this.props._this.setState({
+      zjzhfangxiangchu: this.props._this.state.zjzhfangxiang,
+      zjzhfangxiang:this.props._this.state.zjzhfangxiangchu
+    })
+  }
   zjzhfangxiangchu = (value) => {
     if(this.props._this.state.zjzhfangxiang===value){
       this.props.bboaccountavailablefn(this.props._this.state.zjzhfangxiangchu,this.props.asset)
@@ -111,7 +121,7 @@ class Modeltrund extends Component {
 
   render() {
     const {
-      numshuliang, valuequanbushuliang,numshuliangold
+      numshuliang, valuequanbushuliang,numshuliangold,imgArr
     } = this.state
     const {
       visible, visibleFn,available,asset,type,_this
@@ -152,7 +162,9 @@ class Modeltrund extends Component {
               <Option value="3"> 币币账户</Option>
               {/* // 1 资金账户 2 永续合约账户 3 bb账户 */}
             </Select>
-            <span className="chongbi-span-huazhuan" style={{ float: "left", lineHeight: "42px" }}> <FormattedMessage id="Transfer" defaultMessage={'划转'} /></span>
+            <img className="chongbi-span-huazhuan" onClick={this.qiehuanduidiao} src={imgArr.io} alt="" style={{ float: "left", lineHeight: "42px" }}/>
+
+            {/* <span className="chongbi-span-huazhuan" style={{ float: "left", lineHeight: "42px" }}> <FormattedMessage id="Transfer" defaultMessage={'划转'} /></span> */}
             <Select defaultValue="2" className="select2222"
               style={{ width: 160, height: 42, float: "left" }}
               value={_this.state.zjzhfangxiangchu}

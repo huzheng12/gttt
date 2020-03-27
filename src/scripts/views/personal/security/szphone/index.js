@@ -6,6 +6,7 @@ import { history } from '@/utils/history'
 import lang from '@/utils/language';
 import { Xfn } from '../../../../../utils/axiosfn';
 import store from '@/scripts/store.js'
+import { openNotificationWithIcon } from '../../../../../utils/NotificationCONF';
 // import { Link } from "react-router-dom";
 
 
@@ -83,6 +84,8 @@ class Szphone extends Component {
 
     if (this.state.phoneInp != "") {
       if (cb) { cb() }
+    }else{
+      openNotificationWithIcon("opne-warning", "警告", "手机号不能为空")
     }
   }
   yzphone = () => {

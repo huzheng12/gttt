@@ -20,9 +20,10 @@ class C2Ctrade extends Component {
       JsonObj: {
 
       },
-      isokflg:true,
-      contenttetx:"",
-      available:"--"
+      isokflg: true,
+      contenttetx: "",
+      available: "--",
+      isldk:true
     }
   }
 
@@ -63,7 +64,7 @@ class C2Ctrade extends Component {
     // "mail_auth": "1",          //邮箱认证
     // "fund_pwd_auth": "1"       //资金账户密码认证
   }
-  availableaccounts=()=>{
+  availableaccounts = () => {
     Xfn({
       _u: "zjzhanghu",
       _m: "get",
@@ -71,23 +72,34 @@ class C2Ctrade extends Component {
     }, (res, code) => {
       if (code == 0) {
         var arr = res.data.data.fund_accounts
-        for(let i=0;i<arr.length;i++){
+        for (let i = 0; i < arr.length; i++) {
           console.log(arr[i])
-          if(arr[i].asset==='USDT'){
+          if (arr[i].asset === 'USDT') {
             this.setState({
               available: arr[i].available,
             })
           }
         }
-       
+
       }
     })
   }
   componentDidMount() {
-  
-   this.availableaccounts()
+
+    this.availableaccounts()
     this.authrenzzFn()
     this.c2ccardQueryFn()
+
+  }
+  componentDidUpdate() {
+    if (this.props._search && this.state.isldk&&this.props.exchange_rate_data) {
+        let exchange_rate = 1 / this.props.exchange_rate_data.exchange_rate + this.props.exchange_rate_data.fee * 1
+         this.setState({
+           input_val1: (this.props._search * exchange_rate).toFixed(2),
+           input_val2: this.props._search,
+           isldk:false
+         })
+    }
   }
   money = (type) => {
     const {
@@ -152,11 +164,11 @@ class C2Ctrade extends Component {
         }
       })
     } else {
-      if(!this.state.isokflg){
+      if (!this.state.isokflg) {
         return
       }
       this.setState({
-        isokflg:false
+        isokflg: false
       })
       const obj = {
         source_asset: this.props.source_asset_data,// 原资产 必填
@@ -172,7 +184,7 @@ class C2Ctrade extends Component {
         if (code === 0) {
           window.open(res.data.data.url);
           this.setState({
-            isokflg:true
+            isokflg: true
           })
         }
       })
@@ -244,8 +256,8 @@ class C2Ctrade extends Component {
             type === 1 ? '买入USDT' : "卖出USDT "
           }
           {
-                 type === 1 ? '' : <span className="clatrwarp_span">(可用余额：{ available!=='--'?number_format(available, 8, ".", ","):available} USDT)</span>
-              }
+            type === 1 ? '' : <span className="clatrwarp_span">(可用余额：{available !== '--' ? number_format(available, 8, ".", ",") : available} USDT)</span>
+          }
         </div>
         <div className="content_box">
           <div className="input_box">
@@ -253,7 +265,7 @@ class C2Ctrade extends Component {
               {
                 type === 1 ? '买入估价(CNY)' : "卖出估价(CNY)"
               }
-              
+
             </div>
             <div>{
               (() => {

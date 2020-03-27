@@ -29,7 +29,7 @@ class OrderPage extends Component {
     super()
     this.state = {
       flgduishoujia: false,
-      cangwei: 1,
+      cangwei: '',
     }
   }
   fasongmaiduo = (nummai) => {
@@ -148,7 +148,8 @@ class OrderPage extends Component {
             disabled={flgduishoujia ? true : false}
             type={'5'}
             butOnClick={this.duishoujia}
-            contentRivalPrice={<FormattedMessage id="Counterpart_price" defaultMessage={'对手价'} />}
+            contentRivalPrice={
+            <FormattedMessage id="Counterpart_price" defaultMessage={'对手价'} />}
             prefix={<span><FormattedMessage id="Fixed_price" defaultMessage={'限价'} /></span>}
             suffix={
               <Tooltip className="tooltip-001">

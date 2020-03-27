@@ -102,27 +102,26 @@ class Weituoliebiao extends Component {
           <FormattedMessage id="DelegationList" defaultMessage={'委托列表'} />
         </div>
         <div className="title-boxtou">
-          <div className="tite-biaoti"><FormattedMessage id="Price" defaultMessage={'价格'} />({type !== 'bb' ? 'USD' : bbinstrument.symbol && bbinstrument.symbol.split(bbinstrument.split_char)[0]})&emsp;</div>
-          <div className="tite-biaoti"><FormattedMessage id="Number" defaultMessage={'数量'} />(<FormattedMessage id="Zhang" defaultMessage={'张'} />)</div>
+          <div className="tite-biaoti"><FormattedMessage id="Price" defaultMessage={'价格'} />(USDT)&emsp;</div>
+          <div className="tite-biaoti"><FormattedMessage id="Number" defaultMessage={'数量'} />({type === 'bb' ?bbinstrument.symbol && bbinstrument.symbol.split(bbinstrument.split_char)[0]:<FormattedMessage id="Zhang" defaultMessage={'张'} />})</div>
           <div className="tite-biaoti"><FormattedMessage id="Cumulants" defaultMessage={'累积量'} /></div>
         </div>
         <div className="module-body g-scrollbar" id="scrollBar">
           <ul className="ul-a1">
             {
               (type === 'bb' ? bborder_book : orderBookL2_25obj).arrAsks.map((item, i) => {
-                // if(i>15){
-                //   return
-                // }
+             
                 return (
                   <div key={"1321321" + i} className={item.size ? "div-liweituo" : "liweituo-div"}>
                     <div onClick={type !== 'bb' && item.size ? () => this.parice(item.price) : () => this.paricefn(item.price)}
                       className="section-tou"
                       style={{ fontSize: 12, cursor: "pointer" }}>
                       {
-                        EventFN.CurrencyDigitLimit({
-                          type: type !== 'bb' ? Decimal_point : bbinstrument.price_precision,
-                          content: item.price
-                        })
+                        // EventFN.CurrencyDigitLimit({
+                        //   type: type !== 'bb' ? Decimal_point : bbinstrument.price_precision,
+                        //   content: item.price
+                        // })
+                        item.price
                       }&emsp;</div>
                     <div style={{ fontSize: 12 }}
                       className={
@@ -163,7 +162,6 @@ class Weituoliebiao extends Component {
             }
           </ul>
 
-          {/* type === 'bb' ? bborder_book : orderBookL2_25obj */}
           {
             type !== 'bb' ? orderBookL2_25obj.arrBids ? <div className="section-titlt ul-a2" style={{ height: 55 }}>
               <div className="section-img-box" style={{
@@ -229,10 +227,11 @@ class Weituoliebiao extends Component {
                 })(), whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', fontWeight: 900
               }}>
                 {
-                  EventFN.CurrencyDigitLimit({
-                    type: type !== 'bb' ? Decimal_point : bbinstrument.price_precision,
-                    content: type === 'bb' ? bbinstrument.last_price : instrument.last_price
-                  })
+                  // EventFN.CurrencyDigitLimit({
+                  //   type: type !== 'bb' ? Decimal_point : bbinstrument.price_precision,
+                  //   content: type === 'bb' ? bbinstrument.last_price : instrument.last_price
+                  // })
+                  type === 'bb' ? bbinstrument.last_price : instrument.last_price
                 }
                 &nbsp;
                  {
@@ -250,10 +249,11 @@ class Weituoliebiao extends Component {
                     <div onClick={type !== 'bb' && item.size ? () => this.parice(item.price) : () => this.paricefn(item.price)}
                       className="section-tou"
                       style={{ color: "#26994E", fontSize: 12, cursor: "pointer" }}>{
-                        EventFN.CurrencyDigitLimit({
-                          type: type !== 'bb' ? Decimal_point : bbinstrument.price_precision,
-                          content: item.price
-                        })
+                        // EventFN.CurrencyDigitLimit({
+                        //   type: type !== 'bb' ? Decimal_point : bbinstrument.price_precision,
+                        //   content: item.price
+                        // })
+                        item.price
                       }&emsp;</div>
                     <div style={{ fontSize: 12 }} className={
                       item.color_size == 1 ? "section-red1 bg-change-red" :

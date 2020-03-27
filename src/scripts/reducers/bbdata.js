@@ -26,7 +26,8 @@ const defaultState = {
   bb_trade_exp_html: '',
   bb_trade_exp_html_ok: 1,
   bbcandle: {},
-  kxianbb: 1
+  kxianbb: 1,
+  bbshouye:'0'
 }
 
 
@@ -36,6 +37,10 @@ export const bbdata = (state = defaultState, action) => {
       return { ...state, bbassetArr: action.data, bbasset: "USDT" }
     case BBCANDLEFUNCTION:
       state.kxianbb = state.kxianbb + iasdjflkajsd
+      if (action.data.data.symbol !== state.bbaymbol) {
+        return state
+      }
+
       return { ...state, bbcandle: action.data, kxianbb: state.kxianbb }
     case BBSYMBOLFN:
       localStorage.bbasset_data = state.bbasset
@@ -50,6 +55,14 @@ export const bbdata = (state = defaultState, action) => {
       return { ...state, bbassetroute: action.data, bbaymbol: state.bbaymbol }
     case 'bbassetgaibaian':
       return { ...state, bbasset: action.data, bb_switch_ok: 1 }
+    case 'goumaitiao':
+      localStorage.bbsymbol_data = action.data
+      for (let i = 0; i < state.bbinstrumentArr.length; i++) {
+        if (state.bbinstrumentArr[i].symbol === action.data) {
+          state.bbinstrument = state.bbinstrumentArr[i]
+        }
+      }
+      return { ...state, bbaymbol: action.data,bbshouye:'1',bbinstrument:state.bbinstrument}
     case 'bbsymbolgaibaian':
       localStorage.bbasset = state.bbasset
       localStorage.bbaymbol = state.bbaymbol
@@ -72,12 +85,14 @@ export const bbdata = (state = defaultState, action) => {
           state.bbinstrument = state.bbinstrumentArr[i]
         }
       }
-      return { ...state, bb_trade_exp: [], bb_trade_exp_html: '', bbinstrument: state.bbinstrument, bb_trade_exp_html_ok: 2 ,bborder_book: {
-        arrAsks: [],
-        arrBids: [],
-      },}
+      return {
+        ...state, bb_trade_exp: [], bb_trade_exp_html: '', bbinstrument: state.bbinstrument, bb_trade_exp_html_ok: 2, bborder_book: {
+          arrAsks: [],
+          arrBids: [],
+        },
+      }
     case BBTRADEFN:
-      if (action.language.length>0&&action.language[0].symbol!==state.bbaymbol) {
+      if (action.language.length > 0 && action.language[0].symbol !== state.bbaymbol) {
         return { ...state, bb_trade_exp: state.bb_trade_exp, bb_trade_exp_html: state.bb_trade_exp_html }
       }
       let arr = action.language.concat(state.bb_trade_exp)
@@ -101,7 +116,7 @@ export const bbdata = (state = defaultState, action) => {
       }
       return { ...state, bbinstrumentArr: action.data, bbinstrument: state.bbinstrument }
     case BBORDERBOOKLFN:
-      if (action.data.data.length>0&&action.data.data[0].symbol!==state.bbaymbol) {
+      if (action.data.data.length > 0 && action.data.data[0].symbol !== state.bbaymbol) {
         return state
       }
       if (iasdjflkajsd > 100000000) {
@@ -135,8 +150,8 @@ export const bbdata = (state = defaultState, action) => {
         var n = state.bbinstrument.price_precision * 1
         var numdd = new RegExp(`^(.*\\..{${n}}).*$`)
         state.bborder_book_data_one = state.bborder_book_data_one.replace(numdd, "$1")
-      }else{
-        state.bborder_book_data_one=''
+      } else {
+        state.bborder_book_data_one = ''
       }
       return { ...state, bborder_book: state.bborder_book, order_bookshu: iasdjflkajsd, bborder_book_data_one: state.bborder_book_data_one }
     default:

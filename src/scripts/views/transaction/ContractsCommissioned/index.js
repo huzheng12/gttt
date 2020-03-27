@@ -105,6 +105,7 @@ class ContractsCommissioned extends Component {
         as: require('../../../img/shang.png'),
         ax1: require('../../../img/xia_02.png'),
         as1: require('../../../img/shang_02.png'),
+        io: require('../../../img/finance/transferoffunds.png'),
       },
       asks: [],
       bids: [],
@@ -405,6 +406,13 @@ class ContractsCommissioned extends Component {
     }
     this.yuehuazhuan(val)
   }
+  qiehuanduidiao=()=>{
+    this.yuehuazhuan(this.state.zjzhfangxiangchu)
+    this.setState({
+      zjzhfangxiang: this.state.zjzhfangxiangchu,
+      zjzhfangxiangchu: this.state.zjzhfangxiang,
+    })
+  }
   zjzhfangxiangchu = (val) => {
     this.setState({ zjzhfangxiangchu: val })
     if (val == this.state.zjzhfangxiang) {
@@ -587,9 +595,11 @@ class ContractsCommissioned extends Component {
                     <Option value="3">币币账户</Option>
 
                   </Select>
-                  <span className="chongbi-span-huazhuan" style={{ float: "left", lineHeight: "42px" }}>
-                    <FormattedMessage id="Transfer" defaultMessage={'划转'} />
-                  </span>
+                  <img className="chongbi-span-huazhuan" onClick={this.qiehuanduidiao} src={imgArr.io} alt="" style={{ float: "left", lineHeight: "42px" }}/>
+
+                  {/* <span className="chongbi-span-huazhuan" style={{ float: "left", lineHeight: "42px" }}> */}
+                    {/* <FormattedMessage id="Transfer" defaultMessage={'划转'} />
+                  </span> */}
                   <Select defaultValue="2" className="select2222"
                     style={{ width: 160, height: 42, float: "left" }}
                     value={this.state.zjzhfangxiangchu}

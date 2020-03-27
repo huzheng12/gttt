@@ -93,7 +93,7 @@ class Sices extends Component {
         downloadget_url_flg: 0
       }))
     }
-    if ((this.props.ws_connect == 1 || this.props.isLogin == 1 ) && this.props.bbasset) {
+    if ((this.props.ws_connect == 1 || this.props.isLogin == 1) && this.props.bbasset) {
       setTimeout(() => {
         if (window.wss.OPEN == 1) {
           if (this.state.isInsement) {
@@ -179,6 +179,10 @@ class Sices extends Component {
       }))
     }
   }
+  goumaitiao = (val) => {
+    store.dispatch({ type: "goumaitiao", data: val })
+    history.push('/BBTradePage')
+  }
   render() {
     const {
       imgarr,
@@ -189,14 +193,17 @@ class Sices extends Component {
     } = this.state
     const {
       instrumentArr,
-      k_line_home_page,bbinstrumentArr
+      k_line_home_page, bbinstrumentArr
     } = this.props
     return this.props.a ? <Firstloading></Firstloading> : (<div className="sices-warp">
       <Header></Header>
       <div className="sices-warp-box" style={{ height: 398 }}>
         <div className="vidage">
           <Bg_xx></Bg_xx>
-          <img className="img_gb_png" src={imgarr.banner06} alt="" />
+          <div className="img_gb_png_box">
+            <img className="img_gb_png" src={imgarr.banner06} alt="" />
+
+          </div>
         </div>
         <div className="img-box" >
           <div className="hezi clear">
@@ -216,45 +223,11 @@ class Sices extends Component {
                 </Button>
               </div>
             </div>
-            {/* <div className="hezi-right" style={{ display: localStorage.userInfo ? "none" : "blocl" }}>
-                <div className="tit">
-                  <FormattedMessage id="Sign_in" defaultMessage={'登录'} />
-                </div>
-                <div className="sices-tabs-box">
-                  <WrappedNormalLoginForm></WrappedNormalLoginForm>
-                </div>
-              </div> */}
+
           </div>
-         
+
         </div>
-        {/* <div className="echart-box">
-            <div className="sange-box">
-            {
-              instrumentArr.length > 0 && instrumentArr.map((item, index) => {
-                return <div className="liwu" key={item + index}>
-                <div className="top-box">
-                <div className="left-box">
-                <p>
-                {item.symbol}
-                </p>
-                <p>
-                {item.last_price}
-                </p>
-                </div>
-                <div className="right-box" style={{ color: item.change_rate_24h * 1 >= 0 ? "#82D9A0" : "#E63F39" }}>
-                {
-                  String(item.change_rate_24h * 100).replace(/^(.*\..{2}).*$/, "$1")
-                }%
-                </div>
-                </div>
-                <div className="bottom-boxs">
-                <Echartscont _id={"chartmain" + index} dataRes={k_line_home_page[item.symbol]} candle={this.props.candles[item.symbol] && this.props.candles[item.symbol].data}></Echartscont>
-                </div>
-                </div>
-              })
-            }
-            </div>
-          </div> */}
+
 
       </div>
       <div className="c2cjioaiyisj">
@@ -271,29 +244,41 @@ class Sices extends Component {
             <Search
               placeholder="11USDT起"
               enterButton="购买"
-              style={{height:44}}
+              style={{ height: 44 }}
               size="large"
               suffix={
                 <Tooltip className="tooltip-001">
                   USDT
               </Tooltip>}
-              onSearch={value => console.log(value)}
+              onSearch={value => {
+                if (localStorage.userInfo) {
+
+                  if (value) {
+                    history.push('/C2Cdeal/index?account=' + value)
+
+                  } else {
+                    history.push('/C2Cdeal/index')
+                  }
+                } else {
+                  history.push('/login')
+                }
+              }}
             />
 
           </div>
         </div>
-        <div className="tongzhilan" style={{textAlign: 'center'}}>
-            {information ? information.map((item, index) => {
-              if (index < 3) {
-                return <div className="tongzhilangg" key={item + index}>
-                  <a style={{ color: "#fff", display: "inline-block" }} href={item.link_url} target="_blank">
-                    公告{index + 1}：
+        <div className="tongzhilan" style={{ textAlign: 'center' }}>
+          {information ? information.map((item, index) => {
+            if (index < 3) {
+              return <div className="tongzhilangg" key={item + index}>
+                <a style={{ color: "#fff", display: "inline-block" }} href={item.link_url} target="_blank">
+                  公告{index + 1}：
                   </a>
-                  <a style={{ color: "#fff", display: "inline-block" }} href={item.link_url} target="_blank" dangerouslySetInnerHTML={{ __html: item.title }}></a>
-                </div>
-              }
-            }) : ""}
-          </div>
+                <a style={{ color: "#fff", display: "inline-block" }} href={item.link_url} target="_blank" dangerouslySetInnerHTML={{ __html: item.title }}></a>
+              </div>
+            }
+          }) : ""}
+        </div>
       </div>
       <div className="jiaoyiwss_box">
         <div className="cneten_box">
@@ -302,11 +287,11 @@ class Sices extends Component {
           </div>
           <div className="cow_box">
             <div className="cow_box_title">
-              <div className="tr" style={{width:233}}>USDT市场</div>
-              <div className="tr" style={{width:238}}>价格</div>
-              <div className="tr" style={{width:313,textAlign:"center"}}>涨跌幅</div>
-              <div className="tr" style={{width:233,textAlign:"center"}}>行情</div>
-              <div className="tr" style={{textAlign:'right',width:233}}>交易</div>
+              <div className="tr" style={{ width: 233 }}>USDT市场</div>
+              <div className="tr" style={{ width: 238 }}>价格</div>
+              <div className="tr" style={{ width: 313, textAlign: "center" }}>涨跌幅</div>
+              <div className="tr" style={{ width: 233, textAlign: "center" }}>行情</div>
+              <div className="tr" style={{ textAlign: 'right', width: 233 }}>交易</div>
             </div>
             {
               bbinstrumentArr.length > 0 && bbinstrumentArr.map((item, index) => {
@@ -314,44 +299,36 @@ class Sices extends Component {
                   // localStorage.heyuename = item.symbol
                   // history.push('/fulltrade')
                 }}>
-                    <div className="tr" style={{width:233,color:"#fff"}}>
-                    {item.symbol}
-                    </div>
-              <div className="tr" style={{width:238,color:"#fff"}}>
-               $ {item.last_price}
-              
-                
-              </div>
-              <div className="tr" style={{width:313,color: item.change_rate_24h && item.change_rate_24h >= 0 ? "#26994E" : "#E53F39" ,textAlign:"center"}}>
-                
-                {
-                item.change_rate_24h && item.change_rate_24h >= 0 ? "+ "+item.change_rate_24h :  +item.change_rate_24h
-                }
-                
-                </div>
-              <div className="tr" style={{width:233}}>
-              <Echartscont _id={"chartmain" + index} dataRes={k_line_home_page[item.symbol]} hhv={item.change_rate_24h} candle={this.props.candles[item.symbol] && this.props.candles[item.symbol].data}></Echartscont>
+                  <div className="tr" style={{ width: 233, color: "#fff" }}>
+                    <img src={item.icon_url} alt="" />
+                    <span className="bb">
+                      {item.symbol.split('/')[0]}
+                    </span>
+                    <span className="zc">
+                      {item.symbol_chinese}
+                    </span>
+                  </div>
+                  <div className="tr" style={{ width: 238, color: "#fff" }}>
+                    $ {item.last_price}
 
-              </div>
-              <div className="tr" style={{textAlign:'right',width:233}}> <Button>购买</Button></div>
-          
+
+                  </div>
+                  <div className="tr" style={{ width: 313, color: item.change_rate_24h && item.change_rate_24h >= 0 ? "#26994E" : "#E53F39", textAlign: "center" }}>
+
+                    {
+                      item.change_rate_24h && item.change_rate_24h >= 0 ? "+ " + item.change_rate_24h : +item.change_rate_24h
+                    }
+
+                  </div>
+                  <div className="tr" style={{ width: 233 }}>
+                    <Echartscont _id={"chartmain" + index} dataRes={k_line_home_page[item.symbol]} hhv={item.change_rate_24h} candle={this.props.candles[item.symbol] && this.props.candles[item.symbol].data}></Echartscont>
+
+                  </div>
+                  <div className="tr" style={{ textAlign: 'right', width: 233 }}> <Button onClick={() => this.goumaitiao(item.symbol)}>购买</Button></div>
+
                 </div>
               })
             }
-            {/* {
-              instrumentArr.length > 0 && instrumentArr.length == 1 ? arr_data.map((item, index) => {
-                return <div className="instrument" key={item + index} >
-                  <p>
-                    {
-                      item.symbol
-                    }
-                  </p>
-                  <p>
-                    暂未开放，敬请期待！
-                    </p>
-                </div>
-              }) : ""
-            } */}
           </div>
         </div>
       </div>

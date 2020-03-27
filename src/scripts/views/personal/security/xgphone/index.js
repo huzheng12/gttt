@@ -6,6 +6,7 @@ import { history } from '@/utils/history'
 import lang from '@/utils/language';
 import store from '@/scripts/store.js'
 import { Xfn } from '../../../../../utils/axiosfn';
+import { openNotificationWithIcon } from '../../../../../utils/NotificationCONF';
 const { Option } = Select;
 var times
 class Xgphone extends Component {
@@ -82,10 +83,10 @@ class Xgphone extends Component {
     })
   }
   xphoneB = (cb) => {
-    if (this.state.phoneInp.length > 4) {
+    if (this.state.phoneInp.length > 0) {
       if (cb) { cb() }
     } else {
-
+      openNotificationWithIcon("opne-warning", "警告", "手机号不能为空")
     }
   }
   yzphone = () => {
@@ -165,14 +166,14 @@ class Xgphone extends Component {
           </div>
           <p></p>
           <div className="lebal clear">
-            <span>{lang()['Cell-phone_number']}
+            <span>新手机号
             </span>
-            <Input maxLength={11} value={phoneInp} onBlur={() => this.xphoneB()} onChange={this.xphone} placeholder={lang().Please_your_mobile_number} style={{ width: 340, height: 42, borderColor: errcolor }} />
+            <Input maxLength={11} value={phoneInp} onBlur={() => this.xphoneB()} onChange={this.xphone} placeholder='请输入新手机号码' style={{ width: 340, height: 42, borderColor: errcolor }} />
           </div>
           <p>{msgPhone}</p>
           <div className="lebal clear">
             <span>{lang().Short_Message_Verification_Code}</span>
-            <Input onChange={this.yzmInp} value={yzmInp} placeholder={lang().Please_enter_the_verification_code} style={{ width: 200, height: 42, float: "left", marginRight: 10 }} />
+            <Input onChange={this.yzmInp} value={yzmInp} placeholder='请输入旧手机验证码' style={{ width: 200, height: 42, float: "left", marginRight: 10 }} />
             <Button disabled={!this.state.timeFlg} onClick={this.yzphone} type="primary"
               style={{ width: 130, height: 42, float: "left" }}>{this.state.fasongzi}</Button>
             <span style={{ width: 300 }}>{yfs}</span>

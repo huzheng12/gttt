@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './index.scss'
-import { Input, Select, Button } from 'antd';
+import { Input, Select, Button,Tooltip } from 'antd';
 const { Option } = Select;
 
 const LoginPhoneEmail = (props) => {
@@ -79,6 +79,8 @@ const LoginPhoneEmail = (props) => {
           (() => {
             if (type == "4" || type == "5") {
               return <div className="but-box">
+              <Tooltip placement="topLeft" title={'如果您开多/平空，则对手价为卖一价；开空/平多，则对手价是买一价'}>
+
                 <Button
                   style={{ height: 42, width: 72, padding: localStorage.language == "en" ? 0 : "0 15px" }}
                   onClick={butOnClick}>
@@ -86,6 +88,7 @@ const LoginPhoneEmail = (props) => {
                     {contentRivalPrice}
                   </span>
                 </Button>
+                </Tooltip>
               </div>
             }
           })()

@@ -43,7 +43,6 @@ class Register extends Component {
           defaultActiveKey: '2',
         })
       }
-      console.log(_search.split("=")[1])
       this.setState({
         account: _search.split("=")[1],
       })

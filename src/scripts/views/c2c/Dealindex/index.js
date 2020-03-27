@@ -12,7 +12,8 @@ export default class Deaalindex extends Component {
       },
       source_asset_data: "CNY",
       target_asset_data: "USDT",
-      exchange_rate_data: null
+      exchange_rate_data: null,
+      _search:""
     }
   }
   // 查看汇率
@@ -35,12 +36,20 @@ export default class Deaalindex extends Component {
   }
   componentDidMount() {
     this.RateQueryFn()
+    let _search = this.props.location.search.split("?")[1]
+    console.log(_search,'===')
+    if(_search){
+      this.setState({
+        _search:_search.split("=")[1]
+      })
+    }
   }
   render() {
     const {
       source_asset_data,
       exchange_rate_data,
       target_asset_data,
+      _search
     } = this.state
     return (
       <div className="deaalindex">
@@ -66,7 +75,7 @@ export default class Deaalindex extends Component {
           </div>
         </div>
         <div className="main_box">
-          <C2Ctrade type={1} exchange_rate_data={exchange_rate_data} target_asset_data={target_asset_data} source_asset_data={source_asset_data}></C2Ctrade>
+          <C2Ctrade _search={_search} type={1} exchange_rate_data={exchange_rate_data} target_asset_data={target_asset_data} source_asset_data={source_asset_data}></C2Ctrade>
           <C2Ctrade type={0} exchange_rate_data={exchange_rate_data} target_asset_data={target_asset_data} source_asset_data={source_asset_data}></C2Ctrade>
         </div>
       </div>

@@ -154,13 +154,14 @@ const reduxFnData = {
           bid_flage = "B"
         }
       }
-      var ls = (() => {
-        if (!arr[i].price) { return false }
-        if (aa) {
-          return number_format(arr[i].price, aa, ".", ",")
-        }
-        return number_format(arr[i].price, state.Decimal_point, ".", ",")
-      })()
+      var ls =arr[i].price
+      // var ls = (() => {
+      //   if (!arr[i].price) { return false }
+      //   if (aa) {
+      //     return number_format(arr[i].price, aa, ".", ",")
+      //   }
+      //   return number_format(arr[i].price, state.Decimal_point, ".", ",")
+      // })()
       htmls += '<div class="table-spandiv clear ' + bidCo + ' ' + bg_anmetion + '"> <div class="td">' + '<div class="abcdes">' + ls + '</div><div class="img ' + as + '" ></div>' + '</div><div class="td">' + arr[i].qty + '</div><div class="td">' + bid_flage + '</div><div class="td">' + time + '</div></div>'
     }
     fn(htmls)

@@ -687,7 +687,7 @@ class TablePosition extends Component {
         <div className="code-li-box">
 
           <div className="content">
-            $ {
+            ${
               item.liquidation_price
             }
           </div>

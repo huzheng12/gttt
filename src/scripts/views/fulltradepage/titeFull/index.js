@@ -472,15 +472,15 @@ class TitleFullk extends Component {
               ctype === 'bb' ? bbaymbol ? bbaymbol : '--' : instrument.symbol ? instrument.symbol : "--"
             }
             {
-              ctype === 'bb' ? <Headernav></Headernav> : ""
+              ctype === 'bb' ? <Headernav></Headernav> :''
             }
             {
-              ctype === 'bb'&&bbaymbol ?<div className="bbyongxu"></div>: ""
+              ctype === 'bb'&&bbaymbol ?<div className="bbyongxu"></div>:''
             }
 
           </div>
 
-          <div className="astimg">
+          <div className="astimg" style={{marginLeft:ctype === 'bb'?30:20}}>
             {
               (ctype === 'bb' ? bbinstrument : instrument).change_rate_24h ? (ctype === 'bb' ? bbinstrument : instrument).change_rate_24h >= 0 ? <div className="iconfont imgastd" style={{ color: "#26994E" }}>&#xe60e;</div> : <div className="iconfont imgastd" style={{ color: "#E53F39" }}>&#xe610;</div> : ""
             }

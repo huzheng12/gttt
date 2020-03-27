@@ -20,6 +20,8 @@ var scrollBar_switch = true;
       bborder_book: state.bbdata.bborder_book,
       order_bookshu: state.bbdata.order_bookshu,
       bbinstrument: state.bbdata.bbinstrument,
+      bbaymbol: state.bbdata.bbaymbol,
+      bbasset: state.bbdata.bbasset,
     }
   })
 
@@ -79,6 +81,19 @@ class Weituoliebiao extends Component {
       }
 
     }
+    // if (this.props.type == 'bb' && this.props.bborder_book.arrAsks[0] && this.props.bborder_book.arrBids[0]) {
+    //   if (this.props.bborder_book.arrAsks[0].price - this.props.bborder_book.arrBids[0].price <= 0) {
+    //     window.wss.send(JSON.stringify({
+    //       "op": "unsub",
+    //       "args": { "instrument_type": "bb", "table": "order_book", "settle_currency":this.props.bbasset, "symbol": this.props.bbaymbol }
+    //   }));
+    //     window.wss.send(JSON.stringify({
+    //       "op": "sub",
+    //       "args": { "instrument_type": "bb", "table": "order_book", "settle_currency":  this.props.bbasset, "symbol": this.props.bbaymbol }
+    //   }));
+    //   }
+
+    // }
 
   }
  
@@ -102,7 +117,9 @@ class Weituoliebiao extends Component {
           <FormattedMessage id="DelegationList" defaultMessage={'委托列表'} />
         </div>
         <div className="title-boxtou">
-          <div className="tite-biaoti"><FormattedMessage id="Price" defaultMessage={'价格'} />(USDT)&emsp;</div>
+          <div className="tite-biaoti" style={{
+            textAlign:'left',paddingLeft:20
+          }}><FormattedMessage id="Price" defaultMessage={'价格'} />(USDT)&emsp;</div>
           <div className="tite-biaoti"><FormattedMessage id="Number" defaultMessage={'数量'} />({type === 'bb' ?bbinstrument.symbol && bbinstrument.symbol.split(bbinstrument.split_char)[0]:<FormattedMessage id="Zhang" defaultMessage={'张'} />})</div>
           <div className="tite-biaoti"><FormattedMessage id="Cumulants" defaultMessage={'累积量'} /></div>
         </div>

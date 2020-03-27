@@ -8,7 +8,7 @@ const ChengjiaoLiebiao = (props) => {
       <div className="chengjiao-td-spandiv clear">
         <div className="td"><FormattedMessage id="Price" defaultMessage={'价格'} /></div>
         <div className="td"><FormattedMessage id="Number" defaultMessage={'数量'} /></div>
-        <div className="td"><FormattedMessage id="direction" defaultMessage={'方向'} /></div>
+        {/* <div className="td"><FormattedMessage id="direction" defaultMessage={'方向'} /></div> */}
         <div className="td"><FormattedMessage id="time" defaultMessage={'时间'} /></div>
       </div>
       <div className="table-fixa" >

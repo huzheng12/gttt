@@ -280,7 +280,7 @@ class Singlebox extends Component {
           prefix={<span>价格</span>}
           suffix={
             <Tooltip className="tooltip-001">
-              <span>USDT</span>
+               (USDT)
             </Tooltip>
           }
         />
@@ -292,11 +292,9 @@ class Singlebox extends Component {
           suffix={
             <Tooltip className="tooltip-001">
               <span>
-
-                {
-                  (bbinstrument.symbol ? bbinstrument.symbol.split(bbinstrument.split_char)[0] : "BTC")
-
-                }
+              ({
+            (bbinstrument.symbol ? bbinstrument.symbol.split(bbinstrument.split_char)[0] : "BTC")
+          })
               </span>
             </Tooltip>
           }

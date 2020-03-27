@@ -1,234 +1,57 @@
 import React, { Component } from 'react';
 import './index.scss'
-import store from '@/scripts/store.js'
 import { connect } from "react-redux";
-import DataFeeds from '@/utils/tv/datafeed'
-import BbDataFeeds from '@/utils/tv/bbdatafeed'
-import { WidgetInfo } from '@/utils/tv/tvConfig'
-import { zhutiyanzheng, heyuename, assetfn } from '../../action';
 import lang from '@/utils/language';
+import TvCharts from './a';
+import Depthmap from '../depthmap';
 
-var history_last_data;
-var bbhistory_last_data;
 
-const barsFormat = (data) => {
-    let bars = [];
-    let newBars = [];
-    bars = data.rows;
-    for (let i = 0; i < bars.length; i++) {
-        newBars.push({
-            time: parseFloat(bars[i][0]),
-            open: parseFloat(bars[i][1]),
-            high: parseFloat(bars[i][2]),
-            low: parseFloat(bars[i][3]),
-            close: parseFloat(bars[i][4]),
-            volume: parseFloat(bars[i][5]),
-        });
-    }
-    return newBars
-}
 @connect(
     state => {
         return {
             heyuename: state.data.heyuename,
-            heyuenameischange: state.data.heyuenameischange,
-            instrument: state.data.instrument,
-            zhuti: state.data.zhuti,
-            chongxinkaiqi: state.datum.chongxinkaiqi,
-            change_zhuti: state.data.change_zhuti,
-            candle: state.data.candle,
-            asset: state.data.asset,
-            kxian: state.data.kxian,
-            asset_switch: state.data.asset_switch,
-            bb_switch_ok: state.bbdata.bb_switch_ok,
             bbaymbol: state.bbdata.bbaymbol,
-            bbcandle: state.bbdata.bbcandle,
-            kxianbb: state.bbdata.kxianbb,
+
         }
     }
 )
 class tvChart extends Component {
-    initOnReady = (symbol) => {
-        window.tvWidget = new window.TradingView.widget(Object.assign({}, WidgetInfo, { //tvConfig.js
-            debug: false, // uncomment this line to see Library errors and warnings in the console
-            symbol: symbol,
-            interval: '1',
-            container_id: "tv_chart_container",
-            datafeed: this.props.ctype === 'bb' ? new BbDataFeeds.Tv() : new DataFeeds.Tv(),
-            locale: 'zh',
-            theme: this.props.type === 1 ? localStorage.theme : 'dark',
-            autosize: true,
-            fullscreen: false,
-            // favorites: {
-            //     intervals: ['1', '5', '15', '30', '60', "360", '1D']
-            // },
-            timezone: 'Asia/Shanghai',
-            toolbar_bg: '#181E30',
-            loading_screen: { backgroundColor: "#181E30" },
-            disabled_features: [
-                'header_symbol_search',
-                'symbol_search_hot_key',
-                'header_compare',
-                'header_undo_redo',
-                'header_screenshot',
-                'volume_force_overlay',
-                'header_resolutions',
-                // 'timeframes_toolbar',
-                // "header_widget",
-                // "left_toolbar",
-                // "volume_force_overlay",
-                // "create_volume_indicator_by_default",
-                // "display_market_status",
-                // "legend_context_menu",
-                "border_around_the_chart"
-
-            ],
-            enabled_features: [
-                'hide_last_na_study_output',
-                'keep_left_toolbar_visible_on_small_screens',
-                'adaptive_logo'
-            ],
-            overrides: {
-                // "paneProperties.background": "#fff",
-                // "scalesProperties.backgroundColor": "#171a32",
-                'paneProperties.topMargin':25
-            },
-            custom_css_url: "./css/custom_css.css",
-            indicators_file_name: "test.js",
-            study_count_limit: 20
-
-        }));
-
-        window.tvWidget.onChartReady(() => {
-            //创建均线
-            // if (this.props.type !== 1) {
-            //     const colorArr = ["#e0d283", "#92c580", "#8dc1d9"];
-            //     [5, 10, 30].forEach((time, index) => {
-            //         window.tvWidget.chart().createStudy("Moving Average", false, false, [time], null, { "plot.color.0": colorArr[index], precision: 2 });
-            //     });
-            // }
-            window.tvWidget.chart().setChartType(1);
-            // window.tvWidget.chart().createPositionLine()
-            //     .setPrice(this.props.instrument.index_price * 1)
-            //     .setExtendLeft(false)
-            //     .setLineLength("指标");
-
-        });
-        window.tvWidget.headerReady().then(function () {
-            const buttonGroup = [
-                { type: 2, name: lang().Time_sharing_diagram, resolution: '1' },
-                { type: 1, name: '1m', resolution: '1' },
-                { type: 1, name: '5m', resolution: '5' },
-                { type: 1, name: '15m', resolution: '15' },
-                { type: 1, name: '30m', resolution: '30' },
-                { type: 1, name: '1h', resolution: '60' },
-                { type: 1, name: '6h', resolution: '360' },
-                { type: 1, name: '1day', resolution: '1D' },
-            ]
-            var buttonEl = [];
-            buttonGroup.forEach(value => {
-                var button = window.tvWidget.createButton();
-                buttonEl.push({ el: button, target: value.name });
-                button.textContent = value.name;
-                button.setAttribute('class', 'customButton--jqJTfH5- tv-resolution-btn')
-                if (value.name === '1m') button.style.color = 'rgb(183, 213, 234)'
-                button.addEventListener('click', function (e) {
-                    if (e.target.innerHTML === value.name) {
-                        window.tvWidget.chart().setChartType(value.type);
-                        window.tvWidget.chart().setResolution(value.resolution);
-                        buttonEl.forEach(btn => btn.el.style.color = '#758696')
-                        e.target.style.color = 'rgb(183, 213, 234)';
-                    }
-                })
-            })
-        })
-    }
-    componentDidMount() {
-        if (this.props.ctype === 'bb') {
-            console.log(this.props.bbaymbol)
-
-            this.initOnReady(this.props.bbaymbol)
-        } else {
-            this.initOnReady(this.props.heyuename)
+    constructor(){
+        super()
+        this.state={
+            isok:true
         }
-
-    }
-    componentDidUpdate() {
-        if (this.props.ctype === 'bb') {
-            if (this.props.bb_switch_ok === 1) {
-                this.initOnReady(this.props.bbaymbol);
-                store.dispatch({
-                    type: "bbsymbolgaibaianIs",
-                    data: 0
-                })
-            }
-            if (this.props.bbcandle.data) {
-                console.log(this.props.bbcandle.data, '实时数据')
-                const d = this.props.bbcandle.data
-                const bars = barsFormat(d);
-                const real = d.current;
-                if (real == 1) {
-                    bbhistory_last_data = bars[bars.length - 1];
-                }
-                if (bars.length === 0) {
-                    window.bbhistoryBarsUpdate(bars, { noData: true });
-                } else {
-                    if (real == 0) {
-                        window.bbhistoryBarsUpdate(bars, { noData: bars.length === 0 });
-                    } else {
-                        for (let i = 0; i < bars.length; i++) {
-                            if (bbhistory_last_data.time && bars[i].time >= bbhistory_last_data.time) {
-                                window.bbrealtimeBarUpdate(bars[i]);
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            if (this.props.asset_switch === 1) {
-                this.initOnReady(this.props.heyuename);
-                store.dispatch(assetfn(this.props.asset, 0))
-            }
-            if (this.props.heyuenameischange == 1) {
-                this.initOnReady(this.props.heyuename);
-                store.dispatch(heyuename(this.props.heyuename, 0));
-            }
-            if (this.props.change_zhuti == 1) {
-                this.initOnReady(this.props.heyuename);
-                store.dispatch(zhutiyanzheng(this.props.zhuti, 0))
-            }
-            if (this.props.candle.data) {
-                const d = this.props.candle.data
-                const bars = barsFormat(d);
-                const real = d.current;
-                if (real == 1) {
-                    history_last_data = bars[bars.length - 1];
-                }
-                if (bars.length === 0) {
-                    window.historyBarsUpdate(bars, { noData: true });
-                } else {
-                    if (real == 0) {
-                        window.historyBarsUpdate(bars, { noData: bars.length === 0 });
-                    } else {
-                        for (let i = 0; i < bars.length; i++) {
-                            if (history_last_data.time && bars[i].time >= history_last_data.time) {
-                                window.realtimeBarUpdate(bars[i]);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
     }
     render() {
+        const{
+            isok
+        }=this.state
         return (
             < div className="chart-box" style={{ padding: this.props.type === 1 ? "0" : "" }}>
                 {
-                    this.props.type !== 1 ? <h4 className="box-title drag-handle">{lang().Chart_type + '( ' + (this.props.ctype === 'bb' ? this.props.bbaymbol : this.props.heyuename) + ' )'}</h4> : ""
+                    this.props.type !== 1 ? <h4 className="box-title drag-handle">{lang().Chart_type + '( ' + (this.props.ctype === 'bb' ? this.props.bbaymbol : this.props.heyuename) + ' )'}
+                <div className="bnt" style={{color:!isok&&'#2f6fed',borderColor:!isok&&'#2f6fed'}} onClick={()=>{
+                    this.setState({
+                        isok:false
+                    })
+                }}>
+                    深度图
+                </div>
+                <div className="bnt" style={{color:isok&&'#2f6fed',borderColor:isok&&'#2f6fed'}} onClick={()=>{
+                    this.setState({
+                        isok:true
+                    })
+                }}>
+                    专业版
+                </div>
+               
+                    
+                    </h4> : ""
                 }
-
-                <div id="tv_chart_container"></div>
+                {
+                    isok?<TvCharts ctype={this.props.ctype}></TvCharts>:  <Depthmap ctype={'bb'}></Depthmap>
+                }
+              
             </div >
 
         );

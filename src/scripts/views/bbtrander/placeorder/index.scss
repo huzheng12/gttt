@@ -12,6 +12,59 @@
     color:rgba(225,233,250,1);
     border-bottom: 1px solid #2F3746;
     padding-left: 13px;
+    position: relative;
+    .feilv_box{
+      position: absolute;
+      right: 20px;
+      top: 0;
+      cursor: pointer;
+      .fuhoa{
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background-color: #2f6fe2;
+        line-height: 1;
+        border-radius: 2px;
+        text-align: center;
+        font-size: 16px;
+      }
+    .feilv{
+      font-size: 16px;
+      margin-left: 5px;
+      color: #2f6fe2;
+    }
+
+    .tankuang_box{
+      width: 430px;
+      height: 30px;
+      position: absolute;
+      top: -28px;
+      right: -11px;
+      display: none;
+      .tankuang_box_b{
+// width: 278px;
+height: 30px;
+background-color: #fff;
+border-radius: 5px;
+position: absolute;
+top: 0px;
+right: 0px;
+color: #333;
+line-height: 30px;
+padding: 0 11px;
+
+      }
+      .fee{
+        color: #2F6FE2;
+        margin-left: 10px;
+      }
+    }
+    }
+    .feilv_box:hover {
+      .tankuang_box{
+        display: block;
+      }
+    }
   }
 .content_boxq{
   display: flex;
@@ -55,10 +108,10 @@
       color: #fff;
     }
     .ant-input-affix-wrapper .ant-input:not(:last-child){
-      padding-right: 55px;
+      padding-right: 66px;
     }
     .ant-input-affix-wrapper .ant-input:not(:first-child){
-      padding-left: 75px;
+      padding-left: 94px;
     }
     .tooltip-001{
       color: #898e98;

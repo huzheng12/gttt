@@ -162,7 +162,8 @@ const reduxFnData = {
       //   }
       //   return number_format(arr[i].price, state.Decimal_point, ".", ",")
       // })()
-      htmls += '<div class="table-spandiv clear ' + bidCo + ' ' + bg_anmetion + '"> <div class="td">' + '<div class="abcdes">' + ls + '</div><div class="img ' + as + '" ></div>' + '</div><div class="td">' + arr[i].qty + '</div><div class="td">' + bid_flage + '</div><div class="td">' + time + '</div></div>'
+      // <div class="td">' + bid_flage + '</div>
+      htmls += '<div class="table-spandiv clear ' + bidCo + ' ' + bg_anmetion + '"> <div class="td">' + '<div class="abcdes">' + ls + '</div><div class="img ' + as + '" ></div>' + '</div><div class="td">' + arr[i].qty + '</div><div class="td">' + time + '</div></div>'
     }
     fn(htmls)
   }

@@ -387,8 +387,8 @@ class Huazhuan extends Component {
               <Option value="3"> 币币账户</Option>
 
             </Select>
-            <img className="chongbi-span-huazhuan" onClick={this.qiehuanduidiao} src={imgArr.io} alt="" style={{ float: "left", lineHeight: "42px" }}/>
-            {/* <span className="chongbi-span-huazhuan" style={{ float: "left", lineHeight: "42px" }}><FormattedMessage id="Transfer" defaultMessage={'划转'} /></span> */}
+            {/* <img className="chongbi-span-huazhuan" onClick={this.qiehuanduidiao} src={imgArr.io} alt="" style={{ float: "left", lineHeight: "42px" }}/> */}
+            <span className="chongbi-span-huazhuan" style={{ float: "left", lineHeight: "42px" }}><FormattedMessage id="Transfer" defaultMessage={'划转'} /></span>
             <Select defaultValue="2"
               style={{ width: 130, height: 42, float: "left" }} value={this.state.zjzhfangxiangchu} onChange={this.zjzhfangxiangchu}>
               <Option value="1"><FormattedMessage id="Funds_account" defaultMessage={'资金账户'} /></Option>

@@ -243,7 +243,7 @@ class Sices extends Component {
           <div className="right clear">
             <Search
               placeholder="11USDT起"
-              enterButton="购买"
+              enterButton={"购买 "}
               style={{ height: 44 }}
               size="large"
               suffix={
@@ -295,10 +295,7 @@ class Sices extends Component {
             </div>
             {
               bbinstrumentArr.length > 0 && bbinstrumentArr.map((item, index) => {
-                return <div className="instrument" key={item + index} onClick={() => {
-                  // localStorage.heyuename = item.symbol
-                  // history.push('/fulltrade')
-                }}>
+                return <div className="instrument" key={item + index}>
                   <div className="tr" style={{ width: 233, color: "#fff" }}>
                     <img src={item.icon_url} alt="" />
                     <span className="bb">
@@ -316,7 +313,7 @@ class Sices extends Component {
                   <div className="tr" style={{ width: 313, color: item.change_rate_24h && item.change_rate_24h >= 0 ? "#26994E" : "#E53F39", textAlign: "center" }}>
 
                     {
-                      item.change_rate_24h && item.change_rate_24h >= 0 ? "+ " + item.change_rate_24h : +item.change_rate_24h
+                      item.change_rate_24h && item.change_rate_24h >= 0 ? "+ " + String(item.change_rate_24h * 100).replace(/^(.*\..{2}).*$/, "$1")+'%': String(item.change_rate_24h * 100).replace(/^(.*\..{2}).*$/, "$1")+'%'
                     }
 
                   </div>

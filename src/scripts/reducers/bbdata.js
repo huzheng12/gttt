@@ -27,7 +27,8 @@ const defaultState = {
   bb_trade_exp_html_ok: 1,
   bbcandle: {},
   kxianbb: 1,
-  bbshouye:'0'
+  bbshouye:'0',
+  onLayoutChangela:1
 }
 
 
@@ -69,6 +70,9 @@ export const bbdata = (state = defaultState, action) => {
       return { ...state, bbaymbol: action.data, bb_switch_ok: 1 }
     case 'bbsymbolgaibaianIs':
       return { ...state, bb_switch_ok: action.data }
+    case 'onLayoutChangela':
+      state.onLayoutChangela= action.data +state.onLayoutChangela
+      return { ...state, onLayoutChangela: state.onLayoutChangela }
     case 'paricefn':
       return { ...state, bborder_book_data_teo: action.data, bborder_book_data_teoo: action.isof }
     case BBACTIVEORDERFN:

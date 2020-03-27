@@ -54,7 +54,7 @@ class Modeltrund extends Component {
           zjzhfangxiangchu: "3",
         })
       }
-    })
+    },'划转成功')
   }
   zjzhfangxiang = (value) => {
     this.props.bboaccountavailablefn(value,this.props.asset)
@@ -162,9 +162,9 @@ class Modeltrund extends Component {
               <Option value="3"> 币币账户</Option>
               {/* // 1 资金账户 2 永续合约账户 3 bb账户 */}
             </Select>
-            <img className="chongbi-span-huazhuan" onClick={this.qiehuanduidiao} src={imgArr.io} alt="" style={{ float: "left", lineHeight: "42px" }}/>
+            {/* <img className="chongbi-span-huazhuan" onClick={this.qiehuanduidiao} src={imgArr.io} alt="" style={{ float: "left", lineHeight: "42px" }}/> */}
 
-            {/* <span className="chongbi-span-huazhuan" style={{ float: "left", lineHeight: "42px" }}> <FormattedMessage id="Transfer" defaultMessage={'划转'} /></span> */}
+            <span className="chongbi-span-huazhuan" style={{ float: "left", lineHeight: "42px" }}> <FormattedMessage id="Transfer" defaultMessage={'划转'} /></span>
             <Select defaultValue="2" className="select2222"
               style={{ width: 160, height: 42, float: "left" }}
               value={_this.state.zjzhfangxiangchu}

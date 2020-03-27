@@ -3,11 +3,13 @@ import './index.scss'
 import store from '@/scripts/store.js'
 import { connect } from "react-redux";
 import DataFeeds from '@/utils/tv/datafeed'
+import BbDataFeeds from '@/utils/tv/bbdatafeed'
 import { WidgetInfo } from '@/utils/tv/tvConfig'
 import { zhutiyanzheng, heyuename, assetfn } from '../../action';
 import lang from '@/utils/language';
 
 var history_last_data;
+var bbhistory_last_data;
 
 const barsFormat = (data) => {
     let bars = [];
@@ -38,17 +40,21 @@ const barsFormat = (data) => {
             asset: state.data.asset,
             kxian: state.data.kxian,
             asset_switch: state.data.asset_switch,
+            bb_switch_ok: state.bbdata.bb_switch_ok,
+            bbaymbol: state.bbdata.bbaymbol,
+            bbcandle: state.bbdata.bbcandle,
+            kxianbb: state.bbdata.kxianbb,
         }
     }
 )
-class tvChart extends Component {
+class TvCharts extends Component {
     initOnReady = (symbol) => {
         window.tvWidget = new window.TradingView.widget(Object.assign({}, WidgetInfo, { //tvConfig.js
-            debug: true, // uncomment this line to see Library errors and warnings in the console
+            debug: false, // uncomment this line to see Library errors and warnings in the console
             symbol: symbol,
             interval: '1',
             container_id: "tv_chart_container",
-            datafeed: new DataFeeds.Tv(),
+            datafeed: this.props.ctype === 'bb' ? new BbDataFeeds.Tv() : new DataFeeds.Tv(),
             locale: 'zh',
             theme: this.props.type === 1 ? localStorage.theme : 'dark',
             autosize: true,
@@ -69,7 +75,7 @@ class tvChart extends Component {
                 'header_resolutions',
                 // 'timeframes_toolbar',
                 // "header_widget",
-                "left_toolbar",
+                // "left_toolbar",
                 // "volume_force_overlay",
                 // "create_volume_indicator_by_default",
                 // "display_market_status",
@@ -85,26 +91,27 @@ class tvChart extends Component {
             overrides: {
                 // "paneProperties.background": "#fff",
                 // "scalesProperties.backgroundColor": "#171a32",
+                'paneProperties.topMargin':25
             },
             custom_css_url: "./css/custom_css.css",
             indicators_file_name: "test.js",
             study_count_limit: 20
+
         }));
 
         window.tvWidget.onChartReady(() => {
             //创建均线
-            if (this.props.type !== 1) {
-                const colorArr = ["#e0d283", "#92c580", "#8dc1d9"];
-                [5, 10, 30].forEach((time, index) => {
-                    window.tvWidget.chart().createStudy("Moving Average", false, false, [time], null, { "plot.color.0": colorArr[index], precision: 2 });
-                });
-            }
-            window.tvWidget.chart().setChartType(2);
-            // window.tvWidget.changeTheme('light')
-            window.tvWidget.chart().createPositionLine()
-                .setPrice(this.props.instrument.index_price * 1)
-                .setExtendLeft(false)
-                .setLineLength("指标");
+            // if (this.props.type !== 1) {
+            //     const colorArr = ["#e0d283", "#92c580", "#8dc1d9"];
+            //     [5, 10, 30].forEach((time, index) => {
+            //         window.tvWidget.chart().createStudy("Moving Average", false, false, [time], null, { "plot.color.0": colorArr[index], precision: 2 });
+            //     });
+            // }
+            window.tvWidget.chart().setChartType(1);
+            // window.tvWidget.chart().createPositionLine()
+            //     .setPrice(this.props.instrument.index_price * 1)
+            //     .setExtendLeft(false)
+            //     .setLineLength("指标");
 
         });
         window.tvWidget.headerReady().then(function () {
@@ -124,7 +131,7 @@ class tvChart extends Component {
                 buttonEl.push({ el: button, target: value.name });
                 button.textContent = value.name;
                 button.setAttribute('class', 'customButton--jqJTfH5- tv-resolution-btn')
-                if (value.name === lang().Time_sharing_diagram) button.style.color = 'rgb(183, 213, 234)'
+                if (value.name === '1m') button.style.color = 'rgb(183, 213, 234)'
                 button.addEventListener('click', function (e) {
                     if (e.target.innerHTML === value.name) {
                         window.tvWidget.chart().setChartType(value.type);
@@ -137,50 +144,86 @@ class tvChart extends Component {
         })
     }
     componentDidMount() {
-        this.initOnReady(this.props.heyuename)
+        if (this.props.ctype === 'bb') {
+            console.log(this.props.bbaymbol)
+
+            this.initOnReady(this.props.bbaymbol)
+        } else {
+            this.initOnReady(this.props.heyuename)
+        }
+
     }
     componentDidUpdate() {
-        if (this.props.asset_switch === 1) {
-            this.initOnReady(this.props.heyuename);
-            store.dispatch(assetfn(this.props.asset, 0))
-        }
-        if (this.props.heyuenameischange == 1) {
-            this.initOnReady(this.props.heyuename);
-            store.dispatch(heyuename(this.props.heyuename, 0));
-        }
-        if (this.props.change_zhuti == 1) {
-            this.initOnReady(this.props.heyuename);
-            store.dispatch(zhutiyanzheng(this.props.zhuti, 0))
-        }
-        if (this.props.candle.data) {
-            const d = this.props.candle.data
-            const bars = barsFormat(d);
-            const real = d.current;
-            if (real == 1) {
-                history_last_data = bars[bars.length - 1];
+        if (this.props.ctype === 'bb') {
+            if (this.props.bb_switch_ok === 1) {
+                this.initOnReady(this.props.bbaymbol);
+                store.dispatch({
+                    type: "bbsymbolgaibaianIs",
+                    data: 0
+                })
             }
-            if (bars.length === 0) {
-                window.historyBarsUpdate(bars, { noData: true });
-            } else {
-                if (real == 0) {
-                    window.historyBarsUpdate(bars, { noData: bars.length === 0 });
+            if (this.props.bbcandle.data) {
+                console.log(this.props.bbcandle.data, '实时数据')
+                const d = this.props.bbcandle.data
+                const bars = barsFormat(d);
+                const real = d.current;
+                if (real == 1) {
+                    bbhistory_last_data = bars[bars.length - 1];
+                }
+                if (bars.length === 0) {
+                    window.bbhistoryBarsUpdate(bars, { noData: true });
                 } else {
-                    for (let i = 0; i < bars.length; i++) {
-                        if (history_last_data.time && bars[i].time >= history_last_data.time) {
-                            window.realtimeBarUpdate(bars[i]);
+                    if (real == 0) {
+                        window.bbhistoryBarsUpdate(bars, { noData: bars.length === 0 });
+                    } else {
+                        for (let i = 0; i < bars.length; i++) {
+                            if (bbhistory_last_data.time && bars[i].time >= bbhistory_last_data.time) {
+                                window.bbrealtimeBarUpdate(bars[i]);
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            if (this.props.asset_switch === 1) {
+                this.initOnReady(this.props.heyuename);
+                store.dispatch(assetfn(this.props.asset, 0))
+            }
+            if (this.props.heyuenameischange == 1) {
+                this.initOnReady(this.props.heyuename);
+                store.dispatch(heyuename(this.props.heyuename, 0));
+            }
+            if (this.props.change_zhuti == 1) {
+                this.initOnReady(this.props.heyuename);
+                store.dispatch(zhutiyanzheng(this.props.zhuti, 0))
+            }
+            if (this.props.candle.data) {
+                const d = this.props.candle.data
+                const bars = barsFormat(d);
+                const real = d.current;
+                if (real == 1) {
+                    history_last_data = bars[bars.length - 1];
+                }
+                if (bars.length === 0) {
+                    window.historyBarsUpdate(bars, { noData: true });
+                } else {
+                    if (real == 0) {
+                        window.historyBarsUpdate(bars, { noData: bars.length === 0 });
+                    } else {
+                        for (let i = 0; i < bars.length; i++) {
+                            if (history_last_data.time && bars[i].time >= history_last_data.time) {
+                                window.realtimeBarUpdate(bars[i]);
+                            }
                         }
                     }
                 }
             }
         }
+
     }
     render() {
         return (
-            < div className="chart-box" style={{ padding: this.props.type === 1 ? "0" : "" }}>
-                {
-                    this.props.type !== 1 ? <h4 className="box-title drag-handle">{lang().Chart_type + '( ' + this.props.heyuename + ' )'}</h4> : ""
-                }
-
+            < div className="chart-box" style={{ padding: 0 }}>
                 <div id="tv_chart_container"></div>
             </div >
 
@@ -188,4 +231,4 @@ class tvChart extends Component {
     }
 }
 
-export default tvChart;
+export default TvCharts;

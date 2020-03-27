@@ -5,6 +5,17 @@
     height: 100%;
     padding-top: 38px;
     box-sizing: border-box;
+
+    .bnt{
+        float: right;
+        padding: 0 10px;
+        border: 1px solid #898e98;
+        color: #898e98;
+        line-height: 30px;
+        border-radius: 4px;
+        margin-left: 10px;
+        cursor: pointer;
+    }
 }
 .box-title {
     position: absolute;

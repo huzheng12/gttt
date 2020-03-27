@@ -95,10 +95,10 @@ class Headernav extends Component {
   }
   render() {
     const {
-      imgArr, bbclkasset, bbsyblarr, bbclksybmol
+      imgArr, bbclkasset
     } = this.state
     const {
-      bbassetArr, bbasset, bbsymbolArr, bbinstrumentArr, bbaymbol
+      bbassetArr, bbinstrumentArr, bbaymbol
     } = this.props
     return (
       <div className="headernav_warp">
@@ -145,19 +145,6 @@ class Headernav extends Component {
                 </li>
               })}
           </ul>
-          {/* <ul className="box_bb box_bb3">
-            {
-              bbinstrumentArr.map((item, index) => {
-                return <li className={bbaymbol !== item.symbol ? "" : 'box_bbspan999 '} style={{ color: item.change_rate_24h && item.change_rate_24h >= 0 ? "#26994E" : "#E53F39" }} key={item + index} onClick={() => this.symbolfn(item.symbol)}>
-                  {
-                    item.change_rate_24h && item.change_rate_24h > 0 ? "+" + String(item.change_rate_24h * 100).replace(/^(.*\..{2}).*$/, "$1") : String(item.change_rate_24h * 100).replace(/^(.*\..{2}).*$/, "$1")
-                  }
-                  %
-              </li>
-              })
-            }
-
-          </ul> */}
         </div>
       </div>
     )

@@ -26,10 +26,11 @@
         line-height: 1;
         border-radius: 2px;
         text-align: center;
-        font-size: 16px;
+        font-size: 14px;
+        line-height: 14px;
       }
     .feilv{
-      font-size: 16px;
+      font-size: 14px;
       margin-left: 5px;
       color: #2f6fe2;
     }
@@ -57,6 +58,9 @@ padding: 0 11px;
       .fee{
         color: #2F6FE2;
         margin-left: 10px;
+        text-decoration: underline;
+        font-family:Microsoft YaHei;
+
       }
     }
     }

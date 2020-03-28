@@ -165,6 +165,7 @@ class Sices extends Component {
 
   }
   componentWillUnmount() {
+    window.scrollTo(0,0)
     store.dispatch({ type: "differentiatedtransactions", num: 0 })
     if (window.wss.OPEN == 1) {
       for (let i = 0; i < this.props.bbsymbolArr.length; i++) {

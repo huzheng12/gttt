@@ -68,7 +68,11 @@
         }
       }
     }
-
+    .tongzhilan{
+      background-color: #0d1b36;
+      height: 36px;
+      line-height: 36px;
+    }
     
   }
   .jiaoyiwss_box{
@@ -263,10 +267,8 @@
         text-align: center;
         display: flex;
        justify-content: center;
-        .tongzhilangg{
-          padding: 0 20px;
-          border-left: 1px solid #FFFFFF;
-        }
+
+     
         .tongzhilangg:nth-child(1){
           border-left:none;
         }

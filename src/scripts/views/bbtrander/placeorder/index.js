@@ -12,18 +12,20 @@ export default class Placeorder extends Component {
     }
   }
   componentDidMount() {
-    Xfn({
-      _u: "getUserFee",
-      _m: "get",
-      _p: {
-      }
-    }, (res, code) => {
-      if (code == 0) {
-        this.setState({
-          getUserFeeObj: res.data.data
-        })
-      }
-    })
+    if(localStorage.userInfo){
+      Xfn({
+        _u: "getUserFee",
+        _m: "get",
+        _p: {
+        }
+      }, (res, code) => {
+        if (code == 0) {
+          this.setState({
+            getUserFeeObj: res.data.data
+          })
+        }
+      })
+    }
   }
   render() {
     const {

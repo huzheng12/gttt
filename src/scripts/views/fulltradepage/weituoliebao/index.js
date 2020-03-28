@@ -37,6 +37,7 @@ class Weituoliebiao extends Component {
         biao: require('../../../img/biao.png'),
         xian: require('../../../img/xian.png'),
       },
+      a1heiget:'calc((100% - 70px) / 2)'
     }
   }
   imgdongtaijia = () => {
@@ -109,12 +110,27 @@ class Weituoliebiao extends Component {
 
     } = this.props
     const {
-      imgArr,
+      imgArr,a1heiget
     } = this.state
     return (
       <div className="weituo-bable-warp">
         <div className="title-cd drag-handle">
           <FormattedMessage id="DelegationList" defaultMessage={'委托列表'} />
+          <span onClick={()=>{
+            this.setState({
+              a1heiget:'calc((100% - 70px) / 2)'
+            })
+          }}>全部</span>
+          <span  onClick={()=>{
+            this.setState({
+              a1heiget:'0px'
+            })
+          }}>买</span>
+          <span  onClick={()=>{
+            this.setState({
+              a1heiget:'calc(100% - 60px)'
+            })
+          }}>卖</span>
         </div>
         <div className="title-boxtou">
           <div className="tite-biaoti" style={{
@@ -124,7 +140,7 @@ class Weituoliebiao extends Component {
           <div className="tite-biaoti"><FormattedMessage id="Cumulants" defaultMessage={'累积量'} /></div>
         </div>
         <div className="module-body g-scrollbar" id="scrollBar">
-          <ul className="ul-a1">
+          <ul className="ul-a1" style={{height:a1heiget}}>
             {
               (type === 'bb' ? bborder_book : orderBookL2_25obj).arrAsks.map((item, i) => {
              

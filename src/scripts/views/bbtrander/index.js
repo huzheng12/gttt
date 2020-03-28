@@ -126,7 +126,7 @@ class BBTradePage extends Component {
   render() {
     const { bbasset, bbaymbol ,bb_trade_exp_html} = this.props
     return this.props.a ? <Firstloading></Firstloading> : (
-      <div className="fulltra-warp-d full-page bbfulltra-warp-d">
+      <div className=" full-page bbfulltra-warp-d">
         <Header></Header>
         <div className="ticker-info-box">
           {/* <Heeader _props={this.props}></Heeader> */}
@@ -142,7 +142,7 @@ class BBTradePage extends Component {
             this.onLayoutChange(layout, layouts)
           }
         >
-          <div key="1" data-grid={{ w: 7, h: 11, x: 0, y: 0, i: "1", minW: 2, minH: 3 }} style={{ padding: 5 }}>
+          <div key="1" data-grid={{ w: 7, h: 11, x: 0, y: 0, i: "1", minW: 2, minH: 3 }} style={{ padding:'0 5px' }}>
             <Tvchart ctype="bb"></Tvchart>
           </div>
           <div key="2" data-grid={{ w: 2.5, h: 20, x: 7, y: 0, i: "2", minW: 2, minH: 3, }}>
@@ -150,7 +150,7 @@ class BBTradePage extends Component {
           </div>
           <div key="3" data-grid={{ w: 2.5, h: 20, x: 9.5, y: 0, i: "3", minW: 2, minH: 3, }}>
             {/* <ChengjiaoLiebiao pcaccoundtnumflg={pcaccoundtnumflg} pcaccounddt={pcaccounddt} instrument={instrument}></ChengjiaoLiebiao> */}
-            <ChengjiaoLiebiao pcaccoundtnumflg={1} pcaccounddt={bb_trade_exp_html}></ChengjiaoLiebiao>
+            <ChengjiaoLiebiao type='bb' pcaccoundtnumflg={1} pcaccounddt={bb_trade_exp_html}></ChengjiaoLiebiao>
           </div>
           <div key="4" data-grid={{ w: 7, h: 9, x: 0, y: 11, i: "4", minW: 4, minH: 9, }}>
           <Placeorder></Placeorder>

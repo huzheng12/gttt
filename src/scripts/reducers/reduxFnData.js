@@ -70,12 +70,12 @@ const reduxFnData = {
   },
   //成交列表处理
   d: (arr, action, state, fn, aa) => {
-     arr.reverse()
-     for (let i = 0; i < arr.length; i++) {
+    arr.reverse()
+    for (let i = 0; i < arr.length; i++) {
       if (i == 0) {
         arr[i].yanse = '1'
       }
-      if (i >0) {
+      if (i > 0) {
         let j = i - 1
         if (arr[j].price - arr[i].price > 0) {
           arr[i].yanse = '2'
@@ -85,7 +85,7 @@ const reduxFnData = {
           arr[i].yanse = '1'
 
         }
-        if(arr[j].price === arr[i].price){
+        if (arr[j].price === arr[i].price) {
           arr[i].yanse = arr[j].yanse
         }
       }
@@ -125,19 +125,19 @@ const reduxFnData = {
       var as = ""
       if (arr[i].yanse === '1') {
         bidCo = "table-spandiv-1"
-      }else if(arr[i].yanse === '2'){
+      } else if (arr[i].yanse === '2') {
         bidCo = "table-spandiv-2"
-      }else{
-        if(yanse==='2'){
-          bidCo='table-spandiv-1'
-        }else{
-          bidCo='table-spandiv-2'
+      } else {
+        if (yanse === '2') {
+          bidCo = 'table-spandiv-1'
+        } else {
+          bidCo = 'table-spandiv-2'
         }
       }
-      
+
       if (arr[i].JT == "1") {
         as = "as"
-       
+
         if (arr[i].side == "buy") {
           bid_flage = "B"
         }
@@ -154,7 +154,7 @@ const reduxFnData = {
           bid_flage = "B"
         }
       }
-      var ls =arr[i].price
+      var ls = arr[i].price
       // var ls = (() => {
       //   if (!arr[i].price) { return false }
       //   if (aa) {
@@ -162,8 +162,12 @@ const reduxFnData = {
       //   }
       //   return number_format(arr[i].price, state.Decimal_point, ".", ",")
       // })()
-      // <div class="td">' + bid_flage + '</div>
-      htmls += '<div class="table-spandiv clear ' + bidCo + ' ' + bg_anmetion + '"> <div class="td">' + '<div class="abcdes">' + ls + '</div><div class="img ' + as + '" ></div>' + '</div><div class="td">' + arr[i].qty + '</div><div class="td">' + time + '</div></div>'
+      // 
+      let htmlll = ``
+      if (!state.bbaymbol) {
+        htmlll = '<div class="td">' + bid_flage + '</div>'
+      }
+      htmls += '<div class="table-spandiv clear ' + bidCo + ' ' + bg_anmetion + '"> <div class="td">' + '<div class="abcdes">' + ls + '</div><div class="img ' + as + '" ></div>' + '</div>'+htmlll+'<div class="td">' + arr[i].qty + '</div><div class="td">' + time + '</div></div>'
     }
     fn(htmls)
   }

@@ -310,7 +310,7 @@ class Sices extends Component {
             </div>
             {
               bbinstrumentArr.length > 0 && bbinstrumentArr.map((item, index) => {
-                return <div className="instrument" key={item + index}>
+                return <div onClick={() => this.goumaitiao(item.symbol)} className="instrument" key={item + index}>
                   <div className="tr" style={{ width: 233, color: "#fff" }}>
                     <img src={item.icon_url} alt="" />
                     <span className="bb">
@@ -336,7 +336,7 @@ class Sices extends Component {
                     <Echartscont _id={"chartmain" + index} dataRes={k_line_home_page[item.symbol]} hhv={item.change_rate_24h} candle={this.props.candles[item.symbol] && this.props.candles[item.symbol].data}></Echartscont>
 
                   </div>
-                  <div className="tr" style={{ textAlign: 'right', width: 233 }}> <Button onClick={() => this.goumaitiao(item.symbol)}>购买</Button></div>
+                  <div className="tr" style={{ textAlign: 'right', width: 233 }}> <Button >购买</Button></div>
 
                 </div>
               })

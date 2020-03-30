@@ -70,7 +70,6 @@ export default class C2cdingdan extends Component {
               }
               )()
             }
-            {text === "0" ? "审核中" : text === '1' ? "已支付" : "已取消"}
           </div>,
         },
         {

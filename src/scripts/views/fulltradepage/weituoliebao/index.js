@@ -37,7 +37,8 @@ class Weituoliebiao extends Component {
         biao: require('../../../img/biao.png'),
         xian: require('../../../img/xian.png'),
       },
-      a1heiget:'calc((100% - 70px) / 2)'
+      a1heiget:'calc((100% - 70px) / 2)',
+      iconbuys:"1"
     }
   }
   imgdongtaijia = () => {
@@ -110,27 +111,39 @@ class Weituoliebiao extends Component {
 
     } = this.props
     const {
-      imgArr,a1heiget
+      imgArr,a1heiget,iconbuys
     } = this.state
     return (
       <div className="weituo-bable-warp">
         <div className="title-cd drag-handle">
           <FormattedMessage id="DelegationList" defaultMessage={'委托列表'} />
-          {/* <span onClick={()=>{
+          <span onClick={()=>{
             this.setState({
-              a1heiget:'calc((100% - 70px) / 2)'
+              a1heiget:'calc((100% - 70px) / 2)',
+              iconbuys:'1'
             })
-          }}>全部</span>
+          }}> 
+          <svg className={iconbuys=='1'?'icon iconbuyandsale iconbuys':"icon iconbuyandsale"} aria-hidden="true">
+          <use xlinkHref="#iconbuyandsale"></use>
+        </svg>
+        </span>
           <span  onClick={()=>{
             this.setState({
-              a1heiget:'0px'
+              a1heiget:'0px',
+              iconbuys:'2'
             })
-          }}>买</span>
+          }}> <svg className={iconbuys=='2'?'icon iconbuy iconbuys':"icon iconbuy"} aria-hidden="true">
+          <use xlinkHref="#iconbuy"></use>
+        </svg></span>
+         
           <span  onClick={()=>{
             this.setState({
-              a1heiget:'calc(100% - 60px)'
+              a1heiget:'calc(100% - 60px)',
+              iconbuys:'3'
             })
-          }}>卖</span> */}
+          }}> <svg className={iconbuys=='3'?'icon iconbuy iconbuys':"icon iconbuy"} aria-hidden="true">
+          <use xlinkHref="#iconsale"></use>
+        </svg></span>
         </div>
         <div className="title-boxtou">
           <div className="tite-biaoti" style={{

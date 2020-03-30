@@ -20,7 +20,13 @@
 .ant-btn-primary:hover, .ant-btn-primary:focus{
   border-color: transparent !important;
 }
-
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
 .mtop{
   width: 100%;
   display: block;
@@ -625,4 +631,32 @@ color:rgba(255,255,255,1) !important;
 
     .ant-modal-wrap  .ant-input:focus{
   border-color: #40a9ff !important;
+}
+
+
+.iconbuy{
+  width: 16px;
+  height: 16px;
+  border: 1px solid #4b5162;
+  border-radius: 2px;
+  cursor: pointer;
+
+}
+
+.iconbuyandsale{
+  width: 16px;
+  height: 16px;
+  border: 1px solid #4b5162;
+    border-radius: 2px;
+  cursor: pointer;
+  margin-left: 15px;
+}
+.iconbuyandsale:hover{
+  border: 1px solid #2f6fe2;
+}
+.iconbuy:hover{
+  border: 1px solid #2f6fe2;
+}
+.iconbuys{
+  border: 1px solid #2f6fe2;
 }

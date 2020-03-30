@@ -138,7 +138,7 @@ class TablePosition extends Component {
           visible4: false,
         });
       }
-    })
+    },'杠杠已调整至'+leverage+"倍")
 
   }
   //保证金
@@ -478,7 +478,30 @@ class TablePosition extends Component {
             value={num17}
             onChange={this.ganggangti}
           />
-          <Slider marks={marks} value={num17} min={0.01} step={0.01} max={100} tooltipVisible={1 == 2} onChange={this.ganggangti} />
+          <Slider marks={(() => {
+            let max_l = ''
+            if (item.bid_flag === '0') {
+              max_l = this.props.pc_account.ask_max_leverage
+            } else {
+              max_l = this.props.pc_account.bid_max_leverage
+            }
+            return {
+              [max_l / max_l / 100]: max_l / max_l / 100 + "X",
+              [max_l * 1 / 5]:max_l * 1 / 5 + ".00X",
+              [max_l * 2 / 5]:max_l * 2 / 5 + ".00X",
+              [max_l * 3 / 5]:max_l * 3 / 5 + ".00X",
+              [max_l * 4 / 5]:max_l * 4 / 5 + ".00X",
+              [max_l * 1]:max_l * 1+ ".00X",
+            }
+          })()} value={num17} min={0.01} step={0.01} max={  (() => {
+            let max_l = ''
+            if (item.bid_flag === '0') {
+              max_l = this.props.pc_account.ask_max_leverage
+            } else {
+              max_l = this.props.pc_account.bid_max_leverage
+            }
+            return max_l*1
+          })()} tooltipVisible={1 == 2} onChange={this.ganggangti} />
           {/* <Slider marks={marks} value={num17} step={0.01} min={2} max={100} tooltipVisible={1 == 2} onChange={this.ganggangti} /> */}
           <div className="but0004-body-text">
             <p style={{ float: "left", marginRight: 10 }}>
@@ -802,8 +825,30 @@ class TablePosition extends Component {
             value={num17}
             onChange={this.ganggangti}
           />
-          <Slider marks={marks} value={num17} min={0.01} step={0.01} max={100} tooltipVisible={1 == 2} onChange={this.ganggangti} />
-          {/* <Slider marks={marks} value={num17} step={0.01} min={2} max={100} tooltipVisible={1 == 2} onChange={this.ganggangti} /> */}
+          <Slider marks={(() => {
+            let max_l = ''
+            if (item.bid_flag === '0') {
+              max_l = this.props.pc_account.ask_max_leverage
+            } else {
+              max_l = this.props.pc_account.bid_max_leverage
+            }
+            return {
+              [max_l / max_l / 100]: max_l / max_l / 100 + "X",
+              [max_l * 1 / 5]:max_l * 1 / 5 + ".00X",
+              [max_l * 2 / 5]:max_l * 2 / 5 + ".00X",
+              [max_l * 3 / 5]:max_l * 3 / 5 + ".00X",
+              [max_l * 4 / 5]:max_l * 4 / 5 + ".00X",
+              [max_l * 1]:max_l * 1+ ".00X",
+            }
+          })()} value={num17} min={0.01} step={0.01} max={  (() => {
+            let max_l = ''
+            if (item.bid_flag === '0') {
+              max_l = this.props.pc_account.ask_max_leverage
+            } else {
+              max_l = this.props.pc_account.bid_max_leverage
+            }
+            return max_l*1
+          })()} tooltipVisible={1 == 2} onChange={this.ganggangti} />
           <div className="but0004-body-text">
             <p style={{ float: "left", marginRight: 10 }}>
               < FormattedMessage id="Margin_required_for_current_position" defaultMessage={'当前仓位所需保证金'} />

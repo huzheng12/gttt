@@ -192,15 +192,16 @@ class C2Ctrade extends Component {
         _m: "post",
         _p: obj
       }, (res, code) => {
+        this.setState({
+          isokflg: true
+        })
         if (code === 0) {
           // window.open(res.data.data.url);
-          let aa = window.open()
+        let aa = window.open()
          setTimeout(()=>{
           aa.location=res.data.data.url
          },200)
-          this.setState({
-            isokflg: true
-          })
+         
         }
       })
     }

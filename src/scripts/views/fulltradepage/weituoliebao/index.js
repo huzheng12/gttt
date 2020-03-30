@@ -116,7 +116,7 @@ class Weituoliebiao extends Component {
       <div className="weituo-bable-warp">
         <div className="title-cd drag-handle">
           <FormattedMessage id="DelegationList" defaultMessage={'委托列表'} />
-          <span onClick={()=>{
+          {/* <span onClick={()=>{
             this.setState({
               a1heiget:'calc((100% - 70px) / 2)'
             })
@@ -130,7 +130,7 @@ class Weituoliebiao extends Component {
             this.setState({
               a1heiget:'calc(100% - 60px)'
             })
-          }}>卖</span>
+          }}>卖</span> */}
         </div>
         <div className="title-boxtou">
           <div className="tite-biaoti" style={{

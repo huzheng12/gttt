@@ -135,6 +135,7 @@ export const api = {
   "c2ccard_send_verify_code": "/v1/http/c2c/setting/send_verify_code",//查询绑定的银行卡  发送验证码
   "c2ccard_remove": "/v1/http/c2c/setting/card/remove",//移除银行卡
   "c2corder_query": "/v1/http/c2c/order/query",//移除银行卡
+  "c2min_query": "/v1/http/c2c/trade/min/query",//移除银行卡
   
   
   

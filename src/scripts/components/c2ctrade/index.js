@@ -23,7 +23,8 @@ class C2Ctrade extends Component {
       isokflg: true,
       contenttetx: "",
       available: "--",
-      isldk:true
+      isldk:true,
+      c2cmin:{}
     }
   }
 
@@ -85,7 +86,17 @@ class C2Ctrade extends Component {
     })
   }
   componentDidMount() {
-
+    Xfn({
+      _u:"c2min_query",
+      _m:"get",
+      _p:{}
+    },(res,code)=>{
+      if(code===0){
+        this.setState({
+          c2cmin:res.data.data
+        })
+      }
+    })
     this.availableaccounts()
     this.authrenzzFn()
     this.c2ccardQueryFn()
@@ -241,13 +252,9 @@ class C2Ctrade extends Component {
       okTextUrl,
       JsonObj,
       contenttetx,
-      available
+      available,
+      c2cmin
     } = this.state
-    console.log(exchange_rate_data)
-    // time: "1578637287372"
-    // fee: "0.03"
-    // source_asset: "CNY"
-    // target_asset: "USDT"
     // exchange_rate: "0.1443"
     return (
       <div className="c2ctrade_warp">
@@ -283,7 +290,7 @@ class C2Ctrade extends Component {
           </div>
           <Input value={input_val1} placeholder="金额(CNY)" className="input_c2c_a" onChange={this.value1Input} />
           <Input value={input_val2} onChange={this.value2Input} placeholder={
-            type === 1 ? '买入量(USDT)' : "卖出量(USDT)"
+            type === 1 ? '买入量('+(c2cmin.min_in?c2cmin.min_in:"")+'USDT起)' : '卖出量('+(c2cmin.min_out?c2cmin.min_out:"")+'USDT起)'
           } />
           <Button onClick={() => this.money(type)} className={type === 1 ? "butgg lvse" : "butgt bgred"} type="primary" style={{
             backgroundColor: type === 1 ? '#26994E' : "#E53F39"

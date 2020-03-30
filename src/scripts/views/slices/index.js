@@ -52,7 +52,8 @@ class Sices extends Component {
       isInsement: true,
       input_acc: '',
       arr_data: [{ symbol: "ETH_USDT", a: '7.00' }, { symbol: "EOS_USDT" }],
-      a: true
+      a: true,
+      c2cmin:{}
     }
   }
   input_acc = (val) => {
@@ -76,6 +77,18 @@ class Sices extends Component {
       if (code == 0) {
         this.setState({
           information: res.data.data.rows
+        })
+      }
+    })
+    Xfn({
+      _u:"c2min_query",
+      _m:"get",
+      _p:{}
+    },(res,code)=>{
+      if(code===0){
+        console.log(res.data.data,'00000')
+        this.setState({
+          c2cmin:res.data.data
         })
       }
     })
@@ -191,6 +204,7 @@ class Sices extends Component {
       content,
       information,
       arr_data,
+      c2cmin
     } = this.state
     const {
       instrumentArr,
@@ -243,8 +257,8 @@ class Sices extends Component {
           </div>
           <div className="right clear">
             <Search
-              placeholder="11USDT起"
-              enterButton={"购买 "}
+              placeholder={c2cmin.min_in&&c2cmin.min_in+"USDT起"}
+              enterButton={"立即购买 "}
               style={{ height: 44 }}
               size="large"
               suffix={

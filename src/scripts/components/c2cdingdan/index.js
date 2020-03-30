@@ -55,7 +55,7 @@ export default class C2cdingdan extends Component {
           width: 128,
           dataIndex: 'status',
           render: (text, record) => <div className="zititr" style={{ wordWrap: "break-word" }}>
-            {text === "0" ? "待支付" : text === '1' ? "已支付" : "已取消"}
+            {text === "0" ? "审核中" : text === '1' ? "已支付" : "已取消"}
           </div>,
         },
         {

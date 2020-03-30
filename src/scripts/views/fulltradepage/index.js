@@ -168,7 +168,7 @@ class FullTradePage extends Component {
             this.onLayoutChange(layout, layouts)
           }
         >
-          <div key="1" data-grid={{ w: 7, h: 11, x: 0, y: 0, i: "1", minW: 2, minH: 3 }} style={{ padding: 5 }}>
+          <div key="1" data-grid={{ w: 7, h: 11, x: 0, y: 0, i: "1", minW: 2, minH: 3 }} style={{ padding:'0 5px ' }}>
             <Tvchart></Tvchart>
           </div>
           <div key="2" data-grid={{ w: 2.5, h: 20, x: 7, y: 0, i: "2", minW: 2, minH: 3, }}>

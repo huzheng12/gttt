@@ -223,7 +223,7 @@ class TvCharts extends Component {
     }
     render() {
         return (
-            < div className="chart-box" style={{ padding: 0 }}>
+            < div className="chart-box" style={{ padding: 5 }}>
                 <div id="tv_chart_container"></div>
             </div >
 

@@ -163,22 +163,20 @@ class TvCharts extends Component {
                 })
             }
             if (this.props.bbcandle.data) {
-                console.log(this.props.bbcandle.data, '实时数据')
                 const d = this.props.bbcandle.data
                 const bars = barsFormat(d);
                 const real = d.current;
-                if (real == 1) {
-                    bbhistory_last_data = bars[bars.length - 1];
-                }
                 if (bars.length === 0) {
                     window.bbhistoryBarsUpdate(bars, { noData: true });
                 } else {
                     if (real == 0) {
                         window.bbhistoryBarsUpdate(bars, { noData: bars.length === 0 });
+                        bbhistory_last_data=bars
                     } else {
                         for (let i = 0; i < bars.length; i++) {
                             if (bbhistory_last_data.time && bars[i].time >= bbhistory_last_data.time) {
                                 window.bbrealtimeBarUpdate(bars[i]);
+                                bbhistory_last_data=bars[i]
                             }
                         }
                     }
@@ -201,18 +199,19 @@ class TvCharts extends Component {
                 const d = this.props.candle.data
                 const bars = barsFormat(d);
                 const real = d.current;
-                if (real == 1) {
-                    history_last_data = bars[bars.length - 1];
-                }
+            
                 if (bars.length === 0) {
+                    
                     window.historyBarsUpdate(bars, { noData: true });
                 } else {
                     if (real == 0) {
                         window.historyBarsUpdate(bars, { noData: bars.length === 0 });
+                        bbhistory_last_data=bars
                     } else {
                         for (let i = 0; i < bars.length; i++) {
                             if (history_last_data.time && bars[i].time >= history_last_data.time) {
                                 window.realtimeBarUpdate(bars[i]);
+                                bbhistory_last_data=bars[i]
                             }
                         }
                     }

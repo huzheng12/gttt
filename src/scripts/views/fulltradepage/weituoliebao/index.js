@@ -147,7 +147,7 @@ class Weituoliebiao extends Component {
         </div>
         <div className="title-boxtou">
           <div className="tite-biaoti" style={{
-            textAlign:'left',paddingLeft:20
+            textAlign:'left',paddingLeft:16,wordBreak:'break-all'
           }}><FormattedMessage id="Price" defaultMessage={'价格'} />(USDT)&emsp;</div>
           <div className="tite-biaoti"><FormattedMessage id="Number" defaultMessage={'数量'} />({type === 'bb' ?bbinstrument.symbol && bbinstrument.symbol.split(bbinstrument.split_char)[0]:<FormattedMessage id="Zhang" defaultMessage={'张'} />})</div>
           <div className="tite-biaoti"><FormattedMessage id="Cumulants" defaultMessage={'累积量'} /></div>

@@ -201,17 +201,18 @@ class TvCharts extends Component {
                 const real = d.current;
             
                 if (bars.length === 0) {
-                    
                     window.historyBarsUpdate(bars, { noData: true });
                 } else {
                     if (real == 0) {
                         window.historyBarsUpdate(bars, { noData: bars.length === 0 });
-                        bbhistory_last_data=bars
+                        console.log(bars)
+                        history_last_data=bars
                     } else {
                         for (let i = 0; i < bars.length; i++) {
+                            console.log(bars[i] ,history_last_data)
                             if (history_last_data.time && bars[i].time >= history_last_data.time) {
                                 window.realtimeBarUpdate(bars[i]);
-                                bbhistory_last_data=bars[i]
+                                history_last_data=bars[i]
                             }
                         }
                     }

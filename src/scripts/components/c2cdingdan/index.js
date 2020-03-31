@@ -59,12 +59,12 @@ export default class C2cdingdan extends Component {
               (() => {
                 switch (text) {
                   case "0": return "待支付"; break;
-                  case "1": return '支付成功'; break;
+                  case "1": return '已完成'; break;
                   case "2": return '支付失败'; break;
                   case "3": return '已取消'; break;
                   case "4": return '审核中'; break;
-                  case "5": return '审核成功'; break;
-                  case "6": return '审核拒绝'; break;
+                  case "5": return '已完成'; break;
+                  case "6": return '已拒绝'; break;
                   default: return text;
                 }
               }

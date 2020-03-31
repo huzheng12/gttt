@@ -17,6 +17,7 @@ import Firstloading from '../../components/Firstloading';
 import { connect } from "react-redux";
 import LoginPhoneEmail from '../../components/login';
 import Echartscont from './echartscont';
+import { numberHandle } from '../../../utils/numberHandle';
 const { Search } = Input;
 @connect(
   state => {
@@ -53,7 +54,8 @@ class Sices extends Component {
       input_acc: '',
       arr_data: [{ symbol: "ETH_USDT", a: '7.00' }, { symbol: "EOS_USDT" }],
       a: true,
-      c2cmin:{}
+      c2cmin:{},
+      exchange_rate_data:{}
     }
   }
   input_acc = (val) => {
@@ -89,6 +91,20 @@ class Sices extends Component {
         console.log(res.data.data,'00000')
         this.setState({
           c2cmin:res.data.data
+        })
+      }
+    })
+    Xfn({
+      _u: 'c2crate_query',
+      _m: "get",
+      _p: {
+        source_asset: 'CNY',// 原资产 必填
+        target_asset: 'USDT',// 兑换资产 必填
+      }
+    }, (res, code) => {
+      if (code === 0) {
+        this.setState({
+          exchange_rate_data: res.data.data
         })
       }
     })
@@ -204,7 +220,8 @@ class Sices extends Component {
       content,
       information,
       arr_data,
-      c2cmin
+      c2cmin,
+      exchange_rate_data
     } = this.state
     const {
       instrumentArr,
@@ -252,7 +269,7 @@ class Sices extends Component {
               我要买
             </div>
             <div className="lefttext">
-              参考价：7.19CNY/USDT
+              参考价：{exchange_rate_data.exchange_rate&&numberHandle((1 / exchange_rate_data.exchange_rate + exchange_rate_data.fee * 1), 2, 2)}CNY/USDT
             </div>
           </div>
           <div className="right clear">
@@ -286,9 +303,7 @@ class Sices extends Component {
           {information ? information.map((item, index) => {
             if (index < 3) {
               return <div className="tongzhilangg" key={item + index}>
-                <a style={{ color: "#fff", display: "inline-block" }} href={item.link_url} target="_blank">
-                  公告{index + 1}：
-                  </a>
+               
                 <a style={{ color: "#fff", display: "inline-block" }} href={item.link_url} target="_blank" dangerouslySetInnerHTML={{ __html: item.title }}></a>
               </div>
             }

@@ -153,7 +153,7 @@ class Weituoliebiao extends Component {
           <div className="tite-biaoti"><FormattedMessage id="Cumulants" defaultMessage={'累积量'} /></div>
         </div>
         <div className="module-body g-scrollbar" id="scrollBar">
-          <ul className="ul-a1" style={{height:a1heiget}}>
+          <ul className="ul-a1" style={{height:a1heiget,overflow:'hidden'}}>
             {
               (type === 'bb' ? bborder_book : orderBookL2_25obj).arrAsks.map((item, i) => {
              

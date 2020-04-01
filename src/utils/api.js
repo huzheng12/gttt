@@ -145,6 +145,8 @@ export const api = {
   "bbordercancel": "/v1/http/bb/order/cancel",//撤销bb委托
   "bborderquery": "/v1/http/bb/order/query",//获取当前用户活动委托
   "bborderquery_history": "/v1/http/bb/order/query_history",//获取当前用户历史委托
+  "bbbill_history": "/v1/http/bb/bill/query",//查询币币订单
+  "bbbillcoin_history": "/v1/http/bb/bill/coin/query",//币币订单货币
   
   "bboaccounttransfer": "/v1/http/bb/account/transfer",//资金划转
   "bboaccountavailable": "/v1/http/bb/account/available/query",//查询账户

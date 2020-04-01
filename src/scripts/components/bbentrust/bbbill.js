@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Select, Table, Spin } from 'antd';
+import { Select, Table, Spin,Radio,DatePicker } from 'antd';
 // import { Table, Modal, Spin, Select } from 'antd';
 import { connect } from "react-redux";
 import './index.scss'
@@ -7,13 +7,11 @@ import { Xfn } from '../../../utils/axiosfn';
 import { FormattedMessage } from 'react-intl';
 import { NavLink } from "react-router-dom"
 import { timehuansuan } from '../../../utils/time';
+import moment from 'moment';
+moment.locale('zh-cn');
 
 const { Option } = Select;
-
-
-
-
-
+const dateFormat = 'YYYY/MM/DD';
 
 @connect(
   state => {
@@ -27,29 +25,53 @@ const { Option } = Select;
   }
 )
 
-class Bbentrust extends Component {
+class Bbbill extends Component {
   constructor() {
     super()
     this.state = {
       data3: null,
       data3A: [],
       columns3: [],
-      bbasset: 'USDT',
+      bbasset: 'BTC',
       bbsymbol: 'BTC/USDT',
       bbsymbolArrs: [],
       isOk: true,
       isOksymbol: true,
       imgArr: {
         ioo: require("../../img/nothing_data.png"),
+        a1: require("../../img/treaty_up.png"),
+        a2: require("../../img/treaty_down.png"),
       },
-      isofk: true
+      isofk: true,
+      danxuanriqi:'1',
+      quanbu:true,
+      quanbushujuzimu:"全部类型",
+      trade_type:'0',
+      bbassetArr:[],
+      startValue:null,
+      endValue:null,
+
     }
   }
   componentDidMount() {
-    this.history_data(this.props.type !== '1' ? 'bborderquery' : "bborderquery_history", {
-      bbasset: this.state.bbasset,
-      bbsymbol: this.state.bbsymbol
+    Xfn({
+      _u:'bbbillcoin_history',
+      _m:'get',
+      _p:{
+
+      }
+    },(res,code)=>{
+      if(code===0){
+        this.setState({
+          bbassetArr:res.data.data.rows,
+          bbasset:res.data.data.rows[0].coin
+        })
+        this.history_data({
+          bbasset: res.data.data.rows[0].coin,
+        })
+      }
     })
+   
     this.setState({
       columns3: [
         {
@@ -115,56 +137,15 @@ class Bbentrust extends Component {
           </div>,
         },
       ],
-
+      startValue: moment().add(-2, 'days'),
+      endValue: moment()
     })
   }
-  Cancel_order = (data) => {
-
-  }
-  componentDidUpdate() {
-    if (this.props.bbassetArr.length > 0 && this.state.isOk) {
-      Xfn({
-        _u: "bbsymbolquery",
-        _m: "get",
-        _p: {
-          asset: this.props.bbassetArr[0].asset
-        }
-      }, (res, code) => {
-        if (code === 0) {
-          this.setState({
-            bbsymbolArrs: res.data.data.rows,
-            bbsymbol: res.data.data.rows.length > 0 && res.data.data.rows[0].symbol
-          })
-        }
-      })
-      this.setState({
-        bbasset: this.props.bbassetArr[0].asset,
-        isOk: false
-      })
-    }
 
 
-  }
   handleChange = (value) => {
-    Xfn({
-      _u: "bbsymbolquery",
-      _m: "get",
-      _p: {
-        asset: value
-      }
-    }, (res, code) => {
-      if (code === 0) {
-        if (res.data.data.rows.length > 0) {
-          this.history_data(this.props.type !== '1' ? 'bborderquery' : "bborderquery_history", {
-            bbasset: value,
-            bbsymbol: res.data.data.rows[0].symbol
-          })
-        }
-        this.setState({
-          bbsymbolArrs: res.data.data.rows,
-          bbsymbol: res.data.data.rows.length > 0 && res.data.data.rows[0].symbol
-        })
-      }
+    this.history_data({
+      bbasset: value,
     })
     this.setState({
       bbasset: value,
@@ -172,9 +153,8 @@ class Bbentrust extends Component {
     })
   }
   handleChanges = (value) => {
-    this.history_data(this.props.type !== '1' ? 'bborderquery' : "bborderquery_history", {
+    this.history_data({
       bbasset: this.state.bbasset,
-      bbsymbol: value
     })
     this.setState({
       bbsymbol: value,
@@ -182,7 +162,6 @@ class Bbentrust extends Component {
     })
   }
   Cancel_order = (data) => {
-    console.log(data)
     Xfn({
       _u: "bbordercancel",
       _m: "post",
@@ -193,25 +172,44 @@ class Bbentrust extends Component {
         bid_flag: data.bid_flag,// 1.买入,0.卖出,必填
       }
     }, (res, code) => {
-      this.history_data(this.props.type !== '1' ? 'bborderquery' : "bborderquery_history", {
+      this.history_data( {
         bbasset: this.state.bbasset,
-        bbsymbol: this.state.bbsymbol
       })
     },'撤单成功')
   }
-  history_data = (url, data) => {
+  history_data = (data) => {
+    // startValue:null,
+    //   endValue:null,
     if (data.type !== 1) {
       this.setState({
         data3:null
       })
     }
+    var timeend = null
+    var timestart = null
+    if (this.state.danxuanriqi == "2") {
+      let endValue = this.state.endValue
+      let startValue = this.state.startValue
+      if (data && data.endValue) {
+        endValue = data.end_date
+      }
+      if (data && data.startValue) {
+        startValue = data.start_date
+      }
+      let t1 = timehuansuan(moment(endValue).valueOf()).objtime
+      let t2 = timehuansuan(moment(startValue).valueOf()).objtime
+      timeend = new Date(t1.n, t1.y, t1.r, 0, 0, 0, 0).getTime().toString()
+      timestart = new Date(t2.n, t2.y, t2.r, 0, 0, 0, 0).getTime().toString()
+    }
     Xfn({
-      _u: url,
+      _u: 'bbbill_history',
       _m: 'get',
       _p: {
         asset: data.bbasset,// 资产 USD,必填,
-        symbol: data.bbsymbol, //交易对,非必填,
-        // bid_flag: '1', //1.买入,0.卖出,非必填,
+        trade_type:data.trade_type?data.trade_type:this.state.trade_type,
+        history_type:this.state.danxuanriqi,
+        start_date:timestart,
+        end_date:timeend,
         last_order_id: data.last_order_id ? data.last_order_id : '', //当前页最后一张委托的id, 非必填,
         next_page: "1", //翻页标记,-1 上一页 , 1.下一页 必填,,
         page_size: "20", //页行数 ,必填
@@ -271,39 +269,184 @@ class Bbentrust extends Component {
       </div>
     }
   }
+
+
+  riqi3=(date)=>{
+    this.setState({ danxuanriqi: date.target.value })
+    if (date.target.value == "1") {
+      this.setState({
+        startValue: moment().add(-2, 'days'),
+        endValue: moment()
+      })
+    } else {
+      this.setState({
+        startValue: moment().subtract(3, 'months'),
+        endValue: moment().add(-2, 'days')
+      })
+    }
+    setTimeout(() => {
+      this.history_data({
+        bbasset:this.state.bbasset
+      })
+    }, 100)
+   
+  }
+
+  dianjiquanbu = () => {
+    if (this.state.quanbu) {
+      this.setState({ quanbu: false })
+      if (this.state.quanbu) {
+        var that = this
+        var para = document.createElement("div");
+        para.id = "bud"
+        var element = document.getElementById("root");
+        element.appendChild(para);
+        var bud = document.getElementById("bud");
+        bud.onclick = () => {
+          that.setState({
+            quanbu: true
+          })
+          element.removeChild(bud);
+        }
+      }
+    } else {
+      var element = document.getElementById("root");
+      var bud = document.getElementById("bud");
+      this.setState({ quanbu: true })
+      element.removeChild(bud);
+    }
+  }
+
+  quanbuleixing=(type)=>{
+    var qua
+    switch (type) {
+      case "0": qua ='全部类型'; break;
+      case "1": qua = '买入'; break;
+      case "2": qua = '卖出'; break;
+      case "3": qua = '转出至资金账户'; break;
+      case "4": qua = '转出至永续合约'; break;
+      case "5": qua = '资金账户转入'; break;
+      case "6": qua = '永续合约转入'; break;
+      default:
+        break;
+    }
+    this.setState({
+      trade_type: type,
+      quanbushujuzimu: qua,
+    })
+    this.history_data({
+      trade_type: type,   bbasset:this.state.bbasset
+     })
+  }
+  disabledDate = (current) => {
+    return current && current > moment().endOf('day');
+  }
+  disabledDate1 = (current) => {
+    return current && current > moment().endOf('day');
+  }
+  riqi1 = (value) => {
+    this.onChange('startValue', value)
+    this.history_data({
+      start_date: value,   bbasset:this.state.bbasset
+    })
+  }
+
+  riqi2 = (value) => {
+    this.onChange('endValue', value)
+    this.history_data({
+     end_date: value,   bbasset:this.state.bbasset
+    })
+
+  }
+  onChange = (field, value) => {
+    this.setState({
+      [field]: value,
+    });
+  };
   render() {
     const {
-      data3, columns3, bbasset, bbsymbol, bbsymbolArrs, data3A, isofk
+      data3, columns3, bbasset, bbsymbol, bbsymbolArrs, data3A, isofk,danxuanriqi,quanbushujuzimu,imgArr,quanbu,bbassetArr,startValue,endValue
     } = this.state
-    const {
-      bbassetArr
-    } = this.props
+
     return (
       <div className="bbentrust_warp">
         <div className="title_nav">
           <div className="one_box">
             <span className="sanpanbox">
-              类别
+              币种
             </span>
             <Select value={bbasset} style={{ width: 110 }} onChange={this.handleChange}>
               {
                 bbassetArr.map((item, index) => {
-                  return <Option key={item + index} value={item.asset}>{item.asset}</Option>
+                  return <Option key={item + index} value={item.coin}>{item.coin}</Option>
                 })
               }
             </Select>
           </div>
-          <div className="two_box">
-            <span className="sanpanbox">
-              交易对
+          <div className="two_box" style={{width:161}} onClick={this.dianjiquanbu}>
+          <span className="sanpanbox">
+              类别
             </span>
-            <Select value={bbsymbol} style={{ width: 110 }} onChange={this.handleChanges}>
-              {
-                bbsymbolArrs && bbsymbolArrs.map((item, index) => {
-                  return <Option key={item + index} value={item.symbol}>{item.symbol}</Option>
-                })
-              }
-            </Select>
+          <div className="inputsll">
+              {quanbushujuzimu}
+              <img src={quanbu ? imgArr.a1 : imgArr.a2} alt="" />
+              <div className="inpusll-wawrp" style={{ display: quanbu ? "none" : "flex" }} >
+                <div className="wawrp-li">
+                  <p>< FormattedMessage id="whole" defaultMessage={'全部'} /></p>
+                  <li onClick={() => this.quanbuleixing("0")}>< FormattedMessage id="LoadiAll_typesng" defaultMessage={'全部类型'} /></li>
+                </div>
+                <div className="wawrp-li">
+                  <p>交易</p>
+                  <li onClick={() => this.quanbuleixing("1")}>买入</li>
+                  <li onClick={() => this.quanbuleixing("2")}>卖出</li>
+                </div>
+                <div className="wawrp-li">
+                  <p>转出</p>
+                  <li onClick={() => this.quanbuleixing('3')}>转出至资金账户</li>
+                  <li onClick={() => this.quanbuleixing('4')}>转出至永续合约</li>
+                </div>
+                <div className="wawrp-li">
+                  <p>转入</p>
+                  <li onClick={() => this.quanbuleixing("5")}>资金账户转入</li>
+                  <li onClick={() => this.quanbuleixing('6')}>永续合约转入</li>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="two_box">
+          <Radio.Group value={danxuanriqi} buttonStyle="solid" onChange={this.riqi3}>
+              <Radio.Button value="1">< FormattedMessage id="The_last_two_days" defaultMessage={'最近两天'} /></Radio.Button>
+              <Radio.Button value="2">< FormattedMessage id="Two_days_to_three_months" defaultMessage={'两天至三个月'} /></Radio.Button>
+            </Radio.Group>
+          </div>
+          <div className="two_box">
+          {
+              (() => {
+                if (startValue) {
+                  return < DatePicker
+                    disabled={danxuanriqi == "1" ? true : false}
+                    disabledDate={this.disabledDate1}
+                    value={startValue}
+                    format={dateFormat}
+                    onChange={this.riqi1}
+                  />
+                }
+              })()
+            }
+          </div>
+          <div className="two_box">
+          {
+              (() => {
+                if (endValue) {
+                  return <DatePicker
+                    disabled={danxuanriqi == "1" ? true : false}
+                    disabledDate={this.disabledDate}
+                    value={endValue}
+                    format={dateFormat}
+                    onChange={this.riqi2} />
+                }
+              })()
+            }
           </div>
         </div>
         <Table pagination={false}
@@ -325,9 +468,8 @@ class Bbentrust extends Component {
                 </div>
               }
              return isofk ? <div className="dibujiazai" onClick={() => {
-                this.history_data(this.props.type !== '1' ? 'bborderquery' : "bborderquery_history", {
+                this.history_data( {
                   bbasset: bbasset,
-                  bbsymbol: bbsymbol,
                   type: 1,
                   last_order_id:data3[data3.length-1].id
                 })
@@ -346,4 +488,4 @@ class Bbentrust extends Component {
 }
 
 
-export default Bbentrust
+export default Bbbill

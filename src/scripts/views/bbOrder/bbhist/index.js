@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Tabs } from 'antd';
 import Bbentrust from '../../../components/bbentrust';
+import Bbbill from '../../../components/bbentrust/bbbill';
 const { TabPane } = Tabs;
 export default class Bbhistry extends Component {
   constructor() {
@@ -29,8 +30,10 @@ export default class Bbhistry extends Component {
          </TabPane>
           <TabPane tab="历史委托" key="2">
           <Bbentrust type="1"></Bbentrust>
-
-    </TabPane>
+          </TabPane>
+          <TabPane tab="币币账单" key="3">
+          <Bbbill type="2"></Bbbill>
+          </TabPane>
         </Tabs>
       </div>
     )

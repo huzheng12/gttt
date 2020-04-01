@@ -138,7 +138,7 @@ class Weituoliebiao extends Component {
          
           <span  onClick={()=>{
             this.setState({
-              a1heiget:'calc(100% - 60px)',
+              a1heiget:'calc(100% - 65px)',
               iconbuys:'3'
             })
           }}> <svg className={iconbuys=='3'?'icon iconbuy iconbuys':"icon iconbuy"} aria-hidden="true">

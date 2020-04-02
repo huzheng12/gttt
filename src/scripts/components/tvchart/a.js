@@ -8,8 +8,8 @@ import { WidgetInfo } from '@/utils/tv/tvConfig'
 import { zhutiyanzheng, heyuename, assetfn } from '../../action';
 import lang from '@/utils/language';
 
-var history_last_data;
-var bbhistory_last_data;
+var history_last_data=[];
+var bbhistory_last_data=[];
 
 const barsFormat = (data) => {
     let bars = [];
@@ -170,15 +170,19 @@ class TvCharts extends Component {
                     window.bbhistoryBarsUpdate(bars, { noData: true });
                 } else {
                     if (real == 0) {
+                      
                         window.bbhistoryBarsUpdate(bars, { noData: bars.length === 0 });
                         bbhistory_last_data=bars
                     } else {
-                        for (let i = 0; i < bars.length; i++) {
-                            if (bbhistory_last_data.time && bars[i].time >= bbhistory_last_data.time) {
-                                window.bbrealtimeBarUpdate(bars[i]);
-                                bbhistory_last_data=bars[i]
+                        if(bbhistory_last_data.length>0){
+                            for (let i = 0; i < bars.length; i++) {
+                                if (bbhistory_last_data.time && bars[i].time >= bbhistory_last_data.time) {
+                                    window.bbrealtimeBarUpdate(bars[i]);
+                                    bbhistory_last_data=bars[i]
+                                }
                             }
                         }
+                       
                     }
                 }
             }
@@ -208,13 +212,16 @@ class TvCharts extends Component {
                         console.log(bars)
                         history_last_data=bars
                     } else {
-                        for (let i = 0; i < bars.length; i++) {
-                            console.log(bars[i] ,history_last_data)
-                            if (history_last_data.time && bars[i].time >= history_last_data.time) {
-                                window.realtimeBarUpdate(bars[i]);
-                                history_last_data=bars[i]
+                        if(history_last_data.length>0){
+                            for (let i = 0; i < bars.length; i++) {
+                                console.log(bars[i] ,history_last_data)
+                                if (history_last_data.time && bars[i].time >= history_last_data.time) {
+                                    window.realtimeBarUpdate(bars[i]);
+                                    history_last_data=bars[i]
+                                }
                             }
                         }
+                       
                     }
                 }
             }

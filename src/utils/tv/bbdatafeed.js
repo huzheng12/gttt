@@ -45,6 +45,7 @@ BbDataFeeds.Tv.prototype.getBars = function (symbolInfo, resolution, rangeStartD
         }
     }, (res, code) => {
         if (code == 0) {
+            console.log(res,'============')
             store.dispatch(bbcandlefunction(res.data, 1))
         }
     })
